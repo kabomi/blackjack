@@ -6,7 +6,10 @@
   "author": "Imobach Martin <kabomi@protonmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server/index.js"
+    "build:client": "yarn --cwd client build",
+    "dev": "yarn build:client && nodemon server/index.js",
+    "start": "yarn --cwd client build && server/index.js",
+    "postinstall": "yarn --cwd client"
   },
   "dependencies": {
     "cors": "2.8.5",

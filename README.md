@@ -35,7 +35,31 @@ Create a simple user interface (UI) for the game. The UI should allow the player
 ### Starting the application
 --
 
+Before starting the application you need to install the recommended versions of Node and NPM. Then you are fine running `yarn` to install all the npm packages.
+After starting the application with `yarn dev` you can open it on your browser at [http://http://localhost:8080/](http://http://localhost:8080/).
 
+### `yarn dev`
+
+Runs the app in the development mode.<br />
+This means the server will point to a local instance on [http://localhost:8080](http://localhost:8080). It will listen to any changes on the server.
+
+The client app connects to the server via proxy set on package.json pointing to [http://localhost:8080](http://localhost:8080)
+
+Limitation: Right now, if you want to see your client changes you'll have to run `yarn build:client`.
+
+
+### `yarn start`
+
+Runs the app in the production mode.<br />
+This means it will point to a local instance on [http://localhost:8080](http://localhost:8080).
+
+
+
+## Building the application
+
+### `yarn build:client`
+
+This command will generate the client production files, ready to be deployed.
 
 ## Contributing and Known issues
 
