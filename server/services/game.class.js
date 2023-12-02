@@ -35,9 +35,17 @@ class Game {
   drawHand() {
     return this._deck.drawHand();
   }
-
+  /** @type {(cards: import('./card.class').Card[])} */
   calculatePointsFrom(cards) {
-    return 5;
+    let points = 0;
+
+    cards.forEach((card) => {
+      if (this._deck.ordinaryFaces.includes(card.face)) {
+        points += Number(card.face);
+      }
+    });
+
+    return points;
   }
 }
 
