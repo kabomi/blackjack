@@ -1,5 +1,5 @@
 class Card {
-  /** @type {(face: number, suit: number):void} */
+  /** @type {(face: string, suit: string):void} */
   constructor(face, suit) {
     this.face = face;
     this.suit = suit;
@@ -8,9 +8,16 @@ class Card {
 
 class OrdinaryCard extends Card {}
 class SpecialCard extends Card {}
+class AceCard extends Card {
+  /** @type {(suit: number):void} */
+  constructor(suit) {
+    super('A', suit);
+  }
+}
 
 module.exports = {
   Card,
   OrdinaryCard,
   SpecialCard,
+  AceCard,
 };

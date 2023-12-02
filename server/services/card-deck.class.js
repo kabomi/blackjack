@@ -1,5 +1,5 @@
 const shuffle = require('../common/shuffle');
-const { OrdinaryCard, SpecialCard } = require('./card.class');
+const { OrdinaryCard, SpecialCard, AceCard } = require('./card.class');
 
 class CardDeck {
   static create() {
@@ -49,8 +49,12 @@ class CardDeck {
     if (this.ordinaryFaces.includes(face)) {
       return new OrdinaryCard(face, suit);
     } else {
-      return new SpecialCard(face, suit);
+      if (this.specialFaces.includes(face)) {
+        return new SpecialCard(face, suit);
+      }
     }
+
+    return new AceCard(suit);
   }
 }
 
