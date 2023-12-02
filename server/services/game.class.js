@@ -7,11 +7,13 @@ class Game {
     return {
       id: this.id,
       dealer: this.dealer,
+      players: this.players,
     };
   }
   constructor(id) {
     this.id = id;
     this.dealer = this.generateHand();
+    this.players = [this.generateHand()];
   }
 
   generateHand() {

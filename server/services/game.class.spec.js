@@ -40,10 +40,12 @@ describe('Game', () => {
   it("contains a player's hand", async () => {
     expect(game.state).toEqual(
       expect.objectContaining({
-        players: expect.arrayContaining({
-          cards: expect.any(Array),
-          points: expect.any(Number),
-        }),
+        players: expect.arrayContaining([
+          {
+            cards: expect.any(Array),
+            points: expect.any(Number),
+          },
+        ]),
       })
     );
   });
