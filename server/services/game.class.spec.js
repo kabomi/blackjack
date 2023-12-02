@@ -41,6 +41,11 @@ describe('Blackjack', () => {
       })
     );
   });
+  it('should shuffle the cards for every game', () => {
+    const game2 = Game.create();
+
+    expect(game.generateHand()).not.toEqual(game2.generateHand());
+  });
   describe('Player Hand', () => {
     it("should be different from dealer's hand", async () => {
       expect(game.state.players[0]).not.toEqual(game.state.dealer);
