@@ -1,7 +1,19 @@
 const guid = require('uuid');
+
+class Deck {
+  get cards() {
+    return this._cards;
+  }
+  constructor() {
+    this._cards = Array(52);
+  }
+}
 class Game {
   static create() {
     return new Game(guid.v4());
+  }
+  static createCardDeck() {
+    return new Deck();
   }
   get state() {
     return {
