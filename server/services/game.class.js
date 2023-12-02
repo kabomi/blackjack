@@ -1,11 +1,15 @@
+const guid = require('uuid');
 class Game {
+  static create() {
+    return new Game(guid.v4());
+  }
   get state() {
     return {
       id: this.id,
     };
   }
-  constructor() {
-    this.id = 'someId';
+  constructor(id) {
+    this.id = id;
   }
 }
 

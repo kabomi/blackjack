@@ -4,7 +4,7 @@ const Game = require('./game.class');
 
 // Game api route.
 router.post('/', (req, res) => {
-  const newGame = new Game();
+  const newGame = Game.create();
   res.json(newGame.state);
 });
 
