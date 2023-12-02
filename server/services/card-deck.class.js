@@ -13,14 +13,21 @@ class CardDeck {
   }
 
   _generateCardsFor(suit) {
-    return Array.from(Array(10).keys()).map((key) => ({
-      kind: key + 1,
-      suit: suit,
-    }));
+    return Array.from(Array(10).keys())
+      .map((key) => ({
+        kind: key + 1,
+        suit: suit,
+      }))
+      .concat(
+        Array.from(['J', 'Q', 'K', 'A']).map((kind) => ({
+          kind,
+          suit: suit,
+        }))
+      );
   }
 
   constructor() {
-    this._cards = Array.from(Array(42).keys()).concat(
+    this._cards = Array.from(Array(38).keys()).concat(
       this._generateCardsFor(this.suits[0])
     );
   }
