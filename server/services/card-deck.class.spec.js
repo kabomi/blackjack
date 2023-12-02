@@ -30,17 +30,35 @@ describe('CardDeck', () => {
   it('contains 4 suits', () => {
     expect(deck.suits).toEqual(['Clubs', 'Diamonds', 'Hearts', 'Spades']);
   });
+  it('contains 13 kinds', () => {
+    console.log('harry', deck.kinds);
+    expect(deck.kinds).toEqual([
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      'J',
+      'Q',
+      'K',
+      'A',
+    ]);
+  });
   describe('The Cards', () => {
     it.each([
-      [2, 'Clubs'],
-      [3, 'Clubs'],
-      [4, 'Clubs'],
-      [5, 'Clubs'],
-      [6, 'Clubs'],
-      [7, 'Clubs'],
-      [8, 'Clubs'],
-      [9, 'Clubs'],
-      [10, 'Clubs'],
+      ['2', 'Clubs'],
+      ['3', 'Clubs'],
+      ['4', 'Clubs'],
+      ['5', 'Clubs'],
+      ['6', 'Clubs'],
+      ['7', 'Clubs'],
+      ['8', 'Clubs'],
+      ['9', 'Clubs'],
+      ['10', 'Clubs'],
       ['J', 'Clubs'],
       ['Q', 'Clubs'],
       ['K', 'Clubs'],

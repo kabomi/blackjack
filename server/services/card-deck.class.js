@@ -12,22 +12,21 @@ class CardDeck {
     return ['Clubs', 'Diamonds', 'Hearts', 'Spades'];
   }
 
+  get kinds() {
+    return Array.from(Array(9).keys())
+      .map((kind) => (kind + 2).toString())
+      .concat(Array.from(['J', 'Q', 'K', 'A']));
+  }
+
   _generateCardsFor(suit) {
-    return Array.from(Array(10).keys())
-      .map((key) => ({
-        kind: key + 1,
-        suit: suit,
-      }))
-      .concat(
-        Array.from(['J', 'Q', 'K', 'A']).map((kind) => ({
-          kind,
-          suit: suit,
-        }))
-      );
+    return this.kinds.map((kind) => ({
+      kind: kind,
+      suit: suit,
+    }));
   }
 
   constructor() {
-    this._cards = Array.from(Array(38).keys()).concat(
+    this._cards = Array.from(Array(39).keys()).concat(
       this._generateCardsFor(this.suits[0])
     );
   }
