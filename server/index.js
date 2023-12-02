@@ -1,6 +1,6 @@
-require('dotenv').config();
 const logger = require('./logger');
 const app = require('./app');
+
 const PORT = process.env.PORT;
 const server = app.listen(PORT);
 process.on('unhandledRejection', (reason) => {
