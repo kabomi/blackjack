@@ -41,4 +41,9 @@ describe('Blackjack', () => {
       })
     );
   });
+  describe('Player Hand', () => {
+    it("should be different from dealer's hand", async () => {
+      expect(game.state.players[0]).not.toEqual(game.state.dealer);
+    });
+  });
 });
