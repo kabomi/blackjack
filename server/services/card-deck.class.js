@@ -12,8 +12,19 @@ class CardDeck {
     return ['Clubs', 'Diamonds', 'Hearts', 'Spades'];
   }
 
+  _generateCardsFor(suit) {
+    return [
+      {
+        kind: 2,
+        suit: suit,
+      },
+    ];
+  }
+
   constructor() {
-    this._cards = Array.from(Array(52).keys());
+    this._cards = Array.from(Array(51).keys()).concat(
+      this._generateCardsFor(this.suits[0])
+    );
   }
 
   draw() {

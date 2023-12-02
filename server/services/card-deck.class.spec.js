@@ -32,7 +32,7 @@ describe('CardDeck', () => {
   });
   describe('The Cards', () => {
     it('contain a Card with kind "2" & "Club" suit', () => {
-      expect(deck.cards).toContain(
+      expect(deck.cards).toContainEqual(
         expect.objectContaining({
           kind: 2,
           suit: 'Clubs',
