@@ -65,6 +65,11 @@ At this time, we only have unit tests, but it is planned to have some e2e tests 
 
 This command, will launch a Jest Test Runner in watch mode. The runner will run all the tests whenever a change in your code happens.
 
+### `yarn lint`
+
+We are using eslint with prettier in order to avoid typical issues and to have a common coding-style.
+Feel free to configure your IDE prettier/eslint plugins to don't have the need to run this command.
+
 ## Building the application
 
 ### `yarn build:client`

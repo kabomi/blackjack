@@ -11,9 +11,12 @@ describe('Server', () => {
     expressFn.static = jest.fn();
     return expressFn;
   });
-  it("should start", () => {
-    const express = require("express")();
-    require("./index");
-    expect(express.listen).toHaveBeenCalledWith(process.env.PORT, expect.any(Function));
+  it('should start', () => {
+    const express = require('express')();
+    require('./index');
+    expect(express.listen).toHaveBeenCalledWith(
+      process.env.PORT,
+      expect.any(Function)
+    );
   });
 });
