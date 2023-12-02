@@ -1,3 +1,10 @@
+
+
+// a card is represented by a CardType and a CardKind
+
+// a CardType it can be represented with a value from 2 to 10
+// a CardType it can be represented with a value in (J, Q, K, A)
+
 describe('CardDeck', () => {
   const CardDeck = require('./card-deck.class.js');
   /** @type{import('./card-deck.class.js')}*/
@@ -21,5 +28,8 @@ describe('CardDeck', () => {
     deck.shuffle();
 
     expect(deck.cards).not.toEqual(initialCards);
+  });
+  it('contains 4 suits', () => {
+    expect(deck.suits).toEqual(['Clubs', 'Diamonds', 'Hearts', 'Spades']);
   });
 });
