@@ -19,3 +19,5 @@ server.on('listening', () => {
 process.on('unhandledRejection', (reason) => {
   logger.error('Unhandled Rejection at: Promise ', { reason });
 });
+
+module.exports = server;
