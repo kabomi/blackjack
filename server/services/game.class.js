@@ -17,13 +17,14 @@ class Game {
   }
   constructor(id) {
     this.id = id;
+    this._deck = Game.createCardDeck();
     this.dealer = this.generateHand();
     this.players = [this.generateHand()];
   }
 
   generateHand() {
     return {
-      cards: [1, 2],
+      cards: [this._deck.draw(), this._deck.draw()],
       points: 3,
     };
   }
