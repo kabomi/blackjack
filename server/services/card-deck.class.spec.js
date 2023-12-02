@@ -30,8 +30,8 @@ describe('CardDeck', () => {
   it('contains 4 suits', () => {
     expect(deck.suits).toEqual(['Clubs', 'Diamonds', 'Hearts', 'Spades']);
   });
-  it('contains 13 kinds', () => {
-    expect(deck.kinds).toEqual([
+  it('contains 13 faces', () => {
+    expect(deck.faces).toEqual([
       '2',
       '3',
       '4',
@@ -50,14 +50,14 @@ describe('CardDeck', () => {
   describe('The Cards', () => {
     const fixtureCardDeck = CardDeck.create();
     const allCards = fixtureCardDeck.suits
-      .map((suit) => fixtureCardDeck.kinds.map((kind) => [kind, suit]))
+      .map((suit) => fixtureCardDeck.faces.map((face) => [face, suit]))
       .flat();
     it.each(allCards)(
-      'contain a Card with kind "%s" & "%s" suit',
-      (kind, suit) => {
+      'contain a Card with face "%s" & "%s" suit',
+      (face, suit) => {
         expect(deck.cards).toContainEqual(
           expect.objectContaining({
-            kind,
+            face,
             suit,
           })
         );

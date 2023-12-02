@@ -12,14 +12,14 @@ class CardDeck {
     return ['Clubs', 'Diamonds', 'Hearts', 'Spades'];
   }
 
-  get kinds() {
+  get faces() {
     return Array.from(Array(9).keys())
-      .map((kind) => (kind + 2).toString())
+      .map((face) => (face + 2).toString())
       .concat(Array.from(['J', 'Q', 'K', 'A']));
   }
 
   _generateCardsFor(suit) {
-    return this.kinds.map((kind) => this.createCard(kind, suit));
+    return this.faces.map((face) => this.createCard(face, suit));
   }
 
   constructor() {
@@ -37,9 +37,9 @@ class CardDeck {
     shuffle(this._cards);
   }
 
-  createCard(kind, suit) {
+  createCard(face, suit) {
     return {
-      kind: kind,
+      face: face,
       suit: suit,
     };
   }

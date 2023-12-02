@@ -50,7 +50,7 @@ describe('Blackjack', () => {
     it('should be different from each other', async () => {
       expect(game.state.players[0]).not.toEqual(game.state.dealer);
     });
-    it('sums 5 points when drawing a kind of "2" and a kind of "3"', () => {
+    it('sums 5 points when drawing a face of "2" and a face of "3"', () => {
       const deck = Game.createCardDeck();
       jest
         .spyOn(game, 'drawHand')
