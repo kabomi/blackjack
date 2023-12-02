@@ -1,23 +1,6 @@
 const guid = require('uuid');
-const shuffle = require('../common/shuffle');
+const Deck = require('./card-deck.class');
 
-class Deck {
-  get cards() {
-    return this._cards;
-  }
-
-  constructor() {
-    this._cards = Array.from(Array(52).keys());
-  }
-
-  draw() {
-    return this._cards.pop();
-  }
-
-  shuffle() {
-    shuffle(this._cards);
-  }
-}
 class Game {
   static create() {
     return new Game(guid.v4());

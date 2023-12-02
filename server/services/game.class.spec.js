@@ -46,29 +46,4 @@ describe('Blackjack', () => {
       })
     );
   });
-  describe('CardDeck', () => {
-    it('contains 52 cards', () => {
-      const deck = Game.createCardDeck();
-
-      expect(deck.cards).toHaveLength(52);
-    });
-    it('can draw a card', () => {
-      const deck = Game.createCardDeck();
-
-      const card = deck.draw();
-
-      expect(deck.cards).toHaveLength(51);
-      expect(card).toBeDefined();
-    });
-    it('can shuffle', () => {
-      const deck = Game.createCardDeck();
-
-      const initialCards = [...deck.cards];
-      expect(deck.cards).toEqual(initialCards);
-
-      deck.shuffle();
-
-      expect(deck.cards).not.toEqual(initialCards);
-    });
-  });
 });
