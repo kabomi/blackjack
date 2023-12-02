@@ -7,7 +7,7 @@ const app = express();
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 const services = require('./services');
-app.use('/api/game', services);
+app.use('/api', services);
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {

@@ -23,6 +23,6 @@ describe('Application', () => {
     const app = require('./app');
 
     const services = require('./services');
-    expect(app.use).toHaveBeenCalledWith('/api/game', services);
+    expect(app.use).toHaveBeenCalledWith('/api', services);
   });
 });

@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const gameService = require('./game.service');
 
-// Game api route.
-router.get('/', (req, res) => {
-  res.json({ message: 'Hello from server!' });
-});
+router.use('/game', gameService);
 
 module.exports = router;
