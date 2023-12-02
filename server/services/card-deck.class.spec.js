@@ -1,5 +1,3 @@
-
-
 // a card is represented by a CardType and a CardKind
 
 // a CardType it can be represented with a value from 2 to 10
@@ -31,5 +29,15 @@ describe('CardDeck', () => {
   });
   it('contains 4 suits', () => {
     expect(deck.suits).toEqual(['Clubs', 'Diamonds', 'Hearts', 'Spades']);
+  });
+  describe('The Cards', () => {
+    it('contain a Card with kind "2" & "Club" suit', () => {
+      expect(deck.cards).toContain(
+        expect.objectContaining({
+          kind: 2,
+          suit: 'Clubs',
+        })
+      );
+    });
   });
 });
