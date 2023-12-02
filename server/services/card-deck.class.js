@@ -18,11 +18,15 @@ class CardDeck {
         kind: 2,
         suit: suit,
       },
+      {
+        kind: 3,
+        suit: suit,
+      },
     ];
   }
 
   constructor() {
-    this._cards = Array.from(Array(51).keys()).concat(
+    this._cards = Array.from(Array(50).keys()).concat(
       this._generateCardsFor(this.suits[0])
     );
   }
