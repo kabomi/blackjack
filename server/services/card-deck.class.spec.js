@@ -39,5 +39,13 @@ describe('CardDeck', () => {
         })
       );
     });
+    it('contain a Card with kind "3" & "Club" suit', () => {
+      expect(deck.cards).toContainEqual(
+        expect.objectContaining({
+          kind: 3,
+          suit: 'Clubs',
+        })
+      );
+    });
   });
 });
