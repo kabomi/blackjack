@@ -60,13 +60,22 @@ describe('Blackjack', () => {
         ]);
       expect(game.generateHand().points).toBe(5);
     });
-    it('with cards numbered 2 through 10 are worth their face value', () => {
+    it('with cards numbered 2 through 10 are worth their face value in points', () => {
       const deck = Game.createCardDeck();
 
       deck.ordinaryFaces.forEach((face) => {
         expect(
           game.calculatePointsFrom([deck.createCard(face, deck.suits[0])])
         ).toBe(Number(face));
+      });
+    });
+    it('with Face cards (jack, queen, king) are each worth 10 points', () => {
+      const deck = Game.createCardDeck();
+
+      deck.specialFaces.forEach((face) => {
+        expect(
+          game.calculatePointsFrom([deck.createCard(face, deck.suits[0])])
+        ).toBe(Number(10));
       });
     });
     // it('can be incremented on');
