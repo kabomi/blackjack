@@ -1,7 +1,7 @@
 /*
 initially a Hand contains two Cards
 
-a hand contains 2 or more Cards or a CardDeck
+a hand contains 2 or more Cards of a CardDeck
 a hand should know the current points of the cards.
 
 a CarDeck contains 52 Cards
@@ -15,7 +15,7 @@ a CardType it can be represented with a value in (J, Q, K, A)
 
 contains a gameStatus (signaling PLAYING, FINISHED)
 */
-describe('Game', () => {
+describe('Blackjack', () => {
   const Game = require('./game.class.js');
   /** @type{import('./game.class.js')}*/
   let game;
@@ -48,5 +48,12 @@ describe('Game', () => {
         ]),
       })
     );
+  });
+  describe('CardDeck', () => {
+    it('contains 52 cards', () => {
+      const deck = Game.createCardDeck();
+
+      expect(deck.cards).toHaveLength(52);
+    });
   });
 });
