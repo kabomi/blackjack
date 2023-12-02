@@ -9,11 +9,14 @@
     "build:client": "yarn --cwd client build",
     "dev": "yarn build:client && nodemon server/index.js",
     "start": "yarn --cwd client build && server/index.js",
+    "test": "jest --watchAll",
     "postinstall": "yarn --cwd client"
   },
   "dependencies": {
     "cors": "2.8.5",
+    "dotenv": "16.3.1",
     "express": "4.18.2",
+    "jest": "29.7.0",
     "nodemon": "3.0.1"
   }
 }

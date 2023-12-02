@@ -55,6 +55,16 @@ This means it will point to a local instance on [http://localhost:8080](http://l
 
 
 
+## Testing the application
+
+At this time, we only have unit tests, but it is planned to have some e2e tests using playwright or cypress.
+
+---
+
+### `yarn test`
+
+This command, will launch a Jest Test Runner in watch mode. The runner will run all the tests whenever a change in your code happens.
+
 ## Building the application
 
 ### `yarn build:client`
