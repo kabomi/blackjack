@@ -8,6 +8,10 @@ class CardDeck {
     return this._cards;
   }
 
+  get suits() {
+    return ['Clubs', 'Diamonds', 'Hearts', 'Spades'];
+  }
+
   constructor() {
     this._cards = Array.from(Array(52).keys());
   }
