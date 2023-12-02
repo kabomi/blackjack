@@ -1,5 +1,4 @@
 /*
-contains a player's Hand
 initially a Hand contains two Cards
 
 a hand contains 2 or more Cards or a CardDeck
@@ -35,6 +34,16 @@ describe('Game', () => {
           cards: expect.any(Array),
           points: expect.any(Number),
         },
+      })
+    );
+  });
+  it("contains a player's hand", async () => {
+    expect(game.state).toEqual(
+      expect.objectContaining({
+        players: expect.arrayContaining({
+          cards: expect.any(Array),
+          points: expect.any(Number),
+        }),
       })
     );
   });
