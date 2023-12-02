@@ -31,19 +31,14 @@ describe('CardDeck', () => {
     expect(deck.suits).toEqual(['Clubs', 'Diamonds', 'Hearts', 'Spades']);
   });
   describe('The Cards', () => {
-    it('contain a Card with kind "2" & "Club" suit', () => {
+    it.each([
+      [2, 'Clubs'],
+      [3, 'Clubs'],
+    ])('contain a Card with kind "%d" & "%s" suit', (kind, suit) => {
       expect(deck.cards).toContainEqual(
         expect.objectContaining({
-          kind: 2,
-          suit: 'Clubs',
-        })
-      );
-    });
-    it('contain a Card with kind "3" & "Club" suit', () => {
-      expect(deck.cards).toContainEqual(
-        expect.objectContaining({
-          kind: 3,
-          suit: 'Clubs',
+          kind: Number(kind),
+          suit,
         })
       );
     });
