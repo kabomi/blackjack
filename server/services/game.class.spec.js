@@ -1,5 +1,4 @@
 /*
-contains a dealer's Hand
 contains a player's Hand
 initially a Hand contains two Cards
 
@@ -19,16 +18,17 @@ contains a gameStatus (signaling PLAYING, FINISHED)
 */
 describe('Game', () => {
   const Game = require('./game.class.js');
+  /** @type{import('./game.class.js')}*/
+  let game;
+  beforeEach(() => {
+    game = Game.create();
+  });
   it('should generate a new game', async () => {
-    const game = Game.create();
-
     expect(game.state).toEqual(
       expect.objectContaining({ id: expect.any(String) })
     );
   });
   it("contains the dealer's hand", async () => {
-    const game = Game.create();
-
     expect(game.state).toEqual(
       expect.objectContaining({
         dealer: {
