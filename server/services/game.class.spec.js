@@ -4,8 +4,6 @@ initially a Hand contains two Cards
 a hand contains 2 or more Cards of a CardDeck
 a hand should know the current points of the cards.
 
-a CarDeck can be shuffle
-a CarDeck can deal a Card
 
 a card is represented by a CardType and a CardKind
 
@@ -66,6 +64,7 @@ describe('Blackjack', () => {
       const deck = Game.createCardDeck();
 
       const initialCards = [...deck.cards];
+      expect(deck.cards).toEqual(initialCards);
 
       deck.shuffle();
 

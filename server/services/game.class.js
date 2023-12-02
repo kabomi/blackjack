@@ -1,4 +1,5 @@
 const guid = require('uuid');
+const shuffle = require('../common/shuffle');
 
 class Deck {
   get cards() {
@@ -11,6 +12,10 @@ class Deck {
 
   draw() {
     return this._cards.pop();
+  }
+
+  shuffle() {
+    shuffle(this._cards);
   }
 }
 class Game {
