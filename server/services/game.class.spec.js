@@ -9,7 +9,7 @@ a CarDeck can deal a Card
 
 a card is represented by a CardType and a CardKind
 
-a CardType it can be represented with a value from 2 to 9
+a CardType it can be represented with a value from 2 to 10
 a CardType it can be represented with a value in (J, Q, K, A)
 
 contains a gameStatus (signaling PLAYING, FINISHED)
@@ -61,6 +61,15 @@ describe('Blackjack', () => {
 
       expect(deck.cards).toHaveLength(51);
       expect(card).toBeDefined();
+    });
+    it('can shuffle', () => {
+      const deck = Game.createCardDeck();
+
+      const initialCards = [...deck.cards];
+
+      deck.shuffle();
+
+      expect(deck.cards).not.toEqual(initialCards);
     });
   });
 });
