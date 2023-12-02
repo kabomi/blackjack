@@ -18,6 +18,7 @@ class Game {
   constructor(id) {
     this.id = id;
     this._deck = Game.createCardDeck();
+    this._deck.shuffle();
     this.dealer = this.generateHand();
     this.players = [this.generateHand()];
   }
