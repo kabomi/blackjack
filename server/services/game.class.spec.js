@@ -4,7 +4,6 @@ initially a Hand contains two Cards
 a hand contains 2 or more Cards of a CardDeck
 a hand should know the current points of the cards.
 
-a CarDeck contains 52 Cards
 a CarDeck can be shuffle
 a CarDeck can deal a Card
 
@@ -54,6 +53,14 @@ describe('Blackjack', () => {
       const deck = Game.createCardDeck();
 
       expect(deck.cards).toHaveLength(52);
+    });
+    it('can draw a card', () => {
+      const deck = Game.createCardDeck();
+
+      const card = deck.draw();
+
+      expect(deck.cards).toHaveLength(51);
+      expect(card).toBeDefined();
     });
   });
 });
