@@ -1,25 +1,21 @@
-const path = require('path');
-const express = require('express');
-
 require('dotenv').config();
-
+const logger = require('./logger');
+const app = require('./app');
 const PORT = process.env.PORT;
-
-const app = express();
-
-// Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, '../client/build')));
-
-// Handle GET requests to /api route
-app.get('/api', (req, res) => {
-  res.json({ message: 'Hello from server!' });
+const server = app.listen(PORT);
+process.on('unhandledRejection', (reason) => {
+  logger.error('Unhandled Rejection at: Promise ', { reason });
+});
+process.on('uncaughtException', (error, origin) => {
+  if (origin === 'uncaughtException') {
+    logger.error('Uncaught Exception:', { error });
+  }
 });
 
-// All other GET requests not handled before will return our React app
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+server.on('listening', () => {
+  logger.log(`Server listening on ${PORT}`);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+process.on('unhandledRejection', (reason) => {
+  logger.error('Unhandled Rejection at: Promise ', { reason });
 });

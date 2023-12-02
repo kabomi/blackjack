@@ -1,22 +1,12 @@
 describe('Server', () => {
-  jest.mock('express', () => {
-    const originalModule = jest.requireActual('express');
-    const expressFn = jest.fn().mockReturnValue({
-      __esModule: true,
-      ...originalModule,
-      listen: jest.fn(),
+  it('should start', () => {
+    const app = require('./app');
+    jest.spyOn(app, 'listen').mockImplementation(() => ({
+      on: jest.fn(),
       use: jest.fn(),
       get: jest.fn(),
-    });
-    expressFn.static = jest.fn();
-    return expressFn;
-  });
-  it('should start', () => {
-    const express = require('express')();
+    }));
     require('./index');
-    expect(express.listen).toHaveBeenCalledWith(
-      process.env.PORT,
-      expect.any(Function)
-    );
+    expect(app.listen).toHaveBeenCalledWith(process.env.PORT);
   });
 });
