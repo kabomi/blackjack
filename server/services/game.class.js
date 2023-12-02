@@ -4,8 +4,13 @@ class Deck {
   get cards() {
     return this._cards;
   }
+
   constructor() {
-    this._cards = Array(52);
+    this._cards = Array.from(Array(52).keys());
+  }
+
+  draw() {
+    return this._cards.pop();
   }
 }
 class Game {
