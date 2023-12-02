@@ -7,7 +7,8 @@ jest.mock('express', () => {
     use: jest.fn(),
     get: jest.fn(),
   });
-  expressFn.static = jest.fn();
+  expressFn.static = originalModule.static;
+  expressFn.Router = originalModule.Router;
   return expressFn;
 });
 
@@ -16,5 +17,12 @@ describe('Application', () => {
     const express = require('express')();
     const app = require('./app');
     expect(app).toBe(express);
+  });
+  it('should configure services', () => {
+    require('express')();
+    const app = require('./app');
+
+    const services = require('./services');
+    expect(app.use).toHaveBeenCalledWith('/api/game', services);
   });
 });
