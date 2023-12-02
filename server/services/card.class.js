@@ -7,8 +7,10 @@ class Card {
 }
 
 class OrdinaryCard extends Card {}
+class SpecialCard extends Card {}
 
 module.exports = {
   Card,
   OrdinaryCard,
+  SpecialCard,
 };

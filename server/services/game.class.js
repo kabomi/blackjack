@@ -43,6 +43,8 @@ class Game {
     cards.forEach((card) => {
       if (card instanceof OrdinaryCard) {
         points += Number(card.face);
+      } else {
+        points += 10;
       }
     });
 

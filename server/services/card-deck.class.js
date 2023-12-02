@@ -1,5 +1,5 @@
 const shuffle = require('../common/shuffle');
-const { OrdinaryCard } = require('./card.class');
+const { OrdinaryCard, SpecialCard } = require('./card.class');
 
 class CardDeck {
   static create() {
@@ -17,8 +17,12 @@ class CardDeck {
     return Array.from(Array(9).keys()).map((face) => (face + 2).toString());
   }
 
+  get specialFaces() {
+    return Array.from(['J', 'Q', 'K']);
+  }
+
   get faces() {
-    return this.ordinaryFaces.concat(Array.from(['J', 'Q', 'K', 'A']));
+    return this.ordinaryFaces.concat(this.specialFaces).concat(['A']);
   }
 
   _generateCardsFor(suit) {
@@ -42,7 +46,11 @@ class CardDeck {
 
   /** @type {(face: string, suit, string):Card} */
   createCard(face, suit) {
-    return new OrdinaryCard(face, suit);
+    if (this.ordinaryFaces.includes(face)) {
+      return new OrdinaryCard(face, suit);
+    } else {
+      return new SpecialCard(face, suit);
+    }
   }
 }
 
