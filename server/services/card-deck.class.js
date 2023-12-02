@@ -1,5 +1,5 @@
 const shuffle = require('../common/shuffle');
-const CardTypes = require('./card.class');
+const { OrdinaryCard } = require('./card.class');
 
 class CardDeck {
   static create() {
@@ -42,7 +42,7 @@ class CardDeck {
 
   /** @type {(face: string, suit, string):Card} */
   createCard(face, suit) {
-    return new CardTypes.Card(face, suit);
+    return new OrdinaryCard(face, suit);
   }
 }
 

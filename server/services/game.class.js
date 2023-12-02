@@ -1,5 +1,6 @@
 const guid = require('uuid');
 const Deck = require('./card-deck.class');
+const { OrdinaryCard } = require('./card.class');
 
 class Game {
   static create() {
@@ -40,7 +41,7 @@ class Game {
     let points = 0;
 
     cards.forEach((card) => {
-      if (this._deck.ordinaryFaces.includes(card.face)) {
+      if (card instanceof OrdinaryCard) {
         points += Number(card.face);
       }
     });
