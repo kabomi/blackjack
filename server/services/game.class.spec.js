@@ -46,9 +46,20 @@ describe('Blackjack', () => {
 
     expect(game.generateHand()).not.toEqual(game2.generateHand());
   });
-  describe('Player Hand', () => {
-    it("should be different from dealer's hand", async () => {
+  describe('A Hand', () => {
+    it('should be different from each other', async () => {
       expect(game.state.players[0]).not.toEqual(game.state.dealer);
     });
+    it('sums 5 points when drawing a kind of "2" and a kind of "3"', () => {
+      const deck = Game.createCardDeck();
+      jest
+        .spyOn(game, 'drawHand')
+        .mockReturnValue([
+          deck.createCard('2', deck.suits[0]),
+          deck.createCard('3', deck.suits[0]),
+        ]);
+      expect(game.generateHand().points).toBe(5);
+    });
+    // it('can be incremented on');
   });
 });
