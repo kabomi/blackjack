@@ -24,10 +24,20 @@ class Game {
   }
 
   generateHand() {
+    const cards = this.drawHand();
+    const points = this.calculatePointsFrom(cards);
     return {
-      cards: [this._deck.draw(), this._deck.draw()],
-      points: 3,
+      cards,
+      points,
     };
+  }
+
+  drawHand() {
+    return this._deck.drawHand();
+  }
+
+  calculatePointsFrom(cards) {
+    return 5;
   }
 }
 

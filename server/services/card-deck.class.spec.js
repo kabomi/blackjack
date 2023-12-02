@@ -14,6 +14,11 @@ describe('CardDeck', () => {
     expect(deck.cards).toHaveLength(51);
     expect(card).toBeDefined();
   });
+  it('can draw a hand of cards', () => {
+    const cards = deck.drawHand();
+
+    expect(cards).toHaveLength(2);
+  });
   it('can shuffle', () => {
     const initialCards = [...deck.cards];
     expect(deck.cards).toEqual(initialCards);

@@ -19,10 +19,7 @@ class CardDeck {
   }
 
   _generateCardsFor(suit) {
-    return this.kinds.map((kind) => ({
-      kind: kind,
-      suit: suit,
-    }));
+    return this.kinds.map((kind) => this.createCard(kind, suit));
   }
 
   constructor() {
@@ -32,9 +29,19 @@ class CardDeck {
   draw() {
     return this._cards.pop();
   }
+  drawHand() {
+    return [this._cards.pop(), this._cards.pop()];
+  }
 
   shuffle() {
     shuffle(this._cards);
+  }
+
+  createCard(kind, suit) {
+    return {
+      kind: kind,
+      suit: suit,
+    };
   }
 }
 
