@@ -11,6 +11,8 @@ describe('Game service', () => {
     const response = await requestWithSupertest.post('/api/game/');
     expect(response.status).toBe(200);
     expect(response.type).toBe('application/json');
-    expect(response.body).toEqual({ id: expect.any(String) });
+    expect(response.body).toEqual(
+      expect.objectContaining({ id: expect.any(String) })
+    );
   });
 });

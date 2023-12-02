@@ -22,13 +22,20 @@ describe('Game', () => {
   it('should generate a new game', async () => {
     const game = Game.create();
 
-    expect(game.state).toEqual({ id: expect.any(String) });
+    expect(game.state).toEqual(
+      expect.objectContaining({ id: expect.any(String) })
+    );
   });
   it("contains the dealer's hand", async () => {
     const game = Game.create();
 
-    expect(game.state).toContain({
-      dealer: { cards: expect.any(Array), points: expect.any(Number) },
-    });
+    expect(game.state).toEqual(
+      expect.objectContaining({
+        dealer: {
+          cards: expect.any(Array),
+          points: expect.any(Number),
+        },
+      })
+    );
   });
 });
