@@ -49,27 +49,20 @@ describe('CardDeck', () => {
     ]);
   });
   describe('The Cards', () => {
-    it.each([
-      ['2', 'Clubs'],
-      ['3', 'Clubs'],
-      ['4', 'Clubs'],
-      ['5', 'Clubs'],
-      ['6', 'Clubs'],
-      ['7', 'Clubs'],
-      ['8', 'Clubs'],
-      ['9', 'Clubs'],
-      ['10', 'Clubs'],
-      ['J', 'Clubs'],
-      ['Q', 'Clubs'],
-      ['K', 'Clubs'],
-      ['A', 'Clubs'],
-    ])('contain a Card with kind "%s" & "%s" suit', (kind, suit) => {
-      expect(deck.cards).toContainEqual(
-        expect.objectContaining({
-          kind,
-          suit,
-        })
-      );
-    });
+    const fixtureCardDeck = CardDeck.create();
+    const allCards = fixtureCardDeck.suits
+      .map((suit) => fixtureCardDeck.kinds.map((kind) => [kind, suit]))
+      .flat();
+    it.each(allCards)(
+      'contain a Card with kind "%s" & "%s" suit',
+      (kind, suit) => {
+        expect(deck.cards).toContainEqual(
+          expect.objectContaining({
+            kind,
+            suit,
+          })
+        );
+      }
+    );
   });
 });
