@@ -26,9 +26,7 @@ class CardDeck {
   }
 
   constructor() {
-    this._cards = Array.from(Array(39).keys()).concat(
-      this._generateCardsFor(this.suits[0])
-    );
+    this._cards = this.suits.map((suit) => this._generateCardsFor(suit)).flat();
   }
 
   draw() {

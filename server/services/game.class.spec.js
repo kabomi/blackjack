@@ -5,11 +5,6 @@ a hand contains 2 or more Cards of a CardDeck
 a hand should know the current points of the cards.
 
 
-a card is represented by a CardType and a CardKind
-
-a CardType it can be represented with a value from 2 to 10
-a CardType it can be represented with a value in (J, Q, K, A)
-
 contains a gameStatus (signaling PLAYING, FINISHED)
 */
 describe('Blackjack', () => {
