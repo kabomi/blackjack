@@ -34,6 +34,13 @@ describe('CardDeck', () => {
     it.each([
       [2, 'Clubs'],
       [3, 'Clubs'],
+      [4, 'Clubs'],
+      [5, 'Clubs'],
+      [6, 'Clubs'],
+      [7, 'Clubs'],
+      [8, 'Clubs'],
+      [9, 'Clubs'],
+      [10, 'Clubs'],
     ])('contain a Card with kind "%d" & "%s" suit', (kind, suit) => {
       expect(deck.cards).toContainEqual(
         expect.objectContaining({
