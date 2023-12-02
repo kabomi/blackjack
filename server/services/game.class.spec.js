@@ -60,6 +60,15 @@ describe('Blackjack', () => {
         ]);
       expect(game.generateHand().points).toBe(5);
     });
+    it('with cards numbered 2 through 10 are worth their face value', () => {
+      const deck = Game.createCardDeck();
+
+      deck.ordinaryFaces.forEach((face) => {
+        expect(
+          game.calculatePointsFrom([deck.createCard(face, deck.suits[0])])
+        ).toBe(Number(face));
+      });
+    });
     // it('can be incremented on');
   });
 });
