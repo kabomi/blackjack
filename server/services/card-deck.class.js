@@ -1,6 +1,6 @@
 const shuffle = require('../common/shuffle');
 const { OrdinaryCard, SpecialCard, AceCard } = require('./card.class');
-
+/** English CardDeck */
 class CardDeck {
   static create() {
     return new CardDeck();

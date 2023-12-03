@@ -1,3 +1,4 @@
+/** English Card */
 class Card {
   /** @type {(face: string, suit, string):Card} */
   static create(face, suit) {
@@ -6,8 +7,20 @@ class Card {
     }
     return new Card(face, suit);
   }
+
+  static get validSuits() {
+    return ['Clubs', 'Diamonds', 'Hearts', 'Spades'];
+  }
+  static isValidSuit(suit) {
+    return Card.validSuits.includes(suit);
+  }
   /** @type {(face: string, suit: string):void} */
   constructor(face, suit) {
+    if (!Card.isValidSuit(suit)) {
+      throw new Error(
+        'The card must contain a face that matches a value in [2-10]'
+      );
+    }
     this.face = face;
     this.suit = suit;
   }
