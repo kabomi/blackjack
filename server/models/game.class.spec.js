@@ -76,7 +76,6 @@ describe('Blackjack', () => {
         points: 22,
         bust: true,
       }));
-
       game.players[0] = game.generateHand();
       expect(game.players[0].cards).toHaveLength(2);
 
@@ -97,7 +96,6 @@ describe('Blackjack', () => {
         points: 22,
         bust: true,
       }));
-
       game.players[0] = game.generateHand();
 
       game.hitPlayer();
@@ -135,10 +133,8 @@ describe('Blackjack', () => {
         points: 20,
         bust: false,
       }));
-
       game.dealer = game.generateHand();
       game.dealer.points = 21;
-
       game.players[0] = game.generateHand();
 
       game.finish();
@@ -151,15 +147,28 @@ describe('Blackjack', () => {
         points: 23,
         bust: true,
       }));
-
       game.dealer = game.generateHand();
       game.dealer.points = 21;
-
       game.players[0] = game.generateHand();
 
       game.finish();
 
       expect(game.state.winner).toBe('DEALER');
+    });
+  });
+  describe('For a draw game', () => {
+    it('should the player hand not be busted and have the same points as the dealer', () => {
+      jest.spyOn(Hand, 'create').mockImplementation(() => ({
+        cards: [],
+        points: 21,
+        bust: false,
+      }));
+      game.dealer = game.generateHand();
+      game.players[0] = game.generateHand();
+
+      game.finish();
+
+      expect(game.state.winner).toBe('DRAW');
     });
   });
 });
