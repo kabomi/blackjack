@@ -1,6 +1,6 @@
 const guid = require('uuid');
 const Deck = require('./card-deck.class');
-const { OrdinaryCard, AceCard } = require('./card.class');
+const { OrdinaryCard, AceCard, SpecialCard } = require('./card.class');
 
 class Game {
   static create() {
@@ -45,9 +45,15 @@ class Game {
         points += Number(card.face);
       } else {
         if (card instanceof AceCard) {
-          points += 11;
+          if (points <= 10) {
+            points += 11;
+          } else {
+            points += 1;
+          }
         } else {
-          points += 10;
+          if (card instanceof SpecialCard) {
+            points += 10;
+          }
         }
       }
     });
