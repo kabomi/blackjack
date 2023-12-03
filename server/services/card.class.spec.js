@@ -6,6 +6,9 @@ describe('Card', () => {
     expect(card.face).toBe('A');
     expect(card.suit).toBe('Clubs');
   });
+  it('should not contain a not valid suit', () => {
+    expect(() => Card.create('A', 'Harry')).toThrow(expect.any(Error));
+  });
   describe('Ordinary', () => {
     it('should contain only faces in [2-10]', () => {
       expect(Card.create('1', 'Clubs')).toBeInstanceOf(Card);
