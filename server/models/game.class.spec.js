@@ -1,4 +1,5 @@
 const { Card } = require('./card.class.js');
+const { Hand } = require('./hand.class.js');
 /*
 
 contains a gameStatus (signaling PLAYING, FINISHED)
@@ -46,33 +47,62 @@ describe('Blackjack', () => {
   });
   describe('HitPlayer', () => {
     it('should add a card to the player hand if not busted', () => {
-      jest
-        .spyOn(game._deck, 'drawHand')
-        .mockReturnValue([
+      jest.spyOn(Hand, 'create').mockReturnValue({
+        cards: [
           Card.create('2', Card.validSuits[0]),
           Card.create('3', Card.validSuits[0]),
-        ]);
-      game.state.players[0] = game.generateHand();
-      expect(game.state.players[0].cards).toHaveLength(2);
+        ],
+        draw: function () {
+          this.cards.push(Card.create('3', Card.validSuits[0]));
+        },
+        points: 5,
+      });
+      game.players[0] = game.generateHand();
+      expect(game.players[0].cards).toHaveLength(2);
 
       game.hitPlayer();
 
-      expect(game.state.players[0].cards).toHaveLength(3);
+      expect(game.players[0].cards).toHaveLength(3);
     });
     it('should not add a card to the player hand if busted', () => {
-      jest
-        .spyOn(game._deck, 'drawHand')
-        .mockReturnValue([
-          Card.create('10', Card.validSuits[0]),
-          Card.create('10', Card.validSuits[0]),
-          Card.create('10', Card.validSuits[0]),
-        ]);
-      game.state.players[0] = game.generateHand();
-      expect(game.state.players[0].cards).toHaveLength(3);
+      jest.spyOn(Hand, 'create').mockReturnValue({
+        cards: [
+          Card.create('2', Card.validSuits[0]),
+          Card.create('3', Card.validSuits[0]),
+        ],
+        draw: function () {
+          this.cards.push(Card.create('3', Card.validSuits[0]));
+        },
+        points: 22,
+        bust: true,
+      });
+
+      game.players[0] = game.generateHand();
+      expect(game.players[0].cards).toHaveLength(2);
 
       game.hitPlayer();
 
-      expect(game.state.players[0].cards).toHaveLength(3);
+      expect(game.players[0].cards).toHaveLength(2);
+    });
+    it('should finish the game if the player hand is busted', () => {
+      jest.spyOn(Hand, 'create').mockReturnValue({
+        cards: [
+          Card.create('10', Card.validSuits[0]),
+          Card.create('9', Card.validSuits[0]),
+          Card.create('2', Card.validSuits[0]),
+        ],
+        draw: function () {
+          this.cards.push(Card.create('3', Card.validSuits[0]));
+        },
+        points: 22,
+        bust: true,
+      });
+
+      game.players[0] = game.generateHand();
+
+      game.hitPlayer();
+
+      expect(game.state.finished).toBe(true);
     });
   });
   it('should finish the game explicitly', () => {
