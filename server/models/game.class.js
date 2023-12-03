@@ -38,17 +38,8 @@ class Game {
       return;
     }
     this.players[0].cards.push(this._deck.draw());
-    const points = this.players[0].calculatePointsFrom(this.players[0].cards);
+    const points = this.players[0].calculatePoints();
     this.players[0].points = points;
-    this.players[0].bust = points > 21;
-  }
-  /** @type {(cards: import('./card.class').Card[])} */
-  calculatePointsFrom(cards) {
-    const pointsCalculator = new PointsCalculatorVisitor();
-
-    cards.forEach((card) => card.accept(pointsCalculator));
-
-    return pointsCalculator.points;
   }
 }
 

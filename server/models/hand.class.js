@@ -4,7 +4,9 @@ class Hand {
   /** @type {(cards: import('./card.class').Card)} */
   cards = [];
   points = 0;
-  bust = false;
+  get bust() {
+    return this.points > 21;
+  }
 
   static create(deck) {
     return new Hand(deck);
@@ -12,15 +14,13 @@ class Hand {
 
   constructor(deck) {
     this.cards = deck.drawHand();
-    this.points = this.calculatePointsFrom(this.cards);
-    this.bust = this.points > 21;
+    this.points = this.calculatePoints();
   }
 
-  /** @type {(cards: import('./card.class').Card[])} */
-  calculatePointsFrom(cards) {
+  calculatePoints() {
     const pointsCalculator = new PointsCalculatorVisitor();
 
-    cards.forEach((card) => card.accept(pointsCalculator));
+    this.cards.forEach((card) => card.accept(pointsCalculator));
 
     return pointsCalculator.points;
   }
