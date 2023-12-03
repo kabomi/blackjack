@@ -102,4 +102,17 @@ describe('Blackjack', () => {
       expect(bust).toBe(false);
     });
   });
+  describe('Hit', () => {
+    it('should add a card to the player hand if not busted', () => {
+      game.state.players[0].cards = [
+        Card.create('2', Card.validSuits[0]),
+        Card.create('3', Card.validSuits[0]),
+      ];
+      expect(game.state.players[0].cards).toHaveLength(2);
+
+      game.hit();
+
+      expect(game.state.players[0].cards).toHaveLength(3);
+    });
+  });
 });
