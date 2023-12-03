@@ -4,7 +4,12 @@ class Card {
   static create(face, suit) {
     if (OrdinaryCard.isValidFace(face)) {
       return new OrdinaryCard(face, suit);
+    } else {
+      if (SpecialCard.isValidFace(face)) {
+        return new SpecialCard(face, suit);
+      }
     }
+
     return new Card(face, suit);
   }
 
@@ -44,7 +49,24 @@ class OrdinaryCard extends Card {
     }
   }
 }
-class SpecialCard extends Card {}
+class SpecialCard extends Card {
+  static get validFaces() {
+    return Array.from(['J', 'Q', 'K', 'A']);
+  }
+  static isValidFace(face) {
+    return SpecialCard.validFaces.includes(face);
+  }
+  /** @type {(face: string, suit: string):void} */
+  constructor(face, suit) {
+    super(face, suit);
+
+    if (!SpecialCard.isValidFace(face)) {
+      throw new Error(
+        'The card must contain a face that matches a value in [J, Q, K, A]'
+      );
+    }
+  }
+}
 class AceCard extends Card {
   /** @type {(suit: number):void} */
   constructor(suit) {
