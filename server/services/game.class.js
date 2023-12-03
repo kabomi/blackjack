@@ -30,6 +30,7 @@ class Game {
     return {
       cards,
       points,
+      bust: points > 21,
     };
   }
 

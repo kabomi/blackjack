@@ -14,7 +14,37 @@ describe('Points Calculator Visitor', () => {
     const pointsCalculator = new PointsCalculatorVisitor();
 
     Card.create('A', Card.validSuits[0]).accept(pointsCalculator);
+
+    expect(pointsCalculator.points).toBe(11);
+
     Card.create('A', Card.validSuits[0]).accept(pointsCalculator);
+
+    expect(pointsCalculator.points).toBe(12);
+  });
+  it('sums does not bust when visiting a "10" and two Aces (Changing Order)', () => {
+    const pointsCalculator = new PointsCalculatorVisitor();
+
+    Card.create('10', Card.validSuits[0]).accept(pointsCalculator);
+    Card.create('A', Card.validSuits[0]).accept(pointsCalculator);
+
+    expect(pointsCalculator.points).toBe(21);
+
+    Card.create('A', Card.validSuits[0]).accept(pointsCalculator);
+
+    expect(pointsCalculator.points).toBe(12);
+  });
+  it('sums does not bust when visiting two Aces and a "10"', () => {
+    const pointsCalculator = new PointsCalculatorVisitor();
+
+    Card.create('A', Card.validSuits[0]).accept(pointsCalculator);
+
+    expect(pointsCalculator.points).toBe(11);
+
+    Card.create('A', Card.validSuits[0]).accept(pointsCalculator);
+
+    expect(pointsCalculator.points).toBe(12);
+
+    Card.create('10', Card.validSuits[0]).accept(pointsCalculator);
 
     expect(pointsCalculator.points).toBe(12);
   });

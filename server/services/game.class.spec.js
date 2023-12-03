@@ -26,6 +26,7 @@ describe('Blackjack', () => {
         dealer: {
           cards: expect.any(Array),
           points: expect.any(Number),
+          bust: expect.any(Boolean),
         },
       })
     );
@@ -37,6 +38,7 @@ describe('Blackjack', () => {
           {
             cards: expect.any(Array),
             points: expect.any(Number),
+            bust: expect.any(Boolean),
           },
         ]),
       })
