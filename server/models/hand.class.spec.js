@@ -75,8 +75,8 @@ describe('Hand of Cards', () => {
     it('should update the bust status', () => {
       drawHandSpy.mockReturnValue([
         Card.create('10', Card.validSuits[0]),
-        Card.create('10', Card.validSuits[0]),
-        Card.create('1', Card.validSuits[0]),
+        Card.create('9', Card.validSuits[0]),
+        Card.create('2', Card.validSuits[0]),
       ]);
       const hand = Hand.create(deck);
       expect(hand.bust).toBe(false);

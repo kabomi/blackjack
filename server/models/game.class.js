@@ -32,9 +32,7 @@ class Game {
     if (this.players[playerIndex].bust) {
       return;
     }
-    this.players[playerIndex].cards.push(this._deck.draw());
-    const points = this.players[playerIndex].calculatePoints();
-    this.players[playerIndex].points = points;
+    this.players[playerIndex].draw();
   }
 }
 

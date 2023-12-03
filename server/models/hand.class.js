@@ -1,6 +1,8 @@
 const { PointsCalculatorVisitor } = require('./points-calculator.class');
 
 class Hand {
+  /** @type {import('./card-deck.class');} */
+  _deck;
   /** @type {(cards: import('./card.class').Card)} */
   cards = [];
   points = 0;
@@ -13,6 +15,11 @@ class Hand {
   }
 
   constructor(deck) {
+    this._deck = deck;
+    Object.defineProperty(this, '_deck', {
+      enumerable: false,
+      configurable: false,
+    });
     this.cards = deck.drawHand();
     this.points = this.calculatePoints();
   }
@@ -23,6 +30,11 @@ class Hand {
     this.cards.forEach((card) => card.accept(pointsCalculator));
 
     return pointsCalculator.points;
+  }
+
+  draw() {
+    this.cards.push(this._deck.draw());
+    this.points = this.calculatePoints();
   }
 }
 
