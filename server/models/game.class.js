@@ -12,6 +12,7 @@ class Game {
   /** @type {import('./hand.class').Hand[]} */
   players;
   finished = false;
+  winner;
   static create() {
     return new Game(guid.v4());
   }
@@ -24,6 +25,7 @@ class Game {
       dealer: this.dealer,
       players: this.players,
       finished: this.finished,
+      winner: this.winner,
     };
   }
   constructor(id) {
@@ -54,6 +56,9 @@ class Game {
 
   finish() {
     this.finished = true;
+    if (this.players[0].points > this.dealer.points) {
+      this.winner = 'PLAYER1';
+    }
   }
 }
 
