@@ -6,6 +6,9 @@ class Card {
       return new OrdinaryCard(face, suit);
     } else {
       if (SpecialCard.isValidFace(face)) {
+        if (AceCard.isValidFace(face)) {
+          return new AceCard(suit);
+        }
         return new SpecialCard(face, suit);
       }
     }
@@ -67,7 +70,13 @@ class SpecialCard extends Card {
     }
   }
 }
-class AceCard extends Card {
+class AceCard extends SpecialCard {
+  static get validFaces() {
+    return ['A'];
+  }
+  static isValidFace(face) {
+    return AceCard.validFaces.includes(face);
+  }
   /** @type {(suit: number):void} */
   constructor(suit) {
     super('A', suit);
