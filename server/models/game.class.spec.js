@@ -1,10 +1,5 @@
 const { Card } = require('./card.class.js');
 /*
-initially a Hand contains two Cards
-
-a hand contains 2 or more Cards of a CardDeck
-a hand should know the current points of the cards.
-
 
 contains a gameStatus (signaling PLAYING, FINISHED)
 */
@@ -79,5 +74,10 @@ describe('Blackjack', () => {
 
       expect(game.state.players[0].cards).toHaveLength(3);
     });
+  });
+  it('should finish the game explicitly', () => {
+    game.finish();
+
+    expect(game.state.finished).toBe(true);
   });
 });
