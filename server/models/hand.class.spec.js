@@ -11,14 +11,14 @@ describe('Hand of Cards', () => {
     drawHandSpy = jest.spyOn(deck, 'drawHand');
   });
   describe('of a single card', () => {
-    it('with cards numbered 2 through 10 are worth their face value in points', () => {
+    it('with ordinary cards are worth their face value in points', () => {
       OrdinaryCard.validFaces.forEach((face) => {
         drawHandSpy.mockReturnValue([Card.create(face, Card.validSuits[0])]);
         const hand = Hand.create(deck);
         expect(hand.points).toBe(Number(face));
       });
     });
-    it('with Face cards (jack, queen, king) are each worth 10 points', () => {
+    it('with special cards: (jack, queen or king) are each worth 10 points', () => {
       SpecialCard.validFaces.forEach((face) => {
         if (face !== 'A') {
           drawHandSpy.mockReturnValue([Card.create(face, Card.validSuits[0])]);
@@ -35,10 +35,10 @@ describe('Hand of Cards', () => {
     // it('can be incremented on');
   });
   describe('with two cards', () => {
-    it('should be different from each other', async () => {
+    it('should be different to Hands', async () => {
       expect(Hand.create(deck)).not.toEqual(Hand.create(deck));
     });
-    it('sums 5 points when drawing a face of "2" and a face of "3"', () => {
+    it('sums them correctly', () => {
       drawHandSpy.mockReturnValue([
         Card.create('2', Card.validSuits[0]),
         Card.create('3', Card.validSuits[0]),
@@ -60,7 +60,7 @@ describe('Hand of Cards', () => {
     });
   });
   describe('Draw another card', () => {
-    it('should recalculate the points', () => {
+    it('should recalculate points', () => {
       drawHandSpy.mockReturnValue([
         Card.create('10', Card.validSuits[0]),
         Card.create('10', Card.validSuits[0]),
