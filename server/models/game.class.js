@@ -39,6 +39,9 @@ class Game {
   }
 
   hit() {
+    if (this.players[0].bust) {
+      return;
+    }
     this.players[0].cards.push(this._deck.draw());
   }
   /** @type {(cards: import('./card.class').Card[])} */
