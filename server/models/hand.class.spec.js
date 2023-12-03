@@ -59,4 +59,31 @@ describe('Hand of Cards', () => {
       expect(bust).toBe(false);
     });
   });
+  describe('Draw another card', () => {
+    it('should recalculate the points', () => {
+      drawHandSpy.mockReturnValue([
+        Card.create('10', Card.validSuits[0]),
+        Card.create('10', Card.validSuits[0]),
+      ]);
+      const hand = Hand.create(deck);
+      expect(hand.points).toBe(20);
+
+      hand.draw();
+
+      expect(hand.points).not.toBe(20);
+    });
+    it('should update the bust status', () => {
+      drawHandSpy.mockReturnValue([
+        Card.create('10', Card.validSuits[0]),
+        Card.create('10', Card.validSuits[0]),
+        Card.create('1', Card.validSuits[0]),
+      ]);
+      const hand = Hand.create(deck);
+      expect(hand.bust).toBe(false);
+
+      hand.draw();
+
+      expect(hand.bust).toBe(true);
+    });
+  });
 });
