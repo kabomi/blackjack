@@ -85,4 +85,19 @@ describe('Blackjack', () => {
       expect(game.generateHand().points).toBe(5);
     });
   });
+  describe('A Hand with three cards', () => {
+    it('sums does not bust when drawing a "10" and two Aces', () => {
+      jest
+        .spyOn(game, 'drawHand')
+        .mockReturnValue([
+          Card.create('10', Card.validSuits[0]),
+          Card.create('A', Card.validSuits[0]),
+          Card.create('A', Card.validSuits[0]),
+        ]);
+
+      const { points, bust } = game.generateHand();
+      expect(points).toBe(12);
+      expect(bust).toBe(false);
+    });
+  });
 });
