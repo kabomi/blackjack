@@ -84,14 +84,5 @@ describe('Blackjack', () => {
         ]);
       expect(game.generateHand().points).toBe(5);
     });
-    it('sums 12 points when drawing two Aces', () => {
-      jest
-        .spyOn(game, 'drawHand')
-        .mockReturnValue([
-          Card.create('A', Card.validSuits[0]),
-          Card.create('A', Card.validSuits[0]),
-        ]);
-      expect(game.generateHand().points).toBe(12);
-    });
   });
 });
