@@ -5,6 +5,10 @@ class CardDeck {
   static create() {
     return new CardDeck();
   }
+
+  /** @type {import('./card.class').Card[]} */
+  _cards = [];
+
   get cards() {
     return this._cards;
   }

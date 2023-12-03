@@ -37,6 +37,10 @@ class Game {
   drawHand() {
     return this._deck.drawHand();
   }
+
+  hit() {
+    this.players[0].cards.push(this._deck.draw());
+  }
   /** @type {(cards: import('./card.class').Card[])} */
   calculatePointsFrom(cards) {
     const pointsCalculator = new PointsCalculatorVisitor();
