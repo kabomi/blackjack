@@ -58,6 +58,8 @@ class Game {
     this.finished = true;
     if (this.players[0].points > this.dealer.points) {
       this.winner = 'PLAYER1';
+    } else {
+      this.winner = 'DEALER';
     }
   }
 }
