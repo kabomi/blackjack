@@ -1,6 +1,6 @@
 const guid = require('uuid');
 const Deck = require('./card-deck.class');
-const { OrdinaryCard, SpecialCard, AceCard } = require('./card.class');
+const { OrdinaryCard, AceCard } = require('./card.class');
 
 class Game {
   static create() {
