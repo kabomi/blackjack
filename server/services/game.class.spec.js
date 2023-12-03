@@ -1,4 +1,4 @@
-const { Card } = require('./card.class');
+const { Card, OrdinaryCard, SpecialCard } = require('./card.class');
 /*
 initially a Hand contains two Cards
 
@@ -49,31 +49,25 @@ describe('Blackjack', () => {
   });
   describe('A Hand of a single card', () => {
     it('with cards numbered 2 through 10 are worth their face value in points', () => {
-      const deck = Game.createCardDeck();
-
-      deck.ordinaryFaces.forEach((face) => {
+      OrdinaryCard.validFaces.forEach((face) => {
         expect(
-          game.calculatePointsFrom([Card.create(face, deck.suits[0])])
+          game.calculatePointsFrom([Card.create(face, Card.validSuits[0])])
         ).toBe(Number(face));
       });
     });
     it('with Face cards (jack, queen, king) are each worth 10 points', () => {
-      const deck = Game.createCardDeck();
-
-      deck.specialFaces.forEach((face) => {
+      SpecialCard.validFaces.forEach((face) => {
         if (face !== 'A') {
           expect(
-            game.calculatePointsFrom([Card.create(face, deck.suits[0])])
+            game.calculatePointsFrom([Card.create(face, Card.validSuits[0])])
           ).toBe(Number(10));
         }
       });
     });
     it('with an Ace card is worth 11 points', () => {
-      const deck = Game.createCardDeck();
-
-      expect(game.calculatePointsFrom([Card.create('A', deck.suits[0])])).toBe(
-        Number(11)
-      );
+      expect(
+        game.calculatePointsFrom([Card.create('A', Card.validSuits[0])])
+      ).toBe(Number(11));
     });
     // it('can be incremented on');
   });
@@ -82,22 +76,20 @@ describe('Blackjack', () => {
       expect(game.state.players[0]).not.toEqual(game.state.dealer);
     });
     it('sums 5 points when drawing a face of "2" and a face of "3"', () => {
-      const deck = Game.createCardDeck();
       jest
         .spyOn(game, 'drawHand')
         .mockReturnValue([
-          Card.create('2', deck.suits[0]),
-          Card.create('3', deck.suits[0]),
+          Card.create('2', Card.validSuits[0]),
+          Card.create('3', Card.validSuits[0]),
         ]);
       expect(game.generateHand().points).toBe(5);
     });
     it('sums 12 points when drawing two Aces', () => {
-      const deck = Game.createCardDeck();
       jest
         .spyOn(game, 'drawHand')
         .mockReturnValue([
-          Card.create('A', deck.suits[0]),
-          Card.create('A', deck.suits[0]),
+          Card.create('A', Card.validSuits[0]),
+          Card.create('A', Card.validSuits[0]),
         ]);
       expect(game.generateHand().points).toBe(12);
     });

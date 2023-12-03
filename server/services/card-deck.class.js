@@ -13,16 +13,8 @@ class CardDeck {
     return Card.validSuits;
   }
 
-  get ordinaryFaces() {
-    return OrdinaryCard.validFaces;
-  }
-
-  get specialFaces() {
-    return SpecialCard.validFaces;
-  }
-
   get faces() {
-    return this.ordinaryFaces.concat(this.specialFaces);
+    return OrdinaryCard.validFaces.concat(SpecialCard.validFaces);
   }
 
   _generateCardsFor(suit) {
@@ -30,7 +22,9 @@ class CardDeck {
   }
 
   constructor() {
-    this._cards = this.suits.map((suit) => this._generateCardsFor(suit)).flat();
+    this._cards = Card.validSuits
+      .map((suit) => this._generateCardsFor(suit))
+      .flat();
   }
 
   draw() {
