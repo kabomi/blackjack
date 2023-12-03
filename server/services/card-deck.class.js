@@ -1,5 +1,5 @@
 const shuffle = require('../common/shuffle');
-const { OrdinaryCard, SpecialCard, AceCard } = require('./card.class');
+const { OrdinaryCard, SpecialCard, AceCard, Card } = require('./card.class');
 /** English CardDeck */
 class CardDeck {
   static create() {
@@ -10,11 +10,11 @@ class CardDeck {
   }
 
   get suits() {
-    return ['Clubs', 'Diamonds', 'Hearts', 'Spades'];
+    return Card.validSuits;
   }
 
   get ordinaryFaces() {
-    return Array.from(Array(9).keys()).map((face) => (face + 2).toString());
+    return OrdinaryCard.validFaces;
   }
 
   get specialFaces() {

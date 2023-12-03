@@ -6,8 +6,14 @@ describe('Card', () => {
     expect(card.face).toBe('A');
     expect(card.suit).toBe('Clubs');
   });
-  it('should not contain a not valid suit', () => {
+  it('should contain only valid suits', () => {
     expect(() => Card.create('A', 'Harry')).toThrow(expect.any(Error));
+    expect(() => Card.create('A', '')).toThrow(expect.any(Error));
+    expect(() => Card.create('A', null)).toThrow(expect.any(Error));
+    expect(Card.create('A', 'Clubs')).toBeInstanceOf(Card);
+    expect(Card.create('J', 'Clubs')).toBeInstanceOf(Card);
+    expect(Card.create('Q', 'Clubs')).toBeInstanceOf(Card);
+    expect(Card.create('K', 'Clubs')).toBeInstanceOf(Card);
   });
   describe('Ordinary', () => {
     it('should contain only faces in [2-10]', () => {
