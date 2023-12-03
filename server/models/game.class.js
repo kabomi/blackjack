@@ -1,33 +1,8 @@
 const guid = require('uuid');
 const Deck = require('./card-deck.class');
 const { PointsCalculatorVisitor } = require('./points-calculator.class');
+const { Hand } = require('./hand.class');
 
-class Hand {
-  /** @type {(cards: import('./card.class').Card)} */
-  cards = [];
-  points = 0;
-  bust = false;
-  /** @type {(cards: import('./card-deck.class'))} */
-  static create(deck) {
-    return new Hand(deck);
-  }
-
-  /** @type {(cards: import('./card-deck.class'))} */
-  constructor(deck) {
-    this.cards = deck.drawHand();
-    this.points = this.calculatePointsFrom(this.cards);
-    this.bust = this.points > 21;
-  }
-
-  /** @type {(cards: import('./card.class').Card[])} */
-  calculatePointsFrom(cards) {
-    const pointsCalculator = new PointsCalculatorVisitor();
-
-    cards.forEach((card) => card.accept(pointsCalculator));
-
-    return pointsCalculator.points;
-  }
-}
 class Game {
   static create() {
     return new Game(guid.v4());
