@@ -1,4 +1,4 @@
-const { Card, OrdinaryCard, SpecialCard } = require('./card.class');
+const { Card, OrdinaryCard, SpecialCard, AceCard } = require('./card.class');
 describe('Card', () => {
   it('should contain a face and a suit', () => {
     const card = Card.create('A', 'Clubs');
@@ -42,6 +42,18 @@ describe('Card', () => {
       expect(Card.create('5', 'Clubs')).not.toBeInstanceOf(SpecialCard);
       expect(Card.create('8', 'Clubs')).not.toBeInstanceOf(SpecialCard);
       expect(Card.create('10', 'Clubs')).not.toBeInstanceOf(SpecialCard);
+    });
+    describe('Ace', () => {
+      it('should contain only a face with "A"', () => {
+        expect(Card.create('A', 'Clubs')).toBeInstanceOf(AceCard);
+        expect(Card.create('A', 'Diamonds')).toBeInstanceOf(AceCard);
+        expect(Card.create('A', 'Hearts')).toBeInstanceOf(AceCard);
+        expect(Card.create('A', 'Spades')).toBeInstanceOf(AceCard);
+        expect(Card.create('2', 'Clubs')).not.toBeInstanceOf(AceCard);
+        expect(Card.create('5', 'Clubs')).not.toBeInstanceOf(AceCard);
+        expect(Card.create('8', 'Clubs')).not.toBeInstanceOf(AceCard);
+        expect(Card.create('10', 'Clubs')).not.toBeInstanceOf(AceCard);
+      });
     });
   });
 });
