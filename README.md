@@ -2,7 +2,7 @@
 A simple blackjack (21) card game for 1 player
 
 ## Background
-This app is part of a technical assessment. It has been coded mostly following TDD approach.
+This app is part of a technical assessment. It has been coded mostly following BDD approach.
 
 ### Game Rules
 Blackjack card game uses the following rules:
@@ -11,6 +11,14 @@ Blackjack card game uses the following rules:
 * Cards numbered 2 through 10 are worth their face value.
 * Face cards (jack, queen, king) are each worth 10 points.
 * An ace can be worth 11 points if it doesn't cause the player to bust. If it would cause a bust, it is worth 1 point.
+
+#### Additional necessary rules
+Other rules taken from https://en.wikipedia.org/wiki/Blackjack :
+* 52 Card deck (shuffled)
+* No bets but the current total points (points of all visible cards)
+* Dealer deals two cards to the player
+* Dealer cannot draw extra cards
+* A Draw game has been added (when player not busted & player's points = dealer's points)
 
 ### Game Requirements
 Create a simple user interface (UI) for the game. The UI should allow the player to:
