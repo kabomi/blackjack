@@ -1,5 +1,5 @@
 const shuffle = require('../common/shuffle');
-const { OrdinaryCard, SpecialCard, AceCard, Card } = require('./card.class');
+const { OrdinaryCard, SpecialCard, Card } = require('./card.class');
 /** English CardDeck */
 class CardDeck {
   static create() {
@@ -26,7 +26,7 @@ class CardDeck {
   }
 
   _generateCardsFor(suit) {
-    return this.faces.map((face) => this.createCard(face, suit));
+    return this.faces.map((face) => Card.create(face, suit));
   }
 
   constructor() {
@@ -42,11 +42,6 @@ class CardDeck {
 
   shuffle() {
     shuffle(this._cards);
-  }
-
-  /** @type {(face: string, suit, string):Card} */
-  createCard(face, suit) {
-    return Card.create(face, suit);
   }
 }
 

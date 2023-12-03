@@ -1,3 +1,4 @@
+const { Card } = require('./card.class');
 /*
 initially a Hand contains two Cards
 
@@ -52,7 +53,7 @@ describe('Blackjack', () => {
 
       deck.ordinaryFaces.forEach((face) => {
         expect(
-          game.calculatePointsFrom([deck.createCard(face, deck.suits[0])])
+          game.calculatePointsFrom([Card.create(face, deck.suits[0])])
         ).toBe(Number(face));
       });
     });
@@ -62,7 +63,7 @@ describe('Blackjack', () => {
       deck.specialFaces.forEach((face) => {
         if (face !== 'A') {
           expect(
-            game.calculatePointsFrom([deck.createCard(face, deck.suits[0])])
+            game.calculatePointsFrom([Card.create(face, deck.suits[0])])
           ).toBe(Number(10));
         }
       });
@@ -70,9 +71,9 @@ describe('Blackjack', () => {
     it('with an Ace card is worth 11 points', () => {
       const deck = Game.createCardDeck();
 
-      expect(
-        game.calculatePointsFrom([deck.createCard('A', deck.suits[0])])
-      ).toBe(Number(11));
+      expect(game.calculatePointsFrom([Card.create('A', deck.suits[0])])).toBe(
+        Number(11)
+      );
     });
     // it('can be incremented on');
   });
@@ -85,8 +86,8 @@ describe('Blackjack', () => {
       jest
         .spyOn(game, 'drawHand')
         .mockReturnValue([
-          deck.createCard('2', deck.suits[0]),
-          deck.createCard('3', deck.suits[0]),
+          Card.create('2', deck.suits[0]),
+          Card.create('3', deck.suits[0]),
         ]);
       expect(game.generateHand().points).toBe(5);
     });
