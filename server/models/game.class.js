@@ -7,9 +7,9 @@ class Game {
   _deck;
   /** @type {string} */
   id;
-  /** @type {cards: import('./hand.class').Hand} */
+  /** @type {import('./hand.class').Hand} */
   dealer;
-  /** @type {cards: import('./hand.class').Hand[]} */
+  /** @type {import('./hand.class').Hand[]} */
   players;
   finished = false;
   static create() {
@@ -23,7 +23,7 @@ class Game {
       id: this.id,
       dealer: this.dealer,
       players: this.players,
-      finished: this.finished
+      finished: this.finished,
     };
   }
   constructor(id) {
@@ -46,6 +46,7 @@ class Game {
 
   hitPlayer(playerIndex = 0) {
     if (this.players[playerIndex].bust) {
+      this.finish();
       return;
     }
     this.players[playerIndex].draw();
