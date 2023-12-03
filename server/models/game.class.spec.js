@@ -1,4 +1,4 @@
-const { Card, OrdinaryCard, SpecialCard } = require('./card.class');
+const { Card, OrdinaryCard, SpecialCard } = require('./card.class.js');
 /*
 initially a Hand contains two Cards
 

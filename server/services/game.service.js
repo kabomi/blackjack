@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Game = require('./game.class');
+const Game = require('../models/game.class');
 
 // Game api route.
 router.post('/', (req, res) => {
