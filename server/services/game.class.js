@@ -1,6 +1,6 @@
 const guid = require('uuid');
 const Deck = require('./card-deck.class');
-const { OrdinaryCard, AceCard, SpecialCard } = require('./card.class');
+const { PointsCalculatorVisitor } = require('./card.class');
 
 class Game {
   static create() {
@@ -38,27 +38,11 @@ class Game {
   }
   /** @type {(cards: import('./card.class').Card[])} */
   calculatePointsFrom(cards) {
-    let points = 0;
+    const pointsCalculator = new PointsCalculatorVisitor();
 
-    cards.forEach((card) => {
-      if (card instanceof OrdinaryCard) {
-        points += Number(card.face);
-      } else {
-        if (card instanceof AceCard) {
-          if (points <= 10) {
-            points += 11;
-          } else {
-            points += 1;
-          }
-        } else {
-          if (card instanceof SpecialCard) {
-            points += 10;
-          }
-        }
-      }
-    });
+    cards.forEach((card) => card.accept(pointsCalculator));
 
-    return points;
+    return pointsCalculator.points;
   }
 }
 
