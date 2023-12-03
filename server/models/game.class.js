@@ -2,6 +2,32 @@ const guid = require('uuid');
 const Deck = require('./card-deck.class');
 const { PointsCalculatorVisitor } = require('./points-calculator.class');
 
+class Hand {
+  /** @type {(cards: import('./card.class').Card)} */
+  cards = [];
+  points = 0;
+  bust = false;
+  /** @type {(cards: import('./card-deck.class'))} */
+  static create(deck) {
+    return new Hand(deck);
+  }
+
+  /** @type {(cards: import('./card-deck.class'))} */
+  constructor(deck) {
+    this.cards = deck.drawHand();
+    this.points = this.calculatePointsFrom(this.cards);
+    this.bust = this.points > 21;
+  }
+
+  /** @type {(cards: import('./card.class').Card[])} */
+  calculatePointsFrom(cards) {
+    const pointsCalculator = new PointsCalculatorVisitor();
+
+    cards.forEach((card) => card.accept(pointsCalculator));
+
+    return pointsCalculator.points;
+  }
+}
 class Game {
   static create() {
     return new Game(guid.v4());
@@ -25,13 +51,7 @@ class Game {
   }
 
   generateHand() {
-    const cards = this.drawHand();
-    const points = this.calculatePointsFrom(cards);
-    return {
-      cards,
-      points,
-      bust: points > 21,
-    };
+    return Hand.create(this._deck);
   }
 
   drawHand() {
@@ -43,7 +63,7 @@ class Game {
       return;
     }
     this.players[0].cards.push(this._deck.draw());
-    const points = this.calculatePointsFrom(this.players[0].cards);
+    const points = this.players[0].calculatePointsFrom(this.players[0].cards);
     this.players[0].points = points;
     this.players[0].bust = points > 21;
   }

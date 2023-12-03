@@ -79,7 +79,7 @@ describe('Blackjack', () => {
     });
     it('sums 5 points when drawing a face of "2" and a face of "3"', () => {
       jest
-        .spyOn(game, 'drawHand')
+        .spyOn(game._deck, 'drawHand')
         .mockReturnValue([
           Card.create('2', Card.validSuits[0]),
           Card.create('3', Card.validSuits[0]),
@@ -90,7 +90,7 @@ describe('Blackjack', () => {
   describe('A Hand with three cards', () => {
     it('sums does not bust when drawing a "10" and two Aces', () => {
       jest
-        .spyOn(game, 'drawHand')
+        .spyOn(game._deck, 'drawHand')
         .mockReturnValue([
           Card.create('10', Card.validSuits[0]),
           Card.create('A', Card.validSuits[0]),
@@ -105,7 +105,7 @@ describe('Blackjack', () => {
   describe('Hit', () => {
     it('should add a card to the player hand if not busted', () => {
       jest
-        .spyOn(game, 'drawHand')
+        .spyOn(game._deck, 'drawHand')
         .mockReturnValue([
           Card.create('2', Card.validSuits[0]),
           Card.create('3', Card.validSuits[0]),
@@ -119,7 +119,7 @@ describe('Blackjack', () => {
     });
     it('should not add a card to the player hand if busted', () => {
       jest
-        .spyOn(game, 'drawHand')
+        .spyOn(game._deck, 'drawHand')
         .mockReturnValue([
           Card.create('10', Card.validSuits[0]),
           Card.create('10', Card.validSuits[0]),
@@ -134,7 +134,7 @@ describe('Blackjack', () => {
     });
     it('should recalculate the points', () => {
       jest
-        .spyOn(game, 'drawHand')
+        .spyOn(game._deck, 'drawHand')
         .mockReturnValue([
           Card.create('10', Card.validSuits[0]),
           Card.create('10', Card.validSuits[0]),
@@ -148,7 +148,7 @@ describe('Blackjack', () => {
     });
     it('should update the bust status', () => {
       jest
-        .spyOn(game, 'drawHand')
+        .spyOn(game._deck, 'drawHand')
         .mockReturnValue([
           Card.create('10', Card.validSuits[0]),
           Card.create('10', Card.validSuits[0]),
