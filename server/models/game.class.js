@@ -45,6 +45,7 @@ class Game {
     this.players[0].cards.push(this._deck.draw());
     const points = this.calculatePointsFrom(this.players[0].cards);
     this.players[0].points = points;
+    this.players[0].bust = points > 21;
   }
   /** @type {(cards: import('./card.class').Card[])} */
   calculatePointsFrom(cards) {
