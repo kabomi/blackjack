@@ -40,14 +40,14 @@ describe('Blackjack', () => {
       })
     );
   });
-  it('should shuffle the cards for every game', () => {
+  it('should shuffle the cards before every game', () => {
     const game2 = Game.create();
 
     expect(game.generateHand()).not.toEqual(game2.generateHand());
   });
   describe('HitPlayer', () => {
     it('should add a card to the player hand if not busted', () => {
-      jest.spyOn(Hand, 'create').mockReturnValue({
+      jest.spyOn(Hand, 'create').mockImplementation(() => ({
         cards: [
           Card.create('2', Card.validSuits[0]),
           Card.create('3', Card.validSuits[0]),
@@ -56,7 +56,7 @@ describe('Blackjack', () => {
           this.cards.push(Card.create('3', Card.validSuits[0]));
         },
         points: 5,
-      });
+      }));
       game.players[0] = game.generateHand();
       expect(game.players[0].cards).toHaveLength(2);
 
@@ -65,7 +65,7 @@ describe('Blackjack', () => {
       expect(game.players[0].cards).toHaveLength(3);
     });
     it('should not add a card to the player hand if busted', () => {
-      jest.spyOn(Hand, 'create').mockReturnValue({
+      jest.spyOn(Hand, 'create').mockImplementation(() => ({
         cards: [
           Card.create('2', Card.validSuits[0]),
           Card.create('3', Card.validSuits[0]),
@@ -75,7 +75,7 @@ describe('Blackjack', () => {
         },
         points: 22,
         bust: true,
-      });
+      }));
 
       game.players[0] = game.generateHand();
       expect(game.players[0].cards).toHaveLength(2);
@@ -85,7 +85,7 @@ describe('Blackjack', () => {
       expect(game.players[0].cards).toHaveLength(2);
     });
     it('should finish the game if the player hand is busted', () => {
-      jest.spyOn(Hand, 'create').mockReturnValue({
+      jest.spyOn(Hand, 'create').mockImplementation(() => ({
         cards: [
           Card.create('10', Card.validSuits[0]),
           Card.create('9', Card.validSuits[0]),
@@ -96,7 +96,7 @@ describe('Blackjack', () => {
         },
         points: 22,
         bust: true,
-      });
+      }));
 
       game.players[0] = game.generateHand();
 
@@ -109,5 +109,26 @@ describe('Blackjack', () => {
     game.finish();
 
     expect(game.state.finished).toBe(true);
+  });
+  describe('For the player to win the game', () => {
+    it('should not be busted and have more points than the dealer', () => {
+      jest.spyOn(Hand, 'create').mockImplementation(() => ({
+        cards: [],
+        points: 21,
+        bust: false,
+      }));
+
+      game.dealer = game.generateHand();
+      game.dealer.points = 20;
+
+      game.players[0] = game.generateHand();
+
+      console.log(game.dealer);
+      console.log(game.players[0]);
+
+      game.finish();
+
+      expect(game.state.winner).toBe('PLAYER1');
+    });
   });
 });
