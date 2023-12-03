@@ -60,9 +60,11 @@ describe('Blackjack', () => {
       const deck = Game.createCardDeck();
 
       deck.specialFaces.forEach((face) => {
-        expect(
-          game.calculatePointsFrom([deck.createCard(face, deck.suits[0])])
-        ).toBe(Number(10));
+        if (face !== 'A') {
+          expect(
+            game.calculatePointsFrom([deck.createCard(face, deck.suits[0])])
+          ).toBe(Number(10));
+        }
       });
     });
     it('with an Ace card is worth 11 points', () => {

@@ -18,11 +18,11 @@ class CardDeck {
   }
 
   get specialFaces() {
-    return Array.from(['J', 'Q', 'K']);
+    return SpecialCard.validFaces;
   }
 
   get faces() {
-    return this.ordinaryFaces.concat(this.specialFaces).concat(['A']);
+    return this.ordinaryFaces.concat(this.specialFaces);
   }
 
   _generateCardsFor(suit) {
@@ -49,7 +49,7 @@ class CardDeck {
     if (this.ordinaryFaces.includes(face)) {
       return new OrdinaryCard(face, suit);
     } else {
-      if (this.specialFaces.includes(face)) {
+      if (this.specialFaces.includes(face) && face !== 'A') {
         return new SpecialCard(face, suit);
       }
     }
