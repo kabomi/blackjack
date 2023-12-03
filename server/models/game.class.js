@@ -1,6 +1,5 @@
 const guid = require('uuid');
 const Deck = require('./card-deck.class');
-const { PointsCalculatorVisitor } = require('./points-calculator.class');
 const { Hand } = require('./hand.class');
 
 class Game {
@@ -27,10 +26,6 @@ class Game {
 
   generateHand() {
     return Hand.create(this._deck);
-  }
-
-  drawHand() {
-    return this._deck.drawHand();
   }
 
   hit() {
