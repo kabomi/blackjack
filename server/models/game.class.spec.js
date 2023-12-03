@@ -123,12 +123,27 @@ describe('Blackjack', () => {
 
       game.players[0] = game.generateHand();
 
-      console.log(game.dealer);
-      console.log(game.players[0]);
-
       game.finish();
 
       expect(game.state.winner).toBe('PLAYER1');
+    });
+  });
+  describe('For the dealer to win the game', () => {
+    it('should have more points than the player', () => {
+      jest.spyOn(Hand, 'create').mockImplementation(() => ({
+        cards: [],
+        points: 20,
+        bust: false,
+      }));
+
+      game.dealer = game.generateHand();
+      game.dealer.points = 21;
+
+      game.players[0] = game.generateHand();
+
+      game.finish();
+
+      expect(game.state.winner).toBe('DEALER');
     });
   });
 });
