@@ -146,5 +146,21 @@ describe('Blackjack', () => {
 
       expect(game.state.players[0].points).not.toBe(20);
     });
+    it('should update the bust status', () => {
+      jest
+        .spyOn(game, 'drawHand')
+        .mockReturnValue([
+          Card.create('10', Card.validSuits[0]),
+          Card.create('10', Card.validSuits[0]),
+          Card.create('1', Card.validSuits[0]),
+        ]);
+      game.state.players[0] = game.generateHand();
+
+      expect(game.state.players[0].bust).toBeFalsy();
+
+      game.hit();
+
+      expect(game.state.players[0].bust).toBeTruthy();
+    });
   });
 });
