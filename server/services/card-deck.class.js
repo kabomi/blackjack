@@ -46,15 +46,7 @@ class CardDeck {
 
   /** @type {(face: string, suit, string):Card} */
   createCard(face, suit) {
-    if (this.ordinaryFaces.includes(face)) {
-      return new OrdinaryCard(face, suit);
-    } else {
-      if (this.specialFaces.includes(face) && face !== 'A') {
-        return new SpecialCard(face, suit);
-      }
-    }
-
-    return new AceCard(suit);
+    return Card.create(face, suit);
   }
 }
 
