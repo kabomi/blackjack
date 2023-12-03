@@ -56,7 +56,7 @@ class Game {
 
   finish() {
     this.finished = true;
-    if (this.players[0].points > this.dealer.points) {
+    if (!this.players[0].bust && this.players[0].points > this.dealer.points) {
       this.winner = 'PLAYER1';
     } else {
       this.winner = 'DEALER';
