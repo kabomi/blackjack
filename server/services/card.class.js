@@ -1,46 +1,3 @@
-class CardVisitor {
-  /** @type {(card: Card)} */
-  // eslint-disable-next-line no-unused-vars
-  visitCard(card) {}
-  /** @type {(card: OrdinaryCard)} */
-  // eslint-disable-next-line no-unused-vars
-  visitOrdinaryCard(card) {}
-  /** @type {(card: SpecialCard)} */
-  // eslint-disable-next-line no-unused-vars
-  visitSpecialCard(card) {}
-  /** @type {(card: AceCard)} */
-  // eslint-disable-next-line no-unused-vars
-  visitAceCard(card) {}
-}
-
-class PointsCalculatorVisitor extends CardVisitor {
-  _points = 0;
-
-  get points() {
-    return this._points;
-  }
-  /** @type {(card: Card)} */
-  // eslint-disable-next-line no-unused-vars
-  visitCard(card) {}
-  /** @type {(card: OrdinaryCard)} */
-  visitOrdinaryCard(card) {
-    this._points += Number(card.face);
-  }
-  /** @type {(card: SpecialCard)} */
-  // eslint-disable-next-line no-unused-vars
-  visitSpecialCard(card) {
-    this._points += 10;
-  }
-  /** @type {(card: AceCard)} */
-  // eslint-disable-next-line no-unused-vars
-  visitAceCard(card) {
-    if (this._points <= 10) {
-      this._points += 11;
-    } else {
-      this._points += 1;
-    }
-  }
-}
 /** English Card */
 class Card {
   /** @type {(face: string, suit, string):Card} */
@@ -76,7 +33,7 @@ class Card {
     this.suit = suit;
   }
 
-  /** @type {(visitor: CardVisitor)} */
+  /** @type {(visitor: import('./points-calculator.class').CardVisitor)} */
   accept(visitor) {
     visitor.visitCard(this);
   }
@@ -99,7 +56,7 @@ class OrdinaryCard extends Card {
       );
     }
   }
-  /** @type {(visitor: CardVisitor)} */
+  /** @type {(visitor: import('./points-calculator.class').CardVisitor)} */
   accept(visitor) {
     visitor.visitOrdinaryCard(this);
   }
@@ -121,7 +78,7 @@ class SpecialCard extends Card {
       );
     }
   }
-  /** @type {(visitor: CardVisitor)} */
+  /** @type {(visitor: import('./points-calculator.class').CardVisitor)} */
   accept(visitor) {
     visitor.visitSpecialCard(this);
   }
@@ -137,7 +94,7 @@ class AceCard extends SpecialCard {
   constructor(suit) {
     super('A', suit);
   }
-  /** @type {(visitor: CardVisitor)} */
+  /** @type {(visitor: import('./points-calculator.class').CardVisitor)} */
   accept(visitor) {
     visitor.visitAceCard(this);
   }
@@ -148,5 +105,4 @@ module.exports = {
   OrdinaryCard,
   SpecialCard,
   AceCard,
-  PointsCalculatorVisitor,
 };

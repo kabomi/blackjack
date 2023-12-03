@@ -1,6 +1,6 @@
 const guid = require('uuid');
 const Deck = require('./card-deck.class');
-const { PointsCalculatorVisitor } = require('./card.class');
+const { PointsCalculatorVisitor } = require('./points-calculator.class');
 
 class Game {
   static create() {
