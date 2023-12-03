@@ -117,7 +117,7 @@ describe('Blackjack', () => {
 
       expect(game.state.players[0].cards).toHaveLength(3);
     });
-    it('should not add a card to the player hand busted', () => {
+    it('should not add a card to the player hand if busted', () => {
       jest
         .spyOn(game, 'drawHand')
         .mockReturnValue([
@@ -131,6 +131,20 @@ describe('Blackjack', () => {
       game.hit();
 
       expect(game.state.players[0].cards).toHaveLength(3);
+    });
+    it('should recalculate the points', () => {
+      jest
+        .spyOn(game, 'drawHand')
+        .mockReturnValue([
+          Card.create('10', Card.validSuits[0]),
+          Card.create('10', Card.validSuits[0]),
+        ]);
+      game.state.players[0] = game.generateHand();
+      expect(game.state.players[0].points).toBe(20);
+
+      game.hit();
+
+      expect(game.state.players[0].points).not.toBe(20);
     });
   });
 });
