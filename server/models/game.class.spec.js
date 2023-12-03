@@ -111,7 +111,7 @@ describe('Blackjack', () => {
     expect(game.state.finished).toBe(true);
   });
   describe('For the player to win the game', () => {
-    it('should not be busted and have more points than the dealer', () => {
+    it('should its hand not be busted and have more points than the dealer', () => {
       jest.spyOn(Hand, 'create').mockImplementation(() => ({
         cards: [],
         points: 21,
@@ -134,6 +134,22 @@ describe('Blackjack', () => {
         cards: [],
         points: 20,
         bust: false,
+      }));
+
+      game.dealer = game.generateHand();
+      game.dealer.points = 21;
+
+      game.players[0] = game.generateHand();
+
+      game.finish();
+
+      expect(game.state.winner).toBe('DEALER');
+    });
+    it('the player hand should be busted', () => {
+      jest.spyOn(Hand, 'create').mockImplementation(() => ({
+        cards: [],
+        points: 23,
+        bust: true,
       }));
 
       game.dealer = game.generateHand();
