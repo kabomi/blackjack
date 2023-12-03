@@ -1,4 +1,4 @@
-const { Card, OrdinaryCard, SpecialCard } = require('./card.class.js');
+const { Card } = require('./card.class.js');
 /*
 initially a Hand contains two Cards
 
@@ -49,7 +49,7 @@ describe('Blackjack', () => {
 
     expect(game.generateHand()).not.toEqual(game2.generateHand());
   });
-  describe('Hit', () => {
+  describe('HitPlayer', () => {
     it('should add a card to the player hand if not busted', () => {
       jest
         .spyOn(game._deck, 'drawHand')
@@ -60,7 +60,7 @@ describe('Blackjack', () => {
       game.state.players[0] = game.generateHand();
       expect(game.state.players[0].cards).toHaveLength(2);
 
-      game.hit();
+      game.hitPlayer();
 
       expect(game.state.players[0].cards).toHaveLength(3);
     });
@@ -75,7 +75,7 @@ describe('Blackjack', () => {
       game.state.players[0] = game.generateHand();
       expect(game.state.players[0].cards).toHaveLength(3);
 
-      game.hit();
+      game.hitPlayer();
 
       expect(game.state.players[0].cards).toHaveLength(3);
     });
@@ -89,7 +89,7 @@ describe('Blackjack', () => {
       game.state.players[0] = game.generateHand();
       expect(game.state.players[0].points).toBe(20);
 
-      game.hit();
+      game.hitPlayer();
 
       expect(game.state.players[0].points).not.toBe(20);
     });
@@ -105,7 +105,7 @@ describe('Blackjack', () => {
 
       expect(game.state.players[0].bust).toBeFalsy();
 
-      game.hit();
+      game.hitPlayer();
 
       expect(game.state.players[0].bust).toBeTruthy();
     });

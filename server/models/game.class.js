@@ -28,13 +28,13 @@ class Game {
     return Hand.create(this._deck);
   }
 
-  hit() {
-    if (this.players[0].bust) {
+  hitPlayer(playerIndex = 0) {
+    if (this.players[playerIndex].bust) {
       return;
     }
-    this.players[0].cards.push(this._deck.draw());
-    const points = this.players[0].calculatePoints();
-    this.players[0].points = points;
+    this.players[playerIndex].cards.push(this._deck.draw());
+    const points = this.players[playerIndex].calculatePoints();
+    this.players[playerIndex].points = points;
   }
 }
 
