@@ -59,7 +59,11 @@ class Game {
     if (!this.players[0].bust && this.players[0].points > this.dealer.points) {
       this.winner = 'PLAYER1';
     } else {
-      this.winner = 'DEALER';
+      if (this.players[0].points === this.dealer.points) {
+        this.winner = 'DRAW';
+      } else {
+        this.winner = 'DEALER';
+      }
     }
   }
 }
