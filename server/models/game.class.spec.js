@@ -1,9 +1,6 @@
 const { Card } = require('./card.class.js');
 const { Hand } = require('./hand.class.js');
-/*
 
-contains a gameStatus (signaling PLAYING, FINISHED)
-*/
 describe('Blackjack', () => {
   const Game = require('./game.class.js');
   /** @type{import('./game.class.js')}*/
@@ -45,7 +42,7 @@ describe('Blackjack', () => {
 
     expect(game.generateHand()).not.toEqual(game2.generateHand());
   });
-  describe('HitPlayer', () => {
+  describe('HitPlayer action', () => {
     it('should add a card to the player hand if not busted', () => {
       jest.spyOn(Hand, 'create').mockImplementation(() => ({
         cards: [

@@ -56,10 +56,15 @@ class Game {
 
   finish() {
     this.finished = true;
-    if (!this.players[0].bust && this.players[0].points > this.dealer.points) {
+    const hasPlayerMorePointsThanDealer =
+      this.players[0].points > this.dealer.points;
+    const hasPlayerSamePointsAsDealer =
+      this.players[0].points === this.dealer.points;
+    const isPlayerNotBust = !this.players[0].bust;
+    if (isPlayerNotBust && hasPlayerMorePointsThanDealer) {
       this.winner = 'PLAYER1';
     } else {
-      if (this.players[0].points === this.dealer.points) {
+      if (hasPlayerSamePointsAsDealer) {
         this.winner = 'DRAW';
       } else {
         this.winner = 'DEALER';
