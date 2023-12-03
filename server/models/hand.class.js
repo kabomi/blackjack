@@ -19,6 +19,7 @@ class Hand {
     Object.defineProperty(this, '_deck', {
       enumerable: false,
       configurable: false,
+      writable: false,
     });
     this.cards = deck.drawHand();
     this.points = this.calculatePoints();
