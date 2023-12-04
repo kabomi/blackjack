@@ -37,15 +37,25 @@
   color: white;
 }
 
-.dealer-card-list {
-  border: 1px solid black;
-  width: 75vmin;
+.App-dealer { 
+  width: 75vw;
   height: 30vh;
 }
-.player-card-list {
-  border: 1px solid black;
-  width: 75vmin;
+.App-player {
+  width: 75vw;
   height: 30vh;
+}
+.dealer-card-list, .player-card-list {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  flex-basis: 25%;
 }
 
 .App-action-list {
