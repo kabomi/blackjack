@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import dealerLogo from './dealer.svg';
 import './App.css';
 
 function App() {
+  const [started, setStarted] = useState(false);
+  const [gameLoading, setGameLoading] = useState(false);
   return (
     <div className="App">
       <header className="App-header">
@@ -18,15 +21,22 @@ function App() {
           </div>
         </section>
         <section className="App-action-list">
-          <div className="App-action">
-            <button>New Game</button>
-          </div>
-          <div className="App-action">
-            <button>Hit</button>
-          </div>
-          <div className="App-action">
-            <button>Hold</button>
-          </div>
+          { started ?
+          <>
+            <div className="App-action">
+              <button>Hit</button>
+            </div>
+            <div className="App-action">
+              <button>Hold</button>
+            </div>
+          </>
+          : gameLoading ?
+            <span className="loader"></span>
+            :
+            <div className="App-action">
+              <button onClick={onCreateNewGame}>New Game</button>
+            </div>
+          }
         </section>
       </main>
     </div>
