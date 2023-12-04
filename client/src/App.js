@@ -1,10 +1,29 @@
 import { useState } from 'react';
 import dealerLogo from './dealer.svg';
 import './App.css';
+import { createGame } from './services/game/game.service';
 
 function App() {
   const [started, setStarted] = useState(false);
   const [gameLoading, setGameLoading] = useState(false);
+  const [gameState, setGameState] = useState();
+  
+  const onCreateNewGame = async () => {
+    try {
+      setGameLoading(true);
+      
+      // setTimeout(async () =>{
+      const response = await createGame();
+      setGameState(response);
+      setStarted(true);
+      // },1000);
+      
+    } catch (ex) {
+      console.error(ex);
+    } finally {
+      setGameLoading(false);
+    }
+  }
   return (
     <div className="App">
       <header className="App-header">
