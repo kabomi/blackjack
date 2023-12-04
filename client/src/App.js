@@ -7,23 +7,22 @@ function App() {
   const [started, setStarted] = useState(false);
   const [gameLoading, setGameLoading] = useState(false);
   const [gameState, setGameState] = useState();
-  
+
   const onCreateNewGame = async () => {
     try {
       setGameLoading(true);
-      
+
       // setTimeout(async () =>{
       const response = await createGame();
       setGameState(response);
       setStarted(true);
       // },1000);
-      
     } catch (ex) {
       console.error(ex);
     } finally {
       setGameLoading(false);
     }
-  }
+  };
   return (
     <div className="App">
       <header className="App-header">
@@ -36,26 +35,25 @@ function App() {
           </div>
         </section>
         <section className="App-player">
-          <div className="player-card-list">
-          </div>
+          <div className="player-card-list"></div>
         </section>
         <section className="App-action-list">
-          { started ?
-          <>
-            <div className="App-action">
-              <button>Hit</button>
-            </div>
-            <div className="App-action">
-              <button>Hold</button>
-            </div>
-          </>
-          : gameLoading ?
+          {started ? (
+            <>
+              <div className="App-action">
+                <button>Hit</button>
+              </div>
+              <div className="App-action">
+                <button>Hold</button>
+              </div>
+            </>
+          ) : gameLoading ? (
             <span className="loader"></span>
-            :
+          ) : (
             <div className="App-action">
               <button onClick={onCreateNewGame}>New Game</button>
             </div>
-          }
+          )}
         </section>
       </main>
     </div>
