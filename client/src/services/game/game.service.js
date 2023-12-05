@@ -7,9 +7,9 @@ export const createGame = () => {
     },
   });
 };
-export const finishGame = () => {
-  return fetch(GAME_URL, {
-    method: 'POST',
+export const finishGame = (id) => {
+  return fetch(`${GAME_URL}/${id}/hold`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
     },
