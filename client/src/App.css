@@ -58,8 +58,17 @@
   justify-content: center;
 }
 
-.card {
+.hidden-accessible {
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
+}
 
+.card {
+}
+
+figure {
+  margin: 0;
 }
 
 .card-image {

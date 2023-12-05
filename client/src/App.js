@@ -36,29 +36,32 @@ function App() {
       <main className="App-main">
         {/* Preload big image */}
         <img src={cardDeck} className="preload-card-deck" alt="Preload card deck" />
-        <img src={dealerLogo} className="dealer-logo" alt="Dealer" />
+        <img src={dealerLogo} className="dealer-logo" alt="Dealer" tabIndex={0} />
         <section className="App-dealer">
-          <article className="points">&nbsp;</article>
+          <label className="points">&nbsp;</label>
           { dealerFirstCard.face ? 
           <div className="dealer-card-list">
-            <article key={dealerFirstCard.face + dealerFirstCard.suit} className="card">
-              <div className="card-image" data-face={dealerFirstCard.face} data-suit={dealerFirstCard.suit} alt={"Dealer card: " + dealerFirstCard.face + dealerFirstCard.suit}></div>
-            </article>
-            <article className="card">
+            <figure key={dealerFirstCard.face + dealerFirstCard.suit} className="card">
+              <div className="card-image" data-face={dealerFirstCard.face} data-suit={dealerFirstCard.suit}></div>
+              <figcaption tabIndex={0} className="hidden-accessible" aria-label={`Dealer card: ${dealerFirstCard.face} ${dealerFirstCard.suit}`}></figcaption>
+            </figure>
+            <figure className="card">
               <div className="card-image card-image-hidden"></div>
-            </article>
+              <figcaption tabIndex={0} className="hidden-accessible" aria-label="Dealer card: hidden"></figcaption>
+            </figure>
           </div>
           : null
           }
         </section>
         <section className="App-player">
-          <article>{playerPoints ? playerPoints + " Points" : ""}</article>
+          <label tabIndex={0} aria-label={`Player points: ${playerPoints ? playerPoints + " Points" : ""}`}>{playerPoints ? playerPoints + " Points" : ""}</label>
           { playerCards.length > 0 ?
           <div className="player-card-list">
             {playerCards.map((card) => (
-              <article key={card.face + card.suit} className="card">
-                <div className="card-image" data-face={card.face} data-suit={card.suit} alt={"Player card: " + card.face + card.suit}></div>
-              </article>
+              <figure key={card.face + card.suit} className="card">
+                <div className="card-image" data-face={card.face} data-suit={card.suit}></div>
+                <figcaption tabIndex={0} className="hidden-accessible" aria-label={`Player card: ${card.face} ${card.suit}`}></figcaption>
+              </figure>
             ))}
           </div>
           : null
