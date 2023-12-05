@@ -108,6 +108,7 @@ describe('App', () => {
 
       gameState.dealer.cards.push({ face: '9', suit: 'Spades'});
       gameState.dealer.points = 19;
+      gameState.finished = true;
       const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hold" });
       await userEvent.click(holdButtonElement);
 
@@ -132,6 +133,7 @@ describe('App', () => {
 
       gameState.dealer.cards.push({ face: '9', suit: 'Spades'});
       gameState.dealer.points = 19;
+      gameState.finished = true;
       gameState.winner = "Player1";
       const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hold" });
       await userEvent.click(holdButtonElement);
@@ -187,7 +189,7 @@ describe('App', () => {
       await userEvent.click(newGameElement);
 
 
-      playerCards.push({ face: '9', suit: 'Spades'}, { face: '9', suit: 'Spades'});
+      playerCards.push({ face: '9', suit: 'Spades'}, { face: '9', suit: 'Clubs'});
       gameState.players[0].points = 29;
       gameState.finished = true;
       gameState.winner = "Dealer";

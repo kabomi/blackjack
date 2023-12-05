@@ -8,7 +8,6 @@ import { ActionList } from './components/ActionList.component';
 
 function App() {
   const [started, setStarted] = useState(false);
-  const [finished, setFinished] = useState(false);
   const [isGameLoading, setIsGameLoading] = useState(false);
   const [gameState, setGameState] = useState();
 
@@ -39,7 +38,6 @@ function App() {
       // setTimeout(async () =>{
       const response = await finishGame();
       setGameState(await response.json());
-      setFinished(true);
       //  },1000);
     } catch (ex) {
       console.error(ex);
@@ -54,7 +52,6 @@ function App() {
       // setTimeout(async () =>{
       const response = await hitGame();
       setGameState(await response.json());
-      // setFinished(true);
       //  },1000);
     } catch (ex) {
       console.error(ex);
@@ -70,11 +67,11 @@ function App() {
       <main className="App-main">
         {/* Preload big image */}
         <img src={cardDeck} className="preload-card-deck" alt="Preload card deck" />
-        <Dealer cards={dealerCards} showHand={finished} points={dealerPoints} />
+        <Dealer cards={dealerCards} showHand={gameState?.finished} points={dealerPoints} />
         <Player cards={playerCards} points={playerPoints} />
         <ActionList showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame} onHold={onPlayerHold} onHit={onPlayerHit}/>
       </main>
-      <dialog open={finished}>
+      <dialog open={gameState?.finished}>
         <p>{gameState?.winner} Wins</p>
         <p>Dealer Points: {gameState?.dealer.points}</p>
         <p>Player Points: {gameState?.players[0].points}</p>
