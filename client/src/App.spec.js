@@ -65,6 +65,7 @@ describe('App', () => {
       const points = screen.getByTestId('dealer-points');
       expect(points.textContent).toMatch(/\s/g);
     });
+    // TODO: move this test to Dealer.component.spec.js
     it('should render the dealer card images with the right face and suit attributes', async () => {
       const dealerCards = gameState.dealer.cards;
       render(<App />);
@@ -96,6 +97,7 @@ describe('App', () => {
       const points = screen.getByTestId('player-points');
       expect(points.textContent).toMatch(/\d Points/g);
     });
+    // TODO: move this test to Player.component.spec.js
     it('should render the player card images with the right face and suit attributes', async () => {
       const playerCards = gameState.players[0].cards;
       render(<App />);
