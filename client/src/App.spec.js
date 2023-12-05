@@ -141,4 +141,44 @@ describe('App', () => {
       expect(dialog.textContent).toContain("Player1 Wins");
     });
   });
+  describe('On Hit Action', () => {
+    let gameState;
+    beforeEach(() => {
+      gameState = {
+        id: 'harry',
+        dealer: {
+          cards: [{ face: 'A', suit: 'Spades'}],
+          points: 19,
+        },
+        players: [{
+          cards: [{ face: 'A', suit: 'Clubs'}, { face: '10', suit: 'Clubs'}],
+          points: 21,
+        }]
+      };
+      fetchSpy.mockResolvedValue({
+        json: async () => (gameState)
+      });
+    });
+    it('should update player\'s cards', async () => {
+      const playerCards = gameState.players[0].cards;
+      render(<App />);
+      const newGameElement = within(screen.getByTestId('action-list')).getByRole("button");
+      await userEvent.click(newGameElement);
+
+
+      playerCards.push({ face: '9', suit: 'Spades'});
+      gameState.players[0].points = 20;
+      const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hit" });
+      await userEvent.click(holdButtonElement);
+
+      // Cards
+      expect(screen.getByTestId('player-card-1')).toBeDefined();
+      expect(screen.getByTestId('player-card-2')).toBeDefined();
+      expect(screen.getByTestId('player-card-3')).toBeDefined();
+      expect(screen.queryByTestId('player-card-4')).toBeFalsy();
+      // Points
+      const points = screen.getByTestId('player-points');
+      expect(points.textContent).toContain(`${gameState.players[0].points} Points`);
+    });
+  });
 });
