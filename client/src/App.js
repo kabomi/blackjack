@@ -32,8 +32,8 @@ function App() {
   };
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>BlackJack</h1>
+      <header role="heading" aria-level={1} className="App-header">
+        BlackJack
       </header>
       <main className="App-main">
         {/* Preload big image */}

@@ -2,7 +2,7 @@ import './ActionList.component.css';
 
 export const Actions = ({showGameActions, isLoading, onNewGame}) => {
 
-  return <section className="App-action-list">
+  return <section className="App-action-list" data-testid="action-list">
     {showGameActions ? (
       <>
         <div className="App-action">

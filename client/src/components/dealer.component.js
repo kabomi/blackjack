@@ -5,7 +5,7 @@ export const Dealer = ({dealerFirstCard}) => {
 
   return <>
     <img src={dealerLogo} className="dealer-logo" alt="Dealer" tabIndex={0} />
-    <section className="App-dealer">
+    <section className="App-dealer" data-testid="dealer">
       <label className="points">&nbsp;</label>
       { dealerFirstCard.face ? 
       <div className="dealer-card-list">
