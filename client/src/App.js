@@ -4,6 +4,7 @@ import cardDeck from './card-deck.svg';
 import './App.css';
 import { createGame } from './services/game/game.service';
 import { Dealer } from './components/dealer.component';
+import { Player } from './components/player.component';
 
 function App() {
   const [started, setStarted] = useState(false);
@@ -39,20 +40,7 @@ function App() {
         <img src={cardDeck} className="preload-card-deck" alt="Preload card deck" />
         <img src={dealerLogo} className="dealer-logo" alt="Dealer" tabIndex={0} />
         <Dealer dealerFirstCard={dealerFirstCard}></Dealer>
-        <section className="App-player">
-          <label tabIndex={0} aria-label={`Player points: ${playerPoints ? playerPoints + " Points" : ""}`}>{playerPoints ? playerPoints + " Points" : ""}</label>
-          { playerCards.length > 0 ?
-          <div className="player-card-list">
-            {playerCards.map((card) => (
-              <figure key={card.face + card.suit} className="card">
-                <div className="card-image" data-face={card.face} data-suit={card.suit}></div>
-                <figcaption tabIndex={0} className="hidden-accessible" aria-label={`Player card: ${card.face} ${card.suit}`}></figcaption>
-              </figure>
-            ))}
-          </div>
-          : null
-          }
-        </section>
+        <Player playerCards={playerCards} playerPoints={playerPoints}></Player>
         <section className="App-action-list">
           {started ? (
             <>
