@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import App from './App';
 
 describe('App', () => {
@@ -15,6 +15,11 @@ describe('App', () => {
   
     const actionListElement = screen.getByTestId('action-list');
     expect(actionListElement.textContent).toBeDefined();
-    
+  });
+  it('should render only the new game action', async () => {
+    render(<App />);
+
+    const buttonElement = await within(screen.getByTestId('action-list')).findByRole("button");
+    expect(buttonElement.textContent).toBe('New Game');
   });
 });
