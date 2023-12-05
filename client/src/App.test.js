@@ -35,41 +35,40 @@ describe('App', () => {
     expect(buttonElement.textContent).toBe('New Game');
   });
   describe('On New Game', () => {
-    it('should render the dealers hand', async () => {
-      render(<App />);
-
+    beforeEach(() => {
       fetchSpy.mockResolvedValue({
         json: async () => ({
           id: 'harry',
           dealer: {
             cards: [{ face: 'A', suit: 'Spades'}, { face: '9', suit: 'Spades'}]
-          }
-        })
-      });
-      const newGameElement = await within(screen.getByTestId('action-list')).findByRole("button");
-      await userEvent.click(newGameElement);
-      const dealerFirstCard = await within(screen.getByTestId('dealer')).findByTestId("dealer-card-1");
-      const dealerSecondCard = await within(screen.getByTestId('dealer')).findByTestId("dealer-card-2");
-      expect(dealerFirstCard).toBeDefined();
-      expect(dealerSecondCard).toBeDefined();
-    });
-    it('should render the player\'s hand', async () => {
-      render(<App />);
-
-      fetchSpy.mockResolvedValue({
-        json: async () => ({
-          id: 'harry',
+          },
           players: [{
             cards: [{ face: 'A', suit: 'Spades'}, { face: '9', suit: 'Spades'}]
           }]
         })
       });
+    });
+    it('should render the dealers hand', async () => {
+      render(<App />);
+
       const newGameElement = await within(screen.getByTestId('action-list')).findByRole("button");
       await userEvent.click(newGameElement);
-      const playerFirstCard = await within(screen.getByTestId('player')).findByTestId("player-card-1");
-      const playerSecondCard = await within(screen.getByTestId('player')).findByTestId("player-card-2");
-      expect(playerFirstCard).toBeDefined();
-      expect(playerSecondCard).toBeDefined();
+      
+      const firstCard = await within(screen.getByTestId('dealer')).findByTestId("dealer-card-1");
+      const secondCard = await within(screen.getByTestId('dealer')).findByTestId("dealer-card-2");
+      expect(firstCard).toBeDefined();
+      expect(secondCard).toBeDefined();
+    });
+    it('should render the player\'s hand', async () => {
+      render(<App />);
+
+      const newGameElement = await within(screen.getByTestId('action-list')).findByRole("button");
+      await userEvent.click(newGameElement);
+
+      const firstCard = await within(screen.getByTestId('player')).findByTestId("player-card-1");
+      const secondCard = await within(screen.getByTestId('player')).findByTestId("player-card-2");
+      expect(firstCard).toBeDefined();
+      expect(secondCard).toBeDefined();
     });
   });
 });
