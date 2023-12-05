@@ -5,10 +5,11 @@ import './App.css';
 import { createGame } from './services/game/game.service';
 import { Dealer } from './components/dealer.component';
 import { Player } from './components/player.component';
+import { Actions } from './components/actions.component';
 
 function App() {
   const [started, setStarted] = useState(false);
-  const [gameLoading, setGameLoading] = useState(false);
+  const [isGameLoading, setIsGameLoading] = useState(false);
   const [gameState, setGameState] = useState();
 
   const [dealerFirstCard] = gameState?.dealer?.cards || [{}, {}];
@@ -17,7 +18,7 @@ function App() {
 
   const onCreateNewGame = async () => {
     try {
-      setGameLoading(true);
+      setIsGameLoading(true);
 
       // setTimeout(async () =>{
       const response = await createGame();
@@ -27,7 +28,7 @@ function App() {
     } catch (ex) {
       console.error(ex);
     } finally {
-      setGameLoading(false);
+      setIsGameLoading(false);
     }
   };
   return (
@@ -41,24 +42,7 @@ function App() {
         <img src={dealerLogo} className="dealer-logo" alt="Dealer" tabIndex={0} />
         <Dealer dealerFirstCard={dealerFirstCard}></Dealer>
         <Player playerCards={playerCards} playerPoints={playerPoints}></Player>
-        <section className="App-action-list">
-          {started ? (
-            <>
-              <div className="App-action">
-                <button className="button">Hit</button>
-              </div>
-              <div className="App-action">
-                <button className="button">Hold</button>
-              </div>
-            </>
-          ) : gameLoading ? (
-            <span className="loader"></span>
-          ) : (
-            <div className="App-action">
-              <button className="button" onClick={onCreateNewGame}>New Game</button>
-            </div>
-          )}
-        </section>
+        <Actions showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame}></Actions>
       </main>
     </div>
   );
