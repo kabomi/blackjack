@@ -43,7 +43,8 @@ describe('App', () => {
             cards: [{ face: 'A', suit: 'Spades'}, { face: '9', suit: 'Spades'}]
           },
           players: [{
-            cards: [{ face: 'A', suit: 'Spades'}, { face: '9', suit: 'Spades'}]
+            cards: [{ face: 'A', suit: 'Spades'}, { face: '9', suit: 'Spades'}],
+            points: 18,
           }]
         })
       });
@@ -54,10 +55,29 @@ describe('App', () => {
       const newGameElement = await within(screen.getByTestId('action-list')).findByRole("button");
       await userEvent.click(newGameElement);
       
+      // Cards
       const firstCard = await within(screen.getByTestId('dealer')).findByTestId("dealer-card-1");
       const secondCard = await within(screen.getByTestId('dealer')).findByTestId("dealer-card-2");
       expect(firstCard).toBeDefined();
       expect(secondCard).toBeDefined();
+      // Points
+      const points = await within(screen.getByTestId('dealer')).findByTestId("dealer-points");
+      expect(points.textContent).toMatch(/\s/g);
+    });
+    it('should render the dealer card images with the right face and suit attributes', async () => {
+      render(<App />);
+
+      const newGameElement = await within(screen.getByTestId('action-list')).findByRole("button");
+      await userEvent.click(newGameElement);
+      
+      // Card Images
+      const firstCard = await within(screen.getByTestId('dealer')).findByTestId("dealer-card-1");
+      const secondCard = await within(screen.getByTestId('dealer')).findByTestId("dealer-card-2");
+      const firstCardImage = await within(firstCard).findByRole("img");
+      expect(firstCardImage.getAttribute('data-face')).toEqual('A');
+      expect(firstCardImage.getAttribute('data-suit')).toEqual('Spades');
+      expect(secondCard.getAttribute('data-face')).toBeFalsy();
+      expect(secondCard.getAttribute('data-suit')).toBeFalsy();
     });
     it('should render the player\'s hand', async () => {
       render(<App />);
@@ -65,10 +85,14 @@ describe('App', () => {
       const newGameElement = await within(screen.getByTestId('action-list')).findByRole("button");
       await userEvent.click(newGameElement);
 
+      // Cards
       const firstCard = await within(screen.getByTestId('player')).findByTestId("player-card-1");
       const secondCard = await within(screen.getByTestId('player')).findByTestId("player-card-2");
       expect(firstCard).toBeDefined();
       expect(secondCard).toBeDefined();
+      // Points
+      const points = await within(screen.getByTestId('player')).findByTestId("player-points");
+      expect(points.textContent).toMatch(/\d Points/g);
     });
   });
 });
