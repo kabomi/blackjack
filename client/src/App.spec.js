@@ -180,5 +180,23 @@ describe('App', () => {
       const points = screen.getByTestId('player-points');
       expect(points.textContent).toContain(`${gameState.players[0].points} Points`);
     });
+    it('should show Dealer as the winner if the player is busted', async () => {
+      const playerCards = gameState.players[0].cards;
+      render(<App />);
+      const newGameElement = within(screen.getByTestId('action-list')).getByRole("button");
+      await userEvent.click(newGameElement);
+
+
+      playerCards.push({ face: '9', suit: 'Spades'}, { face: '9', suit: 'Spades'});
+      gameState.players[0].points = 29;
+      gameState.finished = true;
+      gameState.winner = "Dealer";
+      const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hit" });
+      await userEvent.click(holdButtonElement);
+
+      const dialog = screen.getByRole("dialog");
+      expect(dialog).toBeDefined();
+      expect(dialog.textContent).toContain("Dealer Wins");
+    });
   });
 });
