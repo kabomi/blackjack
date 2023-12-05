@@ -53,5 +53,23 @@ describe('App', () => {
       expect(dealerFirstCard).toBeDefined();
       expect(dealerSecondCard).toBeDefined();
     });
+    it('should render the player\'s hand', async () => {
+      render(<App />);
+
+      fetchSpy.mockResolvedValue({
+        json: async () => ({
+          id: 'harry',
+          players: [{
+            cards: [{ face: 'A', suit: 'Spades'}, { face: '9', suit: 'Spades'}]
+          }]
+        })
+      });
+      const newGameElement = await within(screen.getByTestId('action-list')).findByRole("button");
+      await userEvent.click(newGameElement);
+      const playerFirstCard = await within(screen.getByTestId('player')).findByTestId("player-card-1");
+      const playerSecondCard = await within(screen.getByTestId('player')).findByTestId("player-card-2");
+      expect(playerFirstCard).toBeDefined();
+      expect(playerSecondCard).toBeDefined();
+    });
   });
 });
