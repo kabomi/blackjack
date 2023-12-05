@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import dealerLogo from './dealer.svg';
 import cardDeck from './card-deck.svg';
 import './App.css';
 import { createGame } from './services/game/game.service';
-import { Dealer } from './components/dealer.component';
-import { Player } from './components/player.component';
-import { Actions } from './components/actions.component';
+import { Dealer } from './components/Dealer.component';
+import { Player } from './components/Player.component';
+import { Actions } from './components/ActionList.component';
 
 function App() {
   const [started, setStarted] = useState(false);
@@ -39,7 +38,6 @@ function App() {
       <main className="App-main">
         {/* Preload big image */}
         <img src={cardDeck} className="preload-card-deck" alt="Preload card deck" />
-        <img src={dealerLogo} className="dealer-logo" alt="Dealer" tabIndex={0} />
         <Dealer dealerFirstCard={dealerFirstCard}></Dealer>
         <Player playerCards={playerCards} playerPoints={playerPoints}></Player>
         <Actions showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame}></Actions>

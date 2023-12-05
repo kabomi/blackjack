@@ -1,3 +1,5 @@
+import './ActionList.component.css';
+
 export const Actions = ({showGameActions, isLoading, onNewGame}) => {
 
   return <section className="App-action-list">
