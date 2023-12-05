@@ -6,11 +6,11 @@ describe('App', () => {
   /** @type {jest.SpyInstance<Promise<Response>} */
   let fetchSpy;
   beforeEach(() => {
-    fetchSpy = jest.spyOn(window, 'fetch');
     jest.resetAllMocks();
+    fetchSpy = jest.spyOn(window, 'fetch');
   });
   afterAll(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   })
   it('renders the header, the Dealer, the Player and the ActionList', () => {
     render(<App />);
@@ -138,9 +138,10 @@ describe('App', () => {
       const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hold" });
       await userEvent.click(holdButtonElement);
 
-      const dialog = screen.getByRole("dialog");
+      const dialog = screen.getByTestId("game-dialog");
       expect(dialog).toBeDefined();
       expect(dialog.textContent).toContain("Player1 Wins");
+      
     });
   });
   describe('On Hit Action', () => {
@@ -196,7 +197,7 @@ describe('App', () => {
       const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hit" });
       await userEvent.click(holdButtonElement);
 
-      const dialog = screen.getByRole("dialog");
+      const dialog = screen.getByTestId("game-dialog");
       expect(dialog).toBeDefined();
       expect(dialog.textContent).toContain("Dealer Wins");
     });

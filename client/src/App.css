@@ -240,3 +240,16 @@ figure {
 .card-image-hidden {
   background-position: -322px -468px;;
 }
+
+::backdrop {
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(
+    45deg,
+    magenta,
+    rebeccapurple,
+    dodgerblue,
+    green
+  );
+  opacity: 0.75;
+}

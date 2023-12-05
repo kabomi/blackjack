@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import cardDeck from './card-deck.svg';
 import './App.css';
 import { createGame, finishGame, hitGame } from './services/game/game.service';
@@ -10,6 +10,13 @@ function App() {
   const [started, setStarted] = useState(false);
   const [isGameLoading, setIsGameLoading] = useState(false);
   const [gameState, setGameState] = useState();
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    if (gameState?.finished) {
+      dialogRef?.current?.showModal?.();
+    }
+  }, [gameState?.finished]);
 
   const dealerCards = gameState?.dealer?.cards || [{}];
   const dealerPoints = gameState?.dealer?.points;
@@ -19,7 +26,6 @@ function App() {
   const onCreateNewGame = async () => {
     try {
       setIsGameLoading(true);
-
       // setTimeout(async () =>{
       const response = await createGame();
       setGameState(await response.json());
@@ -71,12 +77,12 @@ function App() {
         <Player cards={playerCards} points={playerPoints} />
         <ActionList showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame} onHold={onPlayerHold} onHit={onPlayerHit}/>
       </main>
-      <dialog open={gameState?.finished}>
+      <dialog data-testid="game-dialog" ref={dialogRef}>
         <p>{gameState?.winner} Wins</p>
         <p>Dealer Points: {gameState?.dealer.points}</p>
         <p>Player Points: {gameState?.players[0].points}</p>
         <form method="dialog">
-          <button>New Game</button>
+          <button autoFocus>New Game</button>
         </form>
       </dialog>
     </div>
