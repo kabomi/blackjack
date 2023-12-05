@@ -51,8 +51,6 @@ describe('App', () => {
     });
     it('should render the dealers hand (only one card visible)', async () => {
       render(<App />);
-      
-
       const newGameElement = within(screen.getByTestId('action-list')).getByRole("button");
       await userEvent.click(newGameElement);
       
@@ -80,24 +78,6 @@ describe('App', () => {
       const points = screen.getByTestId('player-points');
       expect(points.textContent).toMatch(/\d Points/g);
     });
-    // TODO: move this test to Player.component.spec.js
-    it('should render the player card images with the right face and suit attributes', async () => {
-      const playerCards = gameState.players[0].cards;
-      render(<App />);
-
-      const newGameElement = within(screen.getByTestId('action-list')).getByRole("button");
-      await userEvent.click(newGameElement);
-      
-      // Card Images
-      const firstCard = screen.getByTestId('player-card-1');
-      const secondCard = screen.getByTestId('player-card-2');
-      const firstCardImage = within(firstCard).getByRole("img");
-      const secondCardImage = within(secondCard).getByRole("img");
-      expect(firstCardImage.getAttribute('data-face')).toEqual(playerCards[0].face);
-      expect(firstCardImage.getAttribute('data-suit')).toEqual(playerCards[0].suit);
-      expect(secondCardImage.getAttribute('data-face')).toEqual(playerCards[1].face);
-      expect(secondCardImage.getAttribute('data-suit')).toEqual(playerCards[1].suit);
-    });
   });
   describe('On Hold Action', () => {
     let gameState;
@@ -117,6 +97,7 @@ describe('App', () => {
         json: async () => (gameState)
       });
     });
+    // TODO: we could mock the dealer component to simplify
     it('should show the dealers hand and points', async () => {
       const dealerCards = gameState.dealer.cards;
       const dealerPoints = gameState.dealer.points;
