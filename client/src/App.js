@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import dealerLogo from './dealer.svg';
+import cardDeck from './card-deck.svg';
 import './App.css';
 import { createGame } from './services/game/game.service';
 
@@ -7,6 +8,10 @@ function App() {
   const [started, setStarted] = useState(false);
   const [gameLoading, setGameLoading] = useState(false);
   const [gameState, setGameState] = useState();
+
+  const [dealerFirstCard] = gameState?.dealer?.cards || [{}, {}];
+  const playerCards = gameState?.players?.[0]?.cards || [];
+  const playerPoints = gameState?.players?.[0]?.points;
 
   const onCreateNewGame = async () => {
     try {
@@ -29,43 +34,51 @@ function App() {
         <h1>BlackJack</h1>
       </header>
       <main className="App-main">
+        {/* Preload big image */}
+        <img src={cardDeck} className="preload-card-deck" alt="Preload card deck" />
         <img src={dealerLogo} className="dealer-logo" alt="Dealer" />
         <section className="App-dealer">
           <article className="points">&nbsp;</article>
+          { dealerFirstCard.face ? 
           <div className="dealer-card-list">
-            {gameState?.dealer?.cards.map((card, index) => {
-              if (index === 0) {
-               return <>
-                <article key={card.face + card.suit} className="card">{card.face} {card.suit}</article>
-                <article className="card card-hidden"></article>
-               </>
-              }
-            })}
+            <article key={dealerFirstCard.face + dealerFirstCard.suit} className="card">
+              <div className="card-image" data-face={dealerFirstCard.face} data-suit={dealerFirstCard.suit} alt={"Dealer card: " + dealerFirstCard.face + dealerFirstCard.suit}></div>
+            </article>
+            <article className="card">
+              <div className="card-image card-image-hidden"></div>
+            </article>
           </div>
+          : null
+          }
         </section>
         <section className="App-player">
-          <article>{gameState?.players?.[0].points ? gameState?.players?.[0].points + " Points" : ""}</article>
+          <article>{playerPoints ? playerPoints + " Points" : ""}</article>
+          { playerCards.length > 0 ?
           <div className="player-card-list">
-            {gameState?.players?.[0].cards.map((card) => (
-              <article key={card.face + card.suit} className="card">{card.face} {card.suit}</article>
+            {playerCards.map((card) => (
+              <article key={card.face + card.suit} className="card">
+                <div className="card-image" data-face={card.face} data-suit={card.suit} alt={"Player card: " + card.face + card.suit}></div>
+              </article>
             ))}
           </div>
+          : null
+          }
         </section>
         <section className="App-action-list">
           {started ? (
             <>
               <div className="App-action">
-                <button>Hit</button>
+                <button className="button">Hit</button>
               </div>
               <div className="App-action">
-                <button>Hold</button>
+                <button className="button">Hold</button>
               </div>
             </>
           ) : gameLoading ? (
             <span className="loader"></span>
           ) : (
             <div className="App-action">
-              <button onClick={onCreateNewGame}>New Game</button>
+              <button className="button" onClick={onCreateNewGame}>New Game</button>
             </div>
           )}
         </section>

@@ -5,6 +5,10 @@
   overflow: hidden;
 }
 
+.preload-card-deck {
+  display: none;
+}
+
 .dealer-logo {
   margin-top: 2vmin;
   height: 12vmin;
@@ -46,7 +50,7 @@
   height: 30vh;
 }
 .dealer-card-list, .player-card-list {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -55,10 +59,193 @@
 }
 
 .card {
-  flex-basis: 25%;
+
+}
+
+.card-image {
+  width: 20vw;
+  height: 30vh;
+  background-image: url('./card-deck.svg');
+  background-repeat: no-repeat;
+  background-size: 1300%;
+  background-position: 0px 0px;
+  width: 80px;
+  height: 120px;
+}
+
+/** Generate images from sprite algorithm
+['Spades', 'Hearts', 'Diamonds', 'Clubs'].map((suit, suitIndex) => {
+	return ['A','2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'].map((kind, index) => {
+  	return `.card-image[data-face="${kind}"][data-suit="${suit}"] {
+  background-position: -${(80*(index) + 2) - 0.1*(index)}px -${(suitIndex * 117) - (0.5 + 1/(index + 1))}px;
+}`
+}).join("\n")
+}).join("\n") 
+*/
+.card-image[data-face="A"][data-suit="Spades"] {
+  background-position: -2px -1.5px;
+}
+.card-image[data-face="2"][data-suit="Spades"] {
+  background-position: -81.9px -1.5px;
+}
+.card-image[data-face="3"][data-suit="Spades"] {
+  background-position: -161.8px -1.5px;
+}
+.card-image[data-face="4"][data-suit="Spades"] {
+  background-position: -241.7px -1.5px;
+}
+.card-image[data-face="5"][data-suit="Spades"] {
+  background-position: -321.6px -1.5px;
+}
+.card-image[data-face="6"][data-suit="Spades"] {
+  background-position: -401.5px -1.5px;
+}
+.card-image[data-face="7"][data-suit="Spades"] {
+  background-position: -481.4px -1.5px;
+}
+.card-image[data-face="8"][data-suit="Spades"] {
+  background-position: -561.3px -1.5px;
+}
+.card-image[data-face="9"][data-suit="Spades"] {
+  background-position: -641.2px -1.5px;
+}
+.card-image[data-face="10"][data-suit="Spades"] {
+  background-position: -721.1px -1.5px;
+}
+.card-image[data-face="J"][data-suit="Spades"] {
+  background-position: -801px -1.5px;
+}
+.card-image[data-face="Q"][data-suit="Spades"] {
+  background-position: -880.9px -1.5px;
+}
+.card-image[data-face="K"][data-suit="Spades"] {
+  background-position: -960.8px -1.5px;
+}
+.card-image[data-face="A"][data-suit="Hearts"] {
+  background-position: -2px -115.5px;
+}
+.card-image[data-face="2"][data-suit="Hearts"] {
+  background-position: -81.9px -116px;
+}
+.card-image[data-face="3"][data-suit="Hearts"] {
+  background-position: -161.8px -116.16666666666667px;
+}
+.card-image[data-face="4"][data-suit="Hearts"] {
+  background-position: -241.7px -116.25px;
+}
+.card-image[data-face="5"][data-suit="Hearts"] {
+  background-position: -321.6px -116.3px;
+}
+.card-image[data-face="6"][data-suit="Hearts"] {
+  background-position: -401.5px -116.33333333333333px;
+}
+.card-image[data-face="7"][data-suit="Hearts"] {
+  background-position: -481.4px -116.35714285714286px;
+}
+.card-image[data-face="8"][data-suit="Hearts"] {
+  background-position: -561.3px -116.375px;
+}
+.card-image[data-face="9"][data-suit="Hearts"] {
+  background-position: -641.2px -116.38888888888889px;
+}
+.card-image[data-face="10"][data-suit="Hearts"] {
+  background-position: -721.1px -116.4px;
+}
+.card-image[data-face="J"][data-suit="Hearts"] {
+  background-position: -801px -116.4090909090909px;
+}
+.card-image[data-face="Q"][data-suit="Hearts"] {
+  background-position: -880.9px -116.41666666666667px;
+}
+.card-image[data-face="K"][data-suit="Hearts"] {
+  background-position: -960.8px -116.42307692307692px;
+}
+.card-image[data-face="A"][data-suit="Diamonds"] {
+  background-position: -2px -232.5px;
+}
+.card-image[data-face="2"][data-suit="Diamonds"] {
+  background-position: -81.9px -233px;
+}
+.card-image[data-face="3"][data-suit="Diamonds"] {
+  background-position: -161.8px -233.16666666666666px;
+}
+.card-image[data-face="4"][data-suit="Diamonds"] {
+  background-position: -241.7px -233.25px;
+}
+.card-image[data-face="5"][data-suit="Diamonds"] {
+  background-position: -321.6px -233.3px;
+}
+.card-image[data-face="6"][data-suit="Diamonds"] {
+  background-position: -401.5px -233.33333333333334px;
+}
+.card-image[data-face="7"][data-suit="Diamonds"] {
+  background-position: -481.4px -233.35714285714286px;
+}
+.card-image[data-face="8"][data-suit="Diamonds"] {
+  background-position: -561.3px -233.375px;
+}
+.card-image[data-face="9"][data-suit="Diamonds"] {
+  background-position: -641.2px -233.38888888888889px;
+}
+.card-image[data-face="10"][data-suit="Diamonds"] {
+  background-position: -721.1px -233.4px;
+}
+.card-image[data-face="J"][data-suit="Diamonds"] {
+  background-position: -801px -233.4090909090909px;
+}
+.card-image[data-face="Q"][data-suit="Diamonds"] {
+  background-position: -880.9px -233.41666666666666px;
+}
+.card-image[data-face="K"][data-suit="Diamonds"] {
+  background-position: -960.8px -233.42307692307693px;
+}
+.card-image[data-face="A"][data-suit="Clubs"] {
+  background-position: -2px -349.5px;
+}
+.card-image[data-face="2"][data-suit="Clubs"] {
+  background-position: -81.9px -350px;
+}
+.card-image[data-face="3"][data-suit="Clubs"] {
+  background-position: -161.8px -350.1666666666667px;
+}
+.card-image[data-face="4"][data-suit="Clubs"] {
+  background-position: -241.7px -350.25px;
+}
+.card-image[data-face="5"][data-suit="Clubs"] {
+  background-position: -321.6px -350.3px;
+}
+.card-image[data-face="6"][data-suit="Clubs"] {
+  background-position: -401.5px -350.3333333333333px;
+}
+.card-image[data-face="7"][data-suit="Clubs"] {
+  background-position: -481.4px -350.35714285714283px;
+}
+.card-image[data-face="8"][data-suit="Clubs"] {
+  background-position: -561.3px -350.375px;
+}
+.card-image[data-face="9"][data-suit="Clubs"] {
+  background-position: -641.2px -350.3888888888889px;
+}
+.card-image[data-face="10"][data-suit="Clubs"] {
+  background-position: -721.1px -350.4px;
+}
+.card-image[data-face="J"][data-suit="Clubs"] {
+  background-position: -801px -350.40909090909093px;
+}
+.card-image[data-face="Q"][data-suit="Clubs"] {
+  background-position: -880.9px -350.4166666666667px;
+}
+.card-image[data-face="K"][data-suit="Clubs"] {
+  background-position: -960.8px -350.4230769230769px;
+}
+
+.card-image-hidden {
+  background-position: -322px -468px;;
 }
 
 .App-action-list {
+  position: fixed;
+  bottom: 0vh;
   height: 15vh;
   width: 100%;
   display: flex;
@@ -71,9 +258,34 @@
   flex: 1;
 }
 
-button {
-  width: 20vw;
-  height: 5vw;
+.button {
+	box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	background-color:#768d87;
+	border-radius:5px;
+	border:1px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:11px 23px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #2b665e;
+}
+.button:hover {
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	background-color:#6c7c7c;
+}
+.button:active {
+	position:relative;
+	top:1px;
+}
+
+.button {
+  min-width: 20vh;
+  min-height: 5vw;
   font-size: calc(10px + 1vmin);
   text-transform: uppercase;
 }
