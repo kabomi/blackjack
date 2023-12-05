@@ -1,10 +1,10 @@
-export const Player = ({playerCards, playerPoints}) => {
+export const Player = ({cards, points}) => {
 
   return <section className="App-player" data-testid="player">
-    <label tabIndex={0} data-testid="player-points" aria-label={`Player points: ${playerPoints ? playerPoints + " Points" : ""}`}>{playerPoints ? playerPoints + " Points" : ""}</label>
-    { playerCards.length > 0 ?
+    <label tabIndex={0} data-testid="player-points" aria-label={`Player points: ${points ? points + " Points" : ""}`}>{points ? points + " Points" : ""}</label>
+    { cards.length > 0 ?
     <div className="player-card-list">
-      {playerCards.map((card,i) => (
+      {cards.map((card,i) => (
         <figure role="figure" key={card.face + card.suit} className="card" data-testid={`player-card-${i + 1}`}>
           <div role="img" className="card-image" data-face={card.face} data-suit={card.suit}></div>
           <figcaption tabIndex={0} className="hidden-accessible" aria-label={`Player card: ${card.face} ${card.suit}`}></figcaption>

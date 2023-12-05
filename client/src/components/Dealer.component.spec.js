@@ -11,7 +11,7 @@ describe('Dealer', () => {
   });
   describe('When showHand is NOT activated', () => {
     it('should render the first card image with the right face and suit attributes', async () => {
-      render(<Dealer dealerCards={dealer.cards} />);
+      render(<Dealer cards={dealer.cards} />);
       
       const firstCard = screen.getByTestId('dealer-card-1');
       const firstCardImage = within(firstCard).getByRole("img");
@@ -19,14 +19,14 @@ describe('Dealer', () => {
       expect(firstCardImage.getAttribute('data-suit')).toEqual(dealer.cards[0].suit);
     });
     it('should render the second card image hidden', async () => {
-      render(<Dealer dealerCards={dealer.cards} />);
+      render(<Dealer cards={dealer.cards} />);
       
       const secondCard = screen.getByTestId('dealer-card-2');
       expect(secondCard.getAttribute('data-face')).toBeFalsy();
       expect(secondCard.getAttribute('data-suit')).toBeFalsy();
     });
     it('should not render points', async () => {
-      render(<Dealer dealerCards={dealer.cards} dealerPoints={dealer.points} />);
+      render(<Dealer cards={dealer.cards} dealerPoints={dealer.points} />);
       
       const points = screen.getByTestId('dealer-points');
       expect(points.textContent).toContain(" ");
@@ -34,7 +34,7 @@ describe('Dealer', () => {
   });
   describe('When showHand is activated', () => {
     it('should render card images with the right face and suit attributes', async () => {
-      render(<Dealer dealerCards={dealer.cards} showHand={true} />);
+      render(<Dealer cards={dealer.cards} showHand={true} />);
       
       // Card Images
       const firstCard = screen.getByTestId('dealer-card-1');
@@ -47,7 +47,7 @@ describe('Dealer', () => {
       expect(secondCardImage.getAttribute('data-suit')).toEqual(dealer.cards[1].suit);
     });
     it('should render points', async () => {
-      render(<Dealer dealerCards={dealer.cards} showHand={true} dealerPoints={dealer.points} />);
+      render(<Dealer cards={dealer.cards} showHand={true} points={dealer.points} />);
       
       const points = screen.getByTestId('dealer-points');
       expect(points.textContent).toContain(`${dealer.points} Points`);

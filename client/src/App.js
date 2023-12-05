@@ -55,8 +55,8 @@ function App() {
       <main className="App-main">
         {/* Preload big image */}
         <img src={cardDeck} className="preload-card-deck" alt="Preload card deck" />
-        <Dealer dealerCards={dealerCards} showHand={finished} dealerPoints={dealerPoints} />
-        <Player playerCards={playerCards} playerPoints={playerPoints} />
+        <Dealer cards={dealerCards} showHand={finished} points={dealerPoints} />
+        <Player cards={playerCards} points={playerPoints} />
         <ActionList showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame} onHold={onPlayerHold}/>
       </main>
     </div>
