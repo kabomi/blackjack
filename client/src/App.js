@@ -3,6 +3,7 @@ import dealerLogo from './dealer.svg';
 import cardDeck from './card-deck.svg';
 import './App.css';
 import { createGame } from './services/game/game.service';
+import { Dealer } from './components/dealer.component';
 
 function App() {
   const [started, setStarted] = useState(false);
@@ -37,22 +38,7 @@ function App() {
         {/* Preload big image */}
         <img src={cardDeck} className="preload-card-deck" alt="Preload card deck" />
         <img src={dealerLogo} className="dealer-logo" alt="Dealer" tabIndex={0} />
-        <section className="App-dealer">
-          <label className="points">&nbsp;</label>
-          { dealerFirstCard.face ? 
-          <div className="dealer-card-list">
-            <figure key={dealerFirstCard.face + dealerFirstCard.suit} className="card">
-              <div className="card-image" data-face={dealerFirstCard.face} data-suit={dealerFirstCard.suit}></div>
-              <figcaption tabIndex={0} className="hidden-accessible" aria-label={`Dealer card: ${dealerFirstCard.face} ${dealerFirstCard.suit}`}></figcaption>
-            </figure>
-            <figure className="card">
-              <div className="card-image card-image-hidden"></div>
-              <figcaption tabIndex={0} className="hidden-accessible" aria-label="Dealer card: hidden"></figcaption>
-            </figure>
-          </div>
-          : null
-          }
-        </section>
+        <Dealer dealerFirstCard={dealerFirstCard}></Dealer>
         <section className="App-player">
           <label tabIndex={0} aria-label={`Player points: ${playerPoints ? playerPoints + " Points" : ""}`}>{playerPoints ? playerPoints + " Points" : ""}</label>
           { playerCards.length > 0 ?
