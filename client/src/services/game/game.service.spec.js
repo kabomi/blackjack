@@ -1,4 +1,4 @@
-const { createGame, GAME_URL } = require("./game.service");
+const { createGame, GAME_URL, finishGame } = require("./game.service");
 
 describe('Game Service', () => {
   /** @type {jest.SpyInstance<Promise<Response>} */
@@ -16,6 +16,19 @@ describe('Game Service', () => {
 
     expect(fetchSpy).toHaveBeenCalledWith(GAME_URL, expect.objectContaining({
       method: 'POST',
+      headers: expect.objectContaining({
+        'Content-Type': 'application/json'
+      })
+    }));
+    expect(response).toBeDefined();
+  });
+  it('finishes a game', async () => {
+    fetchSpy.mockResolvedValue({});
+    const id = 'harry';
+    const response = await finishGame(id);
+
+    expect(fetchSpy).toHaveBeenCalledWith(`${GAME_URL}/${id}/hold`, expect.objectContaining({
+      method: 'PATCH',
       headers: expect.objectContaining({
         'Content-Type': 'application/json'
       })
