@@ -38,18 +38,18 @@ describe('App', () => {
       gameState = {
         id: 'harry',
         dealer: {
-          cards: [{ face: 'A', suit: 'Spades'}, { face: '9', suit: 'Spades'}]
+          cards: [{ face: 'A', suit: 'Spades'}]
         },
         players: [{
           cards: [{ face: 'A', suit: 'Clubs'}, { face: '10', suit: 'Clubs'}],
-          points: 18,
+          points: 21,
         }]
       };
       fetchSpy.mockResolvedValue({
         json: async () => (gameState)
       });
     });
-    it('should render the dealers hand', async () => {
+    it('should render the dealers hand (only one card visible)', async () => {
       render(<App />);
       
 
@@ -114,6 +114,51 @@ describe('App', () => {
       expect(firstCardImage.getAttribute('data-suit')).toEqual(playerCards[0].suit);
       expect(secondCardImage.getAttribute('data-face')).toEqual(playerCards[1].face);
       expect(secondCardImage.getAttribute('data-suit')).toEqual(playerCards[1].suit);
+    });
+  });
+  describe('On Hold Action', () => {
+    let gameState;
+    beforeEach(() => {
+      gameState = {
+        id: 'harry',
+        dealer: {
+          cards: [{ face: 'A', suit: 'Spades'}],
+          points: 19,
+        },
+        players: [{
+          cards: [{ face: 'A', suit: 'Clubs'}, { face: '10', suit: 'Clubs'}],
+          points: 21,
+        }]
+      };
+      fetchSpy.mockResolvedValue({
+        json: async () => (gameState)
+      });
+    });
+    it('should show the dealers hand and points', async () => {
+      const dealerCards = gameState.dealer.cards;
+      const dealerPoints = gameState.dealer.points;
+      render(<App />);
+      const newGameElement = within(screen.getByTestId('action-list')).getByRole("button");
+      await userEvent.click(newGameElement);
+
+
+      gameState.dealer.cards.push({ face: '9', suit: 'Spades'});
+      gameState.dealer.points = 19;
+      const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hold" });
+      await userEvent.click(holdButtonElement);
+
+      // Cards
+      const firstCard = screen.getByTestId('dealer-card-1');
+      const secondCard = screen.getByTestId('dealer-card-2');
+      const firstCardImage = within(firstCard).getByRole("img");
+      const secondCardImage = within(secondCard).getByRole("img");
+      expect(firstCardImage.getAttribute('data-face')).toEqual(dealerCards[0].face);
+      expect(firstCardImage.getAttribute('data-suit')).toEqual(dealerCards[0].suit);
+      expect(secondCardImage.getAttribute('data-face')).toEqual(dealerCards[1].face);
+      expect(secondCardImage.getAttribute('data-suit')).toEqual(dealerCards[1].suit);
+      // Points
+      const points = screen.getByTestId('dealer-points');
+      expect(points.textContent).toContain(`${dealerPoints} Points`);
     });
   });
 });
