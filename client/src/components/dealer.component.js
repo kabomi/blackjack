@@ -9,11 +9,11 @@ export const Dealer = ({dealerFirstCard}) => {
       <label className="points">&nbsp;</label>
       { dealerFirstCard.face ? 
       <div className="dealer-card-list">
-        <figure key={dealerFirstCard.face + dealerFirstCard.suit} className="card">
+        <figure role="figure" key={dealerFirstCard.face + dealerFirstCard.suit} className="card" data-testid="dealer-card-1">
           <div className="card-image" data-face={dealerFirstCard.face} data-suit={dealerFirstCard.suit}></div>
           <figcaption tabIndex={0} className="hidden-accessible" aria-label={`Dealer card: ${dealerFirstCard.face} ${dealerFirstCard.suit}`}></figcaption>
         </figure>
-        <figure className="card">
+        <figure role="figure" className="card" data-testid="dealer-card-2">
           <div className="card-image card-image-hidden"></div>
           <figcaption tabIndex={0} className="hidden-accessible" aria-label="Dealer card: hidden"></figcaption>
         </figure>
