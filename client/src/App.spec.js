@@ -65,23 +65,6 @@ describe('App', () => {
       const points = screen.getByTestId('dealer-points');
       expect(points.textContent).toMatch(/\s/g);
     });
-    // TODO: move this test to Dealer.component.spec.js
-    it('should render the dealer card images with the right face and suit attributes', async () => {
-      const dealerCards = gameState.dealer.cards;
-      render(<App />);
-
-      const newGameElement = within(screen.getByTestId('action-list')).getByRole("button");
-      await userEvent.click(newGameElement);
-      
-      // Card Images
-      const firstCard = screen.getByTestId('dealer-card-1');
-      const secondCard = screen.getByTestId('dealer-card-2');
-      const firstCardImage = within(firstCard).getByRole("img");
-      expect(firstCardImage.getAttribute('data-face')).toEqual(dealerCards[0].face);
-      expect(firstCardImage.getAttribute('data-suit')).toEqual(dealerCards[0].suit);
-      expect(secondCard.getAttribute('data-face')).toBeFalsy();
-      expect(secondCard.getAttribute('data-suit')).toBeFalsy();
-    });
     it('should render the player\'s hand', async () => {
       render(<App />);
 
