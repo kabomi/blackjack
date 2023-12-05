@@ -3,6 +3,14 @@ const express = require('express');
 
 const app = express();
 
+if (process.env.ENV === 'development') {
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+  });
+}
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
