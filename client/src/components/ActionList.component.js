@@ -1,6 +1,6 @@
 import './ActionList.component.css';
 
-export const ActionList = ({showGameActions, isLoading, onNewGame}) => {
+export const ActionList = ({showGameActions, isLoading, onNewGame, onHold}) => {
 
   return <section className="App-action-list" data-testid="action-list">
     {showGameActions ? (
@@ -9,7 +9,7 @@ export const ActionList = ({showGameActions, isLoading, onNewGame}) => {
           <button className="button">Hit</button>
         </div>
         <div className="App-action">
-          <button className="button">Hold</button>
+          <button className="button" onClick={onHold}>Hold</button>
         </div>
       </>
     ) : isLoading ? (

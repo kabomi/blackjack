@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import cardDeck from './card-deck.svg';
 import './App.css';
-import { createGame } from './services/game/game.service';
+import { createGame, finishGame } from './services/game/game.service';
 import { Dealer } from './components/Dealer.component';
 import { Player } from './components/Player.component';
 import { ActionList } from './components/ActionList.component';
 
 function App() {
   const [started, setStarted] = useState(false);
+  const [finished, setFinished] = useState(false);
   const [isGameLoading, setIsGameLoading] = useState(false);
   const [gameState, setGameState] = useState();
 
-  const [dealerFirstCard] = gameState?.dealer?.cards || [{}, {}];
+  const dealerCards = gameState?.dealer?.cards || [{}];
+  const dealerPoints = gameState?.dealer?.points;
   const playerCards = gameState?.players?.[0]?.cards || [];
   const playerPoints = gameState?.players?.[0]?.points;
 
@@ -30,6 +32,21 @@ function App() {
       setIsGameLoading(false);
     }
   };
+  const onPlayerHold = async () => {
+    try {
+      setIsGameLoading(true);
+
+      // setTimeout(async () =>{
+      const response = await finishGame();
+      setGameState(await response.json());
+      setFinished(true);
+      //  },1000);
+    } catch (ex) {
+      console.error(ex);
+    } finally {
+      setIsGameLoading(false);
+    }
+  };
   return (
     <div className="App">
       <header role="heading" aria-level={1} className="App-header">
@@ -38,9 +55,9 @@ function App() {
       <main className="App-main">
         {/* Preload big image */}
         <img src={cardDeck} className="preload-card-deck" alt="Preload card deck" />
-        <Dealer dealerFirstCard={dealerFirstCard} />
+        <Dealer dealerCards={dealerCards} showHand={finished} dealerPoints={dealerPoints} />
         <Player playerCards={playerCards} playerPoints={playerPoints} />
-        <ActionList showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame} />
+        <ActionList showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame} onHold={onPlayerHold}/>
       </main>
     </div>
   );

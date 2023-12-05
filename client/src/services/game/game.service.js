@@ -7,3 +7,11 @@ export const createGame = () => {
     },
   });
 };
+export const finishGame = () => {
+  return fetch(GAME_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
+}
