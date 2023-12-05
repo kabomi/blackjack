@@ -94,5 +94,21 @@ describe('App', () => {
       const points = await within(screen.getByTestId('player')).findByTestId("player-points");
       expect(points.textContent).toMatch(/\d Points/g);
     });
+    it('should render the player card images with the right face and suit attributes', async () => {
+      render(<App />);
+
+      const newGameElement = await within(screen.getByTestId('action-list')).findByRole("button");
+      await userEvent.click(newGameElement);
+      
+      // Card Images
+      const firstCard = await within(screen.getByTestId('player')).findByTestId("player-card-1");
+      const secondCard = await within(screen.getByTestId('player')).findByTestId("player-card-2");
+      const firstCardImage = await within(firstCard).findByRole("img");
+      const secondCardImage = await within(secondCard).findByRole("img");
+      expect(firstCardImage.getAttribute('data-face')).toEqual('A');
+      expect(firstCardImage.getAttribute('data-suit')).toEqual('Clubs');
+      expect(secondCardImage.getAttribute('data-face')).toEqual('10');
+      expect(secondCardImage.getAttribute('data-suit')).toEqual('Clubs');
+    });
   });
 });

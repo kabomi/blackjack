@@ -1,7 +1,7 @@
 export const Player = ({playerCards, playerPoints}) => {
 
   return <section className="App-player" data-testid="player">
-    <label tabIndex={0} aria-label={`Player points: ${playerPoints ? playerPoints + " Points" : ""}`}>{playerPoints ? playerPoints + " Points" : ""}</label>
+    <label tabIndex={0} data-testid="player-points" aria-label={`Player points: ${playerPoints ? playerPoints + " Points" : ""}`}>{playerPoints ? playerPoints + " Points" : ""}</label>
     { playerCards.length > 0 ?
     <div className="player-card-list">
       {playerCards.map((card,i) => (
