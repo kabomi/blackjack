@@ -132,12 +132,13 @@ describe('App', () => {
 
       gameState.dealer.cards.push({ face: '9', suit: 'Spades'});
       gameState.dealer.points = 19;
+      gameState.winner = "Player1";
       const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hold" });
       await userEvent.click(holdButtonElement);
 
       const dialog = screen.getByRole("dialog");
       expect(dialog).toBeDefined();
-      expect(dialog.textContent).toContain("Player Wins");
+      expect(dialog.textContent).toContain("Player1 Wins");
     });
   });
 });

@@ -59,6 +59,14 @@ function App() {
         <Player cards={playerCards} points={playerPoints} />
         <ActionList showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame} onHold={onPlayerHold}/>
       </main>
+      <dialog open={finished}>
+        <p>{gameState?.winner} Wins</p>
+        <p>Dealer Points: {gameState?.dealer.points}</p>
+        <p>Player Points: {gameState?.players[0].points}</p>
+        <form method="dialog">
+          <button>New Game</button>
+        </form>
+      </dialog>
     </div>
   );
 }
