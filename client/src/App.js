@@ -4,7 +4,7 @@ import './App.css';
 import { createGame } from './services/game/game.service';
 import { Dealer } from './components/Dealer.component';
 import { Player } from './components/Player.component';
-import { Actions } from './components/ActionList.component';
+import { ActionList } from './components/ActionList.component';
 
 function App() {
   const [started, setStarted] = useState(false);
@@ -38,9 +38,9 @@ function App() {
       <main className="App-main">
         {/* Preload big image */}
         <img src={cardDeck} className="preload-card-deck" alt="Preload card deck" />
-        <Dealer dealerFirstCard={dealerFirstCard}></Dealer>
-        <Player playerCards={playerCards} playerPoints={playerPoints}></Player>
-        <Actions showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame}></Actions>
+        <Dealer dealerFirstCard={dealerFirstCard} />
+        <Player playerCards={playerCards} playerPoints={playerPoints} />
+        <ActionList showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame} />
       </main>
     </div>
   );

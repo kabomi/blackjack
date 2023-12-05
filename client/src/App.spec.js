@@ -29,9 +29,7 @@ describe('App', () => {
   it('should render only the new game action', async () => {
     render(<App />);
 
-    
-
-    const buttonElement = await within(screen.getByTestId('action-list')).findByRole("button");
+    const buttonElement = within(screen.getByTestId('action-list')).getByRole("button");
     expect(buttonElement.textContent).toBe('New Game');
   });
   describe('On New Game', () => {

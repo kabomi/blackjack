@@ -1,6 +1,6 @@
 import './ActionList.component.css';
 
-export const Actions = ({showGameActions, isLoading, onNewGame}) => {
+export const ActionList = ({showGameActions, isLoading, onNewGame}) => {
 
   return <section className="App-action-list" data-testid="action-list">
     {showGameActions ? (
