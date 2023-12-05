@@ -1,12 +1,12 @@
 import './ActionList.component.css';
 
-export const ActionList = ({showGameActions, isLoading, onNewGame, onHold}) => {
+export const ActionList = ({showGameActions, isLoading, onNewGame, onHold, onHit}) => {
 
   return <section className="App-action-list" data-testid="action-list">
     {showGameActions ? (
       <>
         <div className="App-action">
-          <button className="button">Hit</button>
+          <button className="button" onClick={onHit}>Hit</button>
         </div>
         <div className="App-action">
           <button className="button" onClick={onHold}>Hold</button>

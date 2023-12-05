@@ -15,3 +15,11 @@ export const finishGame = (id) => {
     },
   });
 }
+export const hitGame = (id) => {
+  return fetch(`${GAME_URL}/${id}/hit`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  });
+}
