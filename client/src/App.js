@@ -1,22 +1,16 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import cardDeck from './card-deck.svg';
 import './App.css';
 import { createGame, finishGame, hitGame } from './services/game/game.service';
 import { Dealer } from './components/Dealer.component';
 import { Player } from './components/Player.component';
 import { ActionList } from './components/ActionList.component';
+import { Dialog } from './components/Dialog.component';
 
 function App() {
   const [started, setStarted] = useState(false);
   const [isGameLoading, setIsGameLoading] = useState(false);
   const [gameState, setGameState] = useState();
-  const dialogRef = useRef(null);
-
-  useEffect(() => {
-    if (gameState?.finished) {
-      dialogRef?.current?.showModal?.();
-    }
-  }, [gameState?.finished]);
 
   const dealerCards = gameState?.dealer?.cards || [{}];
   const dealerPoints = gameState?.dealer?.points;
@@ -77,14 +71,15 @@ function App() {
         <Player cards={playerCards} points={playerPoints} />
         <ActionList showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame} onHold={onPlayerHold} onHit={onPlayerHit}/>
       </main>
-      <dialog data-testid="game-dialog" ref={dialogRef}>
-        <p>{gameState?.winner} Wins</p>
-        <p>Dealer Points: {gameState?.dealer.points}</p>
-        <p>Player Points: {gameState?.players[0].points}</p>
-        <form method="dialog">
-          <button autoFocus>New Game</button>
-        </form>
-      </dialog>
+      <Dialog dataTestId="game-dialog" showModal={gameState?.finished}
+        content={<>
+          <p>{gameState?.winner} Wins</p>
+          <p>Dealer Points: {gameState?.dealer.points}</p>
+          <p>Player Points: {gameState?.players[0].points}</p>
+        </>}
+        contentActions={
+          <button autoFocus onClick={onCreateNewGame}>New Game</button>
+        } />
     </div>
   );
 }
