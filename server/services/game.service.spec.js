@@ -2,7 +2,11 @@ const Game = require('../models/game.class.js');
 const dbConnection = require('../persistance/dbConnection');
 
 jest.mock('../persistance/dbConnection', () => {
-  const dbClient = { create: jest.fn(), get: jest.fn(), update: jest.fn() };
+  const dbClient = {
+    create: jest.fn(),
+    findById: jest.fn(),
+    update: jest.fn(),
+  };
   return {
     initialize: jest.fn().mockResolvedValue(dbClient),
     get: () => dbClient,
@@ -46,8 +50,8 @@ describe('Game service', () => {
     beforeEach(() => {
       testId = 'someFakeId';
       gameStub = { state: { id: testId }, hitPlayer: jest.fn() };
-      const dbDataStub = { id: testId };
-      jest.spyOn(dbClient, 'get').mockResolvedValue(dbDataStub);
+      const dbDataStub = { toJSON: () => ({ id: testId }) };
+      jest.spyOn(dbClient, 'findById').mockResolvedValue(dbDataStub);
       jest.spyOn(Game, 'createFrom').mockImplementation(() => gameStub);
       jest.spyOn(dbClient, 'update').mockResolvedValue(jest.fn());
     });
@@ -65,7 +69,8 @@ describe('Game service', () => {
     });
     it('should persist the updated game state', async () => {
       await requestWithSupertest.patch(`/api/game/${testId}/hit`);
-      expect(dbClient.get).toHaveBeenCalledWith(
+      expect(dbClient.findById).toHaveBeenCalledWith(
+        'game',
         expect.objectContaining({ id: testId })
       );
       expect(gameStub.hitPlayer).toHaveBeenCalled();
@@ -82,8 +87,8 @@ describe('Game service', () => {
         hitPlayer: jest.fn(),
         finish: jest.fn(),
       };
-      const dbDataStub = { id: testId };
-      jest.spyOn(dbClient, 'get').mockResolvedValue(dbDataStub);
+      const dbDataStub = { toJSON: () => ({ id: testId }) };
+      jest.spyOn(dbClient, 'findById').mockResolvedValue(dbDataStub);
       jest.spyOn(Game, 'createFrom').mockImplementation(() => gameStub);
       jest.spyOn(dbClient, 'update').mockResolvedValue(jest.fn());
     });
@@ -101,7 +106,8 @@ describe('Game service', () => {
     });
     it('should persist the updated game state', async () => {
       await requestWithSupertest.patch(`/api/game/${testId}/hold`);
-      expect(dbClient.get).toHaveBeenCalledWith(
+      expect(dbClient.findById).toHaveBeenCalledWith(
+        'game',
         expect.objectContaining({ id: testId })
       );
       expect(gameStub.finish).toHaveBeenCalled();

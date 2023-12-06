@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 router.patch('/:id/hit', async (req, res) => {
   const dbClient = dbConnection.get();
   const gameState = await dbClient.findById(collection, { id: req.params.id });
-  const game = Game.createFrom({ state: gameState });
+  const game = Game.createFrom({ state: gameState.toJSON() });
   game.hitPlayer();
   await dbClient.update(collection, game.state);
   res.json(game.state);
@@ -23,7 +23,7 @@ router.patch('/:id/hit', async (req, res) => {
 router.patch('/:id/hold', async (req, res) => {
   const dbClient = dbConnection.get();
   const gameState = await dbClient.findById(collection, { id: req.params.id });
-  const game = Game.createFrom({ state: gameState });
+  const game = Game.createFrom({ state: gameState.toJSON() });
   game.finish();
   await dbClient.update(collection, game.state);
   res.json(game.state);
