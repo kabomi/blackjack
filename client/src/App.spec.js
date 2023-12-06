@@ -1,17 +1,11 @@
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { createGame, finishGame, hitGame } from './services/game/game.service';
 import App from './App';
 
+jest.mock('./services/game/game.service');
+
 describe('App', () => {
-  /** @type {jest.SpyInstance<Promise<Response>} */
-  let fetchSpy;
-  beforeEach(() => {
-    jest.resetAllMocks();
-    fetchSpy = jest.spyOn(window, 'fetch');
-  });
-  afterAll(() => {
-    jest.clearAllMocks();
-  })
   it('renders the header, the Dealer, the Player and the ActionList', () => {
     render(<App />);
     const headerElement = screen.getByRole('heading');
@@ -45,7 +39,7 @@ describe('App', () => {
           points: 21,
         }]
       };
-      fetchSpy.mockResolvedValue({
+      createGame.mockResolvedValue({
         json: async () => (gameState)
       });
     });
@@ -93,7 +87,10 @@ describe('App', () => {
           points: 21,
         }]
       };
-      fetchSpy.mockResolvedValue({
+      createGame.mockResolvedValue({
+        json: async () => (gameState)
+      });
+      finishGame.mockResolvedValue({
         json: async () => (gameState)
       });
     });
@@ -172,7 +169,10 @@ describe('App', () => {
           points: 21,
         }]
       };
-      fetchSpy.mockResolvedValue({
+      createGame.mockResolvedValue({
+        json: async () => (gameState)
+      });
+      hitGame.mockResolvedValue({
         json: async () => (gameState)
       });
     });

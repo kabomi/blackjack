@@ -12,6 +12,7 @@ function App() {
   const [isGameLoading, setIsGameLoading] = useState(false);
   const [gameState, setGameState] = useState();
 
+  const gameId = gameState?.id;
   const dealerCards = gameState?.dealer?.cards || [{}];
   const dealerPoints = gameState?.dealer?.points;
   const playerCards = gameState?.players?.[0]?.cards || [];
@@ -36,7 +37,7 @@ function App() {
       setIsGameLoading(true);
 
       // setTimeout(async () =>{
-      const response = await finishGame();
+      const response = await finishGame(gameId);
       setGameState(await response.json());
       //  },1000);
     } catch (ex) {
