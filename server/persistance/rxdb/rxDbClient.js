@@ -25,6 +25,15 @@ class RxDbClient extends DbClient {
       .exec();
     return results[0];
   }
+
+  // eslint-disable-next-line no-unused-vars
+  async update(collection, { id, createdAt, ...rest }) {
+    const document = await this.findById(collection, id);
+    await document.modify((docData) => {
+      Object.assign(docData, rest);
+      return docData;
+    });
+  }
 }
 
 module.exports = RxDbClient;

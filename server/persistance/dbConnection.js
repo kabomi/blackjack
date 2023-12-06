@@ -34,6 +34,7 @@ async function addCollections(_dbConnection) {
   });
 }
 
+/** @return {import('./rxdb/rxDbClient')} */
 function get() {
   return new RxDbClient(_dbConnection);
 }

@@ -38,7 +38,7 @@ describe('Game service', () => {
     const gameStub = { state: {} };
     jest.spyOn(Game, 'create').mockImplementation(() => gameStub);
     await requestWithSupertest.post('/api/game/');
-    expect(dbClient.create).toHaveBeenCalledWith(gameStub.state);
+    expect(dbClient.create).toHaveBeenCalledWith('game', gameStub.state);
   });
   describe('PATCH /{id}/hit', () => {
     let testId;
@@ -69,7 +69,7 @@ describe('Game service', () => {
         expect.objectContaining({ id: testId })
       );
       expect(gameStub.hitPlayer).toHaveBeenCalled();
-      expect(dbClient.update).toHaveBeenCalledWith(gameStub.state);
+      expect(dbClient.update).toHaveBeenCalledWith('game', gameStub.state);
     });
   });
   describe('PATCH /{id}/hold', () => {
@@ -105,7 +105,7 @@ describe('Game service', () => {
         expect.objectContaining({ id: testId })
       );
       expect(gameStub.finish).toHaveBeenCalled();
-      expect(dbClient.update).toHaveBeenCalledWith(gameStub.state);
+      expect(dbClient.update).toHaveBeenCalledWith('game', gameStub.state);
     });
   });
 });
