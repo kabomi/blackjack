@@ -51,7 +51,7 @@ function App() {
       setIsGameLoading(true);
 
       // setTimeout(async () =>{
-      const response = await hitGame();
+      const response = await hitGame(gameId);
       setGameState(await response.json());
       //  },1000);
     } catch (ex) {
