@@ -19,7 +19,6 @@ const config = {
     '!coverage/**/*',
     '!jest.config.js',
   ],
-  resetMocks: true,
   restoreMocks: true,
 };
 
