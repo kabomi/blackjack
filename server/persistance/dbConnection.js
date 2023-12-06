@@ -1,8 +1,7 @@
-const { addRxPlugin } = require('rxdb');
+const { addRxPlugin, createRxDatabase } = require('rxdb');
 const { RxDBDevModePlugin } = require('rxdb/plugins/dev-mode');
 addRxPlugin(RxDBDevModePlugin);
 
-const { createRxDatabase } = require('rxdb');
 const { getRxStorageMemory } = require('rxdb/plugins/storage-memory');
 
 /** Abstract DbClient */
