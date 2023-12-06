@@ -3,6 +3,8 @@ const express = require('express');
 
 const app = express();
 
+require('./dbConnection').connect();
+
 if (process.env.ENV === 'development') {
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
