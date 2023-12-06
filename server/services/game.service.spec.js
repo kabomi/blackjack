@@ -15,7 +15,9 @@ describe('Game service', () => {
   /** @type {import('../persistance/dbConnection').RxDbClient} */
   let dbClient;
   beforeAll(() => {
-    const server = require('../index.js');
+    const PORT = process.env.PORT;
+    const app = require('../app.js');
+    const server = app.listen(PORT);
     const supertest = require('supertest');
     requestWithSupertest = supertest(server);
   });
