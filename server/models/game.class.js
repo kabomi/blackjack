@@ -16,6 +16,9 @@ class Game {
   static create() {
     return new Game(guid.v4());
   }
+  static createFrom(state) {
+    return new Game(state.id);
+  }
   static createCardDeck() {
     return new Deck();
   }

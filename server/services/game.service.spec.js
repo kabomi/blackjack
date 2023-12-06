@@ -23,7 +23,7 @@ describe('Game service', () => {
   });
   beforeEach(async () => {
     dbClient = await dbConnection.initialize();
-    jest.spyOn(dbClient, 'create').mockImplementation(() => jest.fn());
+    jest.spyOn(dbClient, 'create').mockResolvedValue(() => jest.fn());
   });
   it('should generate a new game on POST to /', async () => {
     /** @type{import('express').Response} */
@@ -40,30 +40,36 @@ describe('Game service', () => {
     await requestWithSupertest.post('/api/game/');
     expect(dbClient.create).toHaveBeenCalledWith(gameStub.state);
   });
-  it('should update a game on PATCH to /{id}/hit', async () => {
-    const testId = 'someFakeId';
-    /** @type{import('express').Response} */
-    const response = await requestWithSupertest.patch(
-      `/api/game/${testId}/hit`
-    );
-    expect(response.status).toBe(200);
-    expect(response.type).toBe('application/json');
-    expect(response.body).toEqual(
-      expect.objectContaining({ id: expect.any(String) })
-    );
-  });
-  it('should persist a game on PATCH to /{id}/hit', async () => {
-    const testId = 'someFakeId';
-    const gameStub = { state: {}, hitPlayer: jest.fn() };
-    const dbDataStub = {};
-    jest.spyOn(dbClient, 'get').mockReturnValue(dbDataStub);
-    jest.spyOn(Game, 'createFrom').mockImplementation(() => gameStub);
-    jest.spyOn(dbClient, 'update').mockImplementation(() => jest.fn());
-    await requestWithSupertest.patch(`/api/game/${testId}/hit`);
-    expect(dbClient.get).toHaveBeenCalledWith(
-      expect.objectContaining({ id: testId })
-    );
-    expect(gameStub.hitPlayer).toHaveBeenCalled();
-    expect(dbClient.update).toHaveBeenCalledWith(gameStub.state);
+  describe('PATCH /{id}/hit', () => {
+    let testId;
+    let gameStub;
+    beforeEach(() => {
+      testId = 'someFakeId';
+      gameStub = { state: { id: testId }, hitPlayer: jest.fn() };
+      const dbDataStub = { id: testId };
+      jest.spyOn(dbClient, 'get').mockResolvedValue(dbDataStub);
+      jest.spyOn(Game, 'createFrom').mockImplementation(() => gameStub);
+      jest.spyOn(dbClient, 'update').mockResolvedValue(jest.fn());
+    });
+    it('should return the updated game state', async () => {
+      const testId = 'someFakeId';
+      /** @type{import('express').Response} */
+      const response = await requestWithSupertest.patch(
+        `/api/game/${testId}/hit`
+      );
+      expect(response.status).toBe(200);
+      expect(response.type).toBe('application/json');
+      expect(response.body).toEqual(
+        expect.objectContaining({ id: expect.any(String) })
+      );
+    });
+    it('should persist the updated game state', async () => {
+      await requestWithSupertest.patch(`/api/game/${testId}/hit`);
+      expect(dbClient.get).toHaveBeenCalledWith(
+        expect.objectContaining({ id: testId })
+      );
+      expect(gameStub.hitPlayer).toHaveBeenCalled();
+      expect(dbClient.update).toHaveBeenCalledWith(gameStub.state);
+    });
   });
 });

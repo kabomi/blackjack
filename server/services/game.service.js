@@ -11,10 +11,12 @@ router.post('/', async (req, res) => {
 });
 
 router.patch('/:id/hit', async (req, res) => {
-  const newGame = Game.create();
-  // const dbClient = dbConnection.get();
-  // await dbClient.create(newGame.state);
-  res.json(newGame.state);
+  const dbClient = dbConnection.get();
+  const gameState = await dbClient.get({ id: req.params.id });
+  const game = Game.createFrom({ state: gameState });
+  game.hitPlayer();
+  await dbClient.update(game.state);
+  res.json(game.state);
 });
 
 module.exports = router;

@@ -12,6 +12,10 @@ class DbClient {
   }
   // eslint-disable-next-line no-unused-vars
   async create(state) {}
+  // eslint-disable-next-line no-unused-vars
+  async get(state) {}
+  // eslint-disable-next-line no-unused-vars
+  async update(state) {}
 }
 
 class RxDbClient extends DbClient {
