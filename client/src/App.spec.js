@@ -72,6 +72,14 @@ describe('App', () => {
       const points = screen.getByTestId('player-points');
       expect(points.textContent).toMatch(/\d Points/g);
     });
+    it('should call the game service to create the game', async () => {
+      render(<App />);
+
+      const newGameElement = within(screen.getByTestId('action-list')).getByRole("button");
+      await userEvent.click(newGameElement);
+
+      expect(createGame).toHaveBeenCalled();
+    });
   });
   describe('On Hold Action', () => {
     let gameState;
@@ -122,15 +130,11 @@ describe('App', () => {
       const points = screen.getByTestId('dealer-points');
       expect(points.textContent).toContain(`${dealerPoints} Points`);
     });
-    it('should finish the game', async () => {
+    it('should call game service to finish the game', async () => {
       render(<App />);
       const newGameElement = within(screen.getByTestId('action-list')).getByRole("button");
       await userEvent.click(newGameElement);
 
-
-      gameState.dealer.cards.push({ face: '9', suit: 'Spades'});
-      gameState.dealer.points = 19;
-      gameState.finished = true;
       const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hold" });
       await userEvent.click(holdButtonElement);
 
@@ -214,6 +218,16 @@ describe('App', () => {
       const dialog = screen.getByTestId("game-dialog");
       expect(dialog).toBeDefined();
       expect(dialog.textContent).toContain("Dealer Wins");
+    });
+    it('should call the game service to update the game', async () => {
+      render(<App />);
+      const newGameElement = within(screen.getByTestId('action-list')).getByRole("button");
+      await userEvent.click(newGameElement);
+
+      const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hit" });
+      await userEvent.click(holdButtonElement);
+
+      expect(hitGame).toHaveBeenCalledWith(gameState.id);
     });
   });
 });
