@@ -6,7 +6,7 @@ class DbClient {
   // eslint-disable-next-line no-unused-vars
   async create(state) { }
   // eslint-disable-next-line no-unused-vars
-  async get(state) { }
+  async findById(state) { }
   // eslint-disable-next-line no-unused-vars
   async update(state) { }
 }

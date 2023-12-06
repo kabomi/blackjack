@@ -3,7 +3,9 @@ jest.mock('../dbConnection', () => {
   return {
     game: {
       insert: jest.fn(),
-      find: jest.fn().mockResolvedValue({})
+      find: jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue([{}]),
+      }),
     },
   };
 });
@@ -19,16 +21,20 @@ describe('RxDbClient', () => {
 
     expect(dbConnection.game.insert).toHaveBeenCalledWith(gameState);
   });
-  it('should find a document', () => {
+  it('should find a document', async () => {
     const dbConnection = require('../dbConnection');
     const client = new RxDbClient(dbConnection);
     const gameState = {
       id: 'anyTestId',
     };
 
-    const document = await client.find('game', gameState);
+    const document = await client.findById('game', gameState);
 
-    expect(dbConnection.game.find).toHaveBeenCalledWith(gameState);
+    expect(dbConnection.game.find).toHaveBeenCalledWith(
+      expect.objectContaining({
+        selector: { id: { $eq: { id: gameState.id } } },
+      })
+    );
     expect(document).toBeDefined();
   });
 });
