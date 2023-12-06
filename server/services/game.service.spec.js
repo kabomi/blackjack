@@ -72,4 +72,40 @@ describe('Game service', () => {
       expect(dbClient.update).toHaveBeenCalledWith(gameStub.state);
     });
   });
+  describe('PATCH /{id}/hold', () => {
+    let testId;
+    let gameStub;
+    beforeEach(() => {
+      testId = 'someFakeId';
+      gameStub = {
+        state: { id: testId },
+        hitPlayer: jest.fn(),
+        finish: jest.fn(),
+      };
+      const dbDataStub = { id: testId };
+      jest.spyOn(dbClient, 'get').mockResolvedValue(dbDataStub);
+      jest.spyOn(Game, 'createFrom').mockImplementation(() => gameStub);
+      jest.spyOn(dbClient, 'update').mockResolvedValue(jest.fn());
+    });
+    it('should return the updated game state', async () => {
+      const testId = 'someFakeId';
+      /** @type{import('express').Response} */
+      const response = await requestWithSupertest.patch(
+        `/api/game/${testId}/hold`
+      );
+      expect(response.status).toBe(200);
+      expect(response.type).toBe('application/json');
+      expect(response.body).toEqual(
+        expect.objectContaining({ id: expect.any(String) })
+      );
+    });
+    it('should persist the updated game state', async () => {
+      await requestWithSupertest.patch(`/api/game/${testId}/hold`);
+      expect(dbClient.get).toHaveBeenCalledWith(
+        expect.objectContaining({ id: testId })
+      );
+      expect(gameStub.finish).toHaveBeenCalled();
+      expect(dbClient.update).toHaveBeenCalledWith(gameStub.state);
+    });
+  });
 });
