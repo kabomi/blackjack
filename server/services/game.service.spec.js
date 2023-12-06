@@ -2,7 +2,7 @@ const Game = require('../models/game.class.js');
 const dbConnection = require('../persistance/dbConnection');
 
 jest.mock('../persistance/dbConnection', () => {
-  const dbClient = { create: jest.fn() };
+  const dbClient = { create: jest.fn(), get: jest.fn(), update: jest.fn() };
   return {
     initialize: jest.fn().mockResolvedValue(dbClient),
     get: () => dbClient,
@@ -52,10 +52,18 @@ describe('Game service', () => {
       expect.objectContaining({ id: expect.any(String) })
     );
   });
-  // it('should persist a game on PATCH to /{id}/hit', async () => {
-  //   const gameStub = { state: {} };
-  //   jest.spyOn(Game, 'create').mockImplementation(() => gameStub);
-  //   await requestWithSupertest.post('/api/game/');
-  //   expect(dbClient.create).toHaveBeenCalledWith(gameStub.state);
-  // });
+  it('should persist a game on PATCH to /{id}/hit', async () => {
+    const testId = 'someFakeId';
+    const gameStub = { state: {}, hitPlayer: jest.fn() };
+    const dbDataStub = {};
+    jest.spyOn(dbClient, 'get').mockReturnValue(dbDataStub);
+    jest.spyOn(Game, 'createFrom').mockImplementation(() => gameStub);
+    jest.spyOn(dbClient, 'update').mockImplementation(() => jest.fn());
+    await requestWithSupertest.patch(`/api/game/${testId}/hit`);
+    expect(dbClient.get).toHaveBeenCalledWith(
+      expect.objectContaining({ id: testId })
+    );
+    expect(gameStub.hitPlayer).toHaveBeenCalled();
+    expect(dbClient.update).toHaveBeenCalledWith(gameStub.state);
+  });
 });
