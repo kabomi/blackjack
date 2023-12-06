@@ -40,4 +40,22 @@ describe('Game service', () => {
     await requestWithSupertest.post('/api/game/');
     expect(dbClient.create).toHaveBeenCalledWith(gameStub.state);
   });
+  it('should update a game on PATCH to /{id}/hit', async () => {
+    const testId = 'someFakeId';
+    /** @type{import('express').Response} */
+    const response = await requestWithSupertest.patch(
+      `/api/game/${testId}/hit`
+    );
+    expect(response.status).toBe(200);
+    expect(response.type).toBe('application/json');
+    expect(response.body).toEqual(
+      expect.objectContaining({ id: expect.any(String) })
+    );
+  });
+  // it('should persist a game on PATCH to /{id}/hit', async () => {
+  //   const gameStub = { state: {} };
+  //   jest.spyOn(Game, 'create').mockImplementation(() => gameStub);
+  //   await requestWithSupertest.post('/api/game/');
+  //   expect(dbClient.create).toHaveBeenCalledWith(gameStub.state);
+  // });
 });
