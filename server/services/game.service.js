@@ -19,4 +19,13 @@ router.patch('/:id/hit', async (req, res) => {
   res.json(game.state);
 });
 
+router.patch('/:id/hold', async (req, res) => {
+  const dbClient = dbConnection.get();
+  const gameState = await dbClient.get({ id: req.params.id });
+  const game = Game.createFrom({ state: gameState });
+  game.finish();
+  await dbClient.update(game.state);
+  res.json(game.state);
+});
+
 module.exports = router;
