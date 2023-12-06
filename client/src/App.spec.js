@@ -125,6 +125,20 @@ describe('App', () => {
       const points = screen.getByTestId('dealer-points');
       expect(points.textContent).toContain(`${dealerPoints} Points`);
     });
+    it('should finish the game', async () => {
+      render(<App />);
+      const newGameElement = within(screen.getByTestId('action-list')).getByRole("button");
+      await userEvent.click(newGameElement);
+
+
+      gameState.dealer.cards.push({ face: '9', suit: 'Spades'});
+      gameState.dealer.points = 19;
+      gameState.finished = true;
+      const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hold" });
+      await userEvent.click(holdButtonElement);
+
+      expect(finishGame).toHaveBeenCalledWith(gameState.id);
+    });
     it('should show the winner', async () => {
       render(<App />);
       const newGameElement = within(screen.getByTestId('action-list')).getByRole("button");
