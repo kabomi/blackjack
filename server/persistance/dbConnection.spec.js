@@ -1,3 +1,4 @@
+const RxDbClient = require('./rxdb/RxDbClient');
 const { gameSchema } = require('./rxdb/schemas');
 
 jest.mock('rxdb', () => {
@@ -14,7 +15,7 @@ describe('dbConnection', () => {
 
     const dbClient = await dbConnection.initialize();
 
-    expect(dbClient).toBeInstanceOf(dbConnection.RxDbClient);
+    expect(dbClient).toBeInstanceOf(RxDbClient);
   });
   it('should add a game collection', async () => {
     const { createRxDatabase } = require('rxdb');

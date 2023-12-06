@@ -7,25 +7,7 @@ if (process.env.ENV !== 'production') {
 
 const { getRxStorageMemory } = require('rxdb/plugins/storage-memory');
 const { gameSchema } = require('./rxdb/schemas');
-
-/** Abstract DbClient */
-class DbClient {
-  constructor(_dbConnection) {
-    this._dbConnection = _dbConnection;
-  }
-  // eslint-disable-next-line no-unused-vars
-  async create(state) {}
-  // eslint-disable-next-line no-unused-vars
-  async get(state) {}
-  // eslint-disable-next-line no-unused-vars
-  async update(state) {}
-}
-
-class RxDbClient extends DbClient {
-  constructor(_dbConnection) {
-    super(_dbConnection);
-  }
-}
+const RxDbClient = require('./rxdb/RxDbClient');
 
 let _dbConnection = null; // Reuse existing connection
 async function initialize() {
@@ -57,8 +39,6 @@ function get() {
 }
 
 module.exports = {
-  DbClient,
-  RxDbClient,
   initialize,
   get,
 };
