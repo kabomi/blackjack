@@ -2,8 +2,10 @@ const Game = require('../models/game.class.js');
 const dbConnection = require('../persistance/dbConnection');
 
 jest.mock('../persistance/dbConnection', () => {
+  const dbClient = { create: jest.fn() };
   return {
-    initialize: jest.fn().mockResolvedValue({ create: jest.fn() }),
+    initialize: jest.fn().mockResolvedValue(dbClient),
+    get: () => dbClient,
   };
 });
 
