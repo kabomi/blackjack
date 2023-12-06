@@ -1,6 +1,10 @@
+const { gameSchema } = require('./rxdb/schemas');
+
 jest.mock('rxdb', () => {
   return {
-    createRxDatabase: async () => jest.fn(),
+    createRxDatabase: jest.fn().mockResolvedValue({
+      addCollections: jest.fn(),
+    }),
     addRxPlugin: jest.fn(),
   };
 });
@@ -11,5 +15,17 @@ describe('dbConnection', () => {
     const dbClient = await dbConnection.initialize();
 
     expect(dbClient).toBeInstanceOf(dbConnection.RxDbClient);
+  });
+  it('should add a game collection', async () => {
+    const { createRxDatabase } = require('rxdb');
+    const dbConnection = require('./dbConnection');
+
+    await dbConnection.initialize();
+
+    expect((await createRxDatabase()).addCollections).toHaveBeenCalledWith(
+      expect.objectContaining({
+        game: { schema: gameSchema },
+      })
+    );
   });
 });
