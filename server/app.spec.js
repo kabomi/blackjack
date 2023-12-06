@@ -11,8 +11,17 @@ jest.mock('express', () => {
   expressFn.Router = originalModule.Router;
   return expressFn;
 });
+jest.mock('./dbConnection', () => {
+  return {
+    connect: jest.fn(),
+  };
+});
 
 describe('Application', () => {
+  let dbConnection;
+  beforeEach(() => {
+    dbConnection = require('./dbConnection');
+  });
   it('should create an express server', () => {
     const express = require('express')();
     const app = require('./app');
@@ -24,5 +33,11 @@ describe('Application', () => {
 
     const services = require('./services');
     expect(app.use).toHaveBeenCalledWith('/api', services);
+  });
+  it('should connect to database', () => {
+    require('express')();
+    require('./app');
+
+    expect(dbConnection.connect).toHaveBeenCalled();
   });
 });
