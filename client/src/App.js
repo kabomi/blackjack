@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import cardDeck from './card-deck.svg';
 import './App.css';
-import { createGame, finishGame, hitGame } from './services/game/game.service';
+import { createGame, finishGame, hitPlayer } from './services/game/game.service';
 import { Dealer } from './components/Dealer.component';
 import { Player } from './components/Player.component';
 import { ActionList } from './components/ActionList.component';
@@ -51,7 +51,7 @@ function App() {
       setIsGameLoading(true);
 
       // setTimeout(async () =>{
-      const response = await hitGame(gameId);
+      const response = await hitPlayer(gameId);
       setGameState(await response.json());
       //  },1000);
     } catch (ex) {

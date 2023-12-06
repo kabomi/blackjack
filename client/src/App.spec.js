@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { createGame, finishGame, hitGame } from './services/game/game.service';
+import { createGame, finishGame, hitPlayer } from './services/game/game.service';
 import App from './App';
 
 jest.mock('./services/game/game.service');
@@ -176,7 +176,7 @@ describe('App', () => {
       createGame.mockResolvedValue({
         json: async () => (gameState)
       });
-      hitGame.mockResolvedValue({
+      hitPlayer.mockResolvedValue({
         json: async () => (gameState)
       });
     });
@@ -227,7 +227,7 @@ describe('App', () => {
       const holdButtonElement = within(screen.getByTestId('action-list')).getByRole("button", { name: "Hit" });
       await userEvent.click(holdButtonElement);
 
-      expect(hitGame).toHaveBeenCalledWith(gameState.id);
+      expect(hitPlayer).toHaveBeenCalledWith(gameState.id);
     });
   });
 });
