@@ -10,7 +10,9 @@ describe('RxDbClient', () => {
   it('should create a document', () => {
     const dbConnection = require('../dbConnection');
     const client = new RxDbClient(dbConnection);
-    const gameState = {};
+    const gameState = {
+      createdAt: expect.any(String),
+    };
 
     client.create('game', gameState);
 
