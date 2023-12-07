@@ -9,7 +9,7 @@
     "build:client": "yarn --cwd client build",
     "dev:server": "env-cmd -f dev.env nodemon server/index.js",
     "dev": "yarn build:client && env-cmd -f dev.env nodemon server/index.js",
-    "start": "yarn build:client && env-cmd -f .env server/index.js",
+    "start": "yarn build:client && env-cmd -f .env node server/index.js",
     "test": "env-cmd -f test.env jest --watchAll --detectOpenHandles",
     "test:ci": "env-cmd -f test.env jest --watchAll=false --ci --maxWorkers=4 --coverage --detectOpenHandles",
     "lint": "eslint 'server' --max-warnings 10",
