@@ -58,11 +58,15 @@ class Game {
   }
 
   hitPlayer(playerIndex = 0) {
-    if (this.players[playerIndex].bust) {
-      this.finish();
+    if (this.finished) {
       return;
     }
+
     this.players[playerIndex].draw();
+
+    if (this.players[playerIndex].bust) {
+      this.finish();
+    }
   }
 
   finish() {

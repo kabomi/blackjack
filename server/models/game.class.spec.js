@@ -43,7 +43,7 @@ describe('Blackjack', () => {
     expect(game.generateHand()).not.toEqual(game2.generateHand());
   });
   describe('HitPlayer action', () => {
-    it('should add a card to the player hand if not busted', () => {
+    it('should add a card to the player hand if game NOT finished', () => {
       jest.spyOn(Hand, 'create').mockImplementation(() => ({
         cards: [
           Card.create('2', Card.validSuits[0]),
@@ -54,6 +54,7 @@ describe('Blackjack', () => {
         },
         points: 5,
       }));
+      game.finished = false;
       game.players[0] = game.generateHand();
       expect(game.players[0].cards).toHaveLength(2);
 
@@ -61,7 +62,7 @@ describe('Blackjack', () => {
 
       expect(game.players[0].cards).toHaveLength(3);
     });
-    it('should not add a card to the player hand if busted', () => {
+    it('should not add a card to the player hand if game finished', () => {
       jest.spyOn(Hand, 'create').mockImplementation(() => ({
         cards: [
           Card.create('2', Card.validSuits[0]),
@@ -70,9 +71,9 @@ describe('Blackjack', () => {
         draw: function () {
           this.cards.push(Card.create('3', Card.validSuits[0]));
         },
-        points: 22,
-        bust: true,
+        points: 12,
       }));
+      game.finished = true;
       game.players[0] = game.generateHand();
       expect(game.players[0].cards).toHaveLength(2);
 
