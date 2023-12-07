@@ -8,7 +8,7 @@ jest.mock('./services/game/game.service');
 describe('App', () => {
   it('renders the header, the Dealer, the Player and the ActionList', () => {
     render(<App />);
-    const headerElement = screen.getByRole('heading');
+    const headerElement = screen.getAllByRole('heading')[1];
     expect(headerElement.textContent).toContain('BlackJack');
   
     const dealerElement = screen.getByTestId('dealer');
