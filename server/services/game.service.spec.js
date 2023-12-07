@@ -29,28 +29,30 @@ describe('Game service', () => {
     dbClient = await dbConnection.initialize();
     jest.spyOn(dbClient, 'create').mockResolvedValue(() => jest.fn());
   });
-  it('should generate a new game on POST to /', async () => {
-    /** @type{import('express').Response} */
-    const response = await requestWithSupertest.post('/api/game/');
+  describe('POST /', () => {
+    it('should generate a new game', async () => {
+      /** @type{import('express').Response} */
+      const response = await requestWithSupertest.post('/api/game/');
 
-    expect(response.status).toBe(200);
-    expect(response.type).toBe('application/json');
-    expect(response.body).toEqual(
-      expect.objectContaining({ id: expect.any(String) })
-    );
-  });
-  it('should send a game without sensitive data on POST to /', async () => {
-    /** @type{import('express').Response} */
-    const response = await requestWithSupertest.post('/api/game/');
+      expect(response.status).toBe(200);
+      expect(response.type).toBe('application/json');
+      expect(response.body).toEqual(
+        expect.objectContaining({ id: expect.any(String) })
+      );
+    });
+    it('should send a game without sensitive data', async () => {
+      /** @type{import('express').Response} */
+      const response = await requestWithSupertest.post('/api/game/');
 
-    expect(response.body.dealer.bust).toBeUndefined();
-    expect(response.body.deck).toBeUndefined();
-  });
-  it('should persist a new game on POST to /', async () => {
-    const gameStub = Game.create();
-    jest.spyOn(Game, 'create').mockImplementation(() => gameStub);
-    await requestWithSupertest.post('/api/game/');
-    expect(dbClient.create).toHaveBeenCalledWith('game', gameStub.state);
+      expect(response.body.dealer.bust).toBeUndefined();
+      expect(response.body.deck).toBeUndefined();
+    });
+    it('should persist a new game', async () => {
+      const gameStub = Game.create();
+      jest.spyOn(Game, 'create').mockImplementation(() => gameStub);
+      await requestWithSupertest.post('/api/game/');
+      expect(dbClient.create).toHaveBeenCalledWith('game', gameStub.state);
+    });
   });
   describe('PATCH /{id}/hit', () => {
     let testId;
