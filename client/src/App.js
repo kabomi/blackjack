@@ -74,9 +74,12 @@ function App() {
       </main>
       <Dialog dataTestId="game-dialog" showModal={gameState?.finished}
         content={<>
-          <p>{gameState?.winner} Wins</p>
-          <p>Dealer Points: {gameState?.dealer.points}</p>
-          <p>Player Points: {gameState?.players[0].points}</p>
+          <h2>{gameState?.winner} Wins</h2>
+          <details>
+            <summary>View results</summary>
+            <p>Dealer Points: <mark>{gameState?.dealer.points}</mark></p>
+            <p>Player Points: <mark>{gameState?.players[0].points}</mark></p>
+          </details>
         </>}
         contentActions={
           <button autoFocus onClick={onCreateNewGame}>New Game</button>
