@@ -32,14 +32,22 @@ describe('Game service', () => {
   it('should generate a new game on POST to /', async () => {
     /** @type{import('express').Response} */
     const response = await requestWithSupertest.post('/api/game/');
+
     expect(response.status).toBe(200);
     expect(response.type).toBe('application/json');
     expect(response.body).toEqual(
       expect.objectContaining({ id: expect.any(String) })
     );
   });
+  it('should send a game without sensitive data on POST to /', async () => {
+    /** @type{import('express').Response} */
+    const response = await requestWithSupertest.post('/api/game/');
+
+    expect(response.body.dealer.bust).toBeUndefined();
+    expect(response.body.deck).toBeUndefined();
+  });
   it('should persist a new game on POST to /', async () => {
-    const gameStub = { state: {} };
+    const gameStub = Game.create();
     jest.spyOn(Game, 'create').mockImplementation(() => gameStub);
     await requestWithSupertest.post('/api/game/');
     expect(dbClient.create).toHaveBeenCalledWith('game', gameStub.state);
