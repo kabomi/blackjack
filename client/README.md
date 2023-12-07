@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Requirements
 
 - Node Version >= 18.18.2
-- Npm Version >= 9.8.1
+- Yarn Version >= 1.22.19
 - It needs the blackjack server running on the url specified in ./package.json.
 
 

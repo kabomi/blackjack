@@ -42,7 +42,7 @@ Create a simple user interface (UI) for the game. The UI should allow the player
 
 ## Prerequisites
 - Node Version >= 18.18.2
-- Npm Version >= 9.8.1
+- Yarn Version >= 1.22.19
 
 ## Getting Started
 
@@ -62,7 +62,10 @@ This means the server will point to a local instance on [http://localhost:8080](
 
 The client app connects to the server via proxy set on package.json pointing to [http://localhost:8080](http://localhost:8080)
 
-Limitation: Right now, if you want to see your client changes you'll have to run `yarn build:client`.
+
+### `yarn dev:server`
+
+Same as `yarn dev` but without running `yarn build:client`.
 
 
 ### `yarn start`
@@ -81,6 +84,10 @@ At this time, we only have unit tests, but it is planned to have some e2e tests 
 ### `yarn test`
 
 This command, will launch a Jest Test Runner in watch mode. The runner will run all the tests whenever a change in your code happens.
+
+### `yarn test:ci`
+
+Launches the test runner on a single run and collects code coverage.
 
 ### `yarn lint`
 
@@ -108,4 +115,4 @@ So if you are contributing to this project please keep that in mind.
 ## Committing
 
 -  We usually have **two reviewers** per merge request, to share knowledge as wide a possible in our team. We encourage pair review sessions too.
--  We plan to have a **pre commit hook**, using`husky`, that runs lint and unit test the project before every commit.
+-  We plan to have a **pre-commit hook**, using`husky`, that runs lint and unit test the project before every commit.
