@@ -168,4 +168,7 @@ describe('Blackjack', () => {
       expect(game.state.winner).toBe('DRAW');
     });
   });
+  it('should recreate a game from a game state', async () => {
+    expect(game.state).toEqual(Game.createFrom(game.state).state);
+  });
 });
