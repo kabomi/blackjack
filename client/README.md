@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# Blackjack card game
+A simple blackjack (21) card game for 1 player.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Requirements
+
+- Node Version >= 18.18.2
+- Npm Version >= 9.8.1
+- It needs the blackjack server running on the url specified in ./package.json.
+
 
 ## Available Scripts
 

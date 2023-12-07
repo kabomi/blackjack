@@ -4,6 +4,15 @@ A simple blackjack (21) card game for 1 player
 ## Background
 This app is part of a technical assessment. It has been coded mostly following BDD approach.
 
+## How to play the game
+- Press the button "NEW GAME"
+- Choose one of two options:
+  - Press "HIT" to draw a card from the deck
+  - Press "HOLD" to let the game finish
+- After the game is finished:
+  - You will see a dialog which tells you who is the winner and with how many points.
+  - you can choose to start a new game by pressing the dialog button "NEW GAME"
+
 ### Game Rules
 Blackjack card game uses the following rules:
 * Blackjack hands are scored by their point total.

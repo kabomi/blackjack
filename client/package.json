@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "description": "A simple blackjack (21) card game for 1 player (Client)",
   "private": true,
   "proxy": "http://localhost:8080",
   "dependencies": {
@@ -16,7 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:ci": "react-scripts test --maxWorkers 4 --watchAll=false --ci --coverage",
+    "test:ci": "react-scripts test --maxWorkers 4 --watchAll=false --ci --coverage --detectOpenHandles",
     "eject": "react-scripts eject"
   },
   "jest": {
