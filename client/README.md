@@ -31,6 +31,11 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 Launches the test runner on a single run and collects code coverage.
 
+### `yarn lint`
+
+We are using eslint with prettier in order to avoid typical issues and to have a common coding-style.
+Feel free to configure your IDE prettier/eslint plugins to don't have the need to run this command.
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.\

@@ -18,6 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:ci": "react-scripts test --maxWorkers 4 --watchAll=false --ci --coverage --detectOpenHandles",
+    "lint": "eslint .",
     "eject": "react-scripts eject"
   },
   "jest": {
@@ -45,8 +46,18 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "eslint:recommended", "plugin:prettier/recommended"
+    ],
+    "plugins": ["prettier"],
+    "ignorePatterns": [
+      "node_modules",
+      "build",
+      "reportWebVitals.js"
+    ],
+    "rules": {
+      "prettier/prettier": "error"
+    }
   },
   "browserslist": {
     "production": [
@@ -61,6 +72,8 @@
     ]
   },
   "devDependencies": {
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-prettier": "5.0.1",
     "svgo": "3.0.5"
   }
 }
