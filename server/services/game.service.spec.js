@@ -20,13 +20,19 @@ describe('Game service', () => {
   let requestWithSupertest;
   /** @type {import('../persistance/dbConnection').RxDbClient} */
   let dbClient;
+  /** @type {import('http').Server} */
+  let server;
   beforeAll(() => {
     const PORT = process.env.PORT;
     const app = require('../app.js');
-    const server = app.listen(PORT);
+    server = app.listen(PORT);
     const supertest = require('supertest');
     requestWithSupertest = supertest(server);
   });
+  afterAll(() => {
+    server.close();
+  });
+
   beforeEach(async () => {
     dbClient = await dbConnection.initialize();
     jest.spyOn(dbClient, 'create').mockResolvedValue(() => jest.fn());
