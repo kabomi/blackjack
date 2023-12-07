@@ -8,8 +8,12 @@ router.post('/', async (req, res) => {
   const newGame = Game.create();
   const dbClient = dbConnection.get();
   await dbClient.create(collection, newGame.state);
-  // TODO: hide the deck and the dealer points and second card
-  res.json(newGame.state);
+
+  res.json({
+    ...newGame.state,
+    deck: undefined,
+    dealer: { cards: [newGame.state.dealer.cards[0]] },
+  });
 });
 
 router.patch('/:id/hit', async (req, res) => {
