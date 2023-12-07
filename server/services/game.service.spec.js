@@ -73,7 +73,7 @@ describe('Game service', () => {
         'game',
         expect.objectContaining({ id: testId })
       );
-      expect(gameStub.hitPlayer).toHaveBeenCalled();
+      expect(gameStub.hitPlayer).toHaveBeenCalledWith(0);
       expect(dbClient.update).toHaveBeenCalledWith('game', gameStub.state);
     });
   });

@@ -22,6 +22,9 @@ const handSchema = {
     points: {
       type: 'number',
     },
+    bust: {
+      type: 'boolean',
+    },
   },
 };
 
@@ -40,6 +43,16 @@ const gameSchema = {
       maxItems: 1,
       uniqueItems: true,
       items: handSchema,
+    },
+    deck: {
+      type: 'object',
+      properties: {
+        cards: {
+          type: 'array',
+          uniqueItems: true,
+          items: cardSchema,
+        },
+      },
     },
     winner: {
       type: 'string',

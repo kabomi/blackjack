@@ -17,7 +17,14 @@ class Game {
     return new Game(guid.v4());
   }
   static createFrom(state) {
-    return new Game(state.id);
+    const game = new Game(state.id);
+    game._deck._cards = [...state.deck.cards];
+    game.dealer.cards = [...state.dealer.cards];
+    game.dealer.points = state.dealer.points;
+    game.players[0].cards = [...state.players[0].cards];
+    game.players[0].points = state.players[0].points;
+
+    return game;
   }
   static createCardDeck() {
     return new Deck();
@@ -25,10 +32,11 @@ class Game {
   get state() {
     return {
       id: this.id,
-      dealer: this.dealer,
-      players: this.players,
+      dealer: this.dealer.state,
+      players: [this.players[0].state],
       finished: this.finished,
       winner: this.winner,
+      deck: this._deck.state,
     };
   }
   constructor(id) {

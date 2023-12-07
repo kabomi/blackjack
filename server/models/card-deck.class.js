@@ -21,6 +21,12 @@ class CardDeck {
     return OrdinaryCard.validFaces.concat(SpecialCard.validFaces);
   }
 
+  get state() {
+    return {
+      cards: this.cards,
+    };
+  }
+
   _generateCardsFor(suit) {
     return this.faces.map((face) => Card.create(face, suit));
   }
