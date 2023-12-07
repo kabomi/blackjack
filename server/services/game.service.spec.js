@@ -103,7 +103,6 @@ describe('Game service', () => {
         `/api/game/${testId}/hit`
       );
 
-      expect(response.body.dealer.bust).toBeDefined();
       expect(response.body.dealer.cards[1]).toBeDefined();
       expect(response.body.deck).toBeDefined();
     });

@@ -22,12 +22,16 @@ router.patch('/:id/hit', async (req, res) => {
   const game = Game.createFrom(gameState.toJSON());
   game.hitPlayer(0);
   await dbClient.update(collection, game.state);
-  // TODO: hide the deck and the dealer points and second card (if not finished)
-  res.json({
-    ...game.state,
-    deck: undefined,
-    dealer: { cards: [game.state.dealer.cards[0]] },
-  });
+
+  if (game.state.finished) {
+    res.json(game.state);
+  } else {
+    res.json({
+      ...game.state,
+      deck: undefined,
+      dealer: { cards: [game.state.dealer.cards[0]] },
+    });
+  }
 });
 
 router.patch('/:id/hold', async (req, res) => {
@@ -36,7 +40,7 @@ router.patch('/:id/hold', async (req, res) => {
   const game = Game.createFrom(gameState.toJSON());
   game.finish();
   await dbClient.update(collection, game.state);
-  // TODO: hide the deck
+
   res.json(game.state);
 });
 
