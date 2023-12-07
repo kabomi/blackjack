@@ -69,10 +69,7 @@ describe('Game service', () => {
     });
     it('should persist the updated game state', async () => {
       await requestWithSupertest.patch(`/api/game/${testId}/hit`);
-      expect(dbClient.findById).toHaveBeenCalledWith(
-        'game',
-        expect.objectContaining({ id: testId })
-      );
+      expect(dbClient.findById).toHaveBeenCalledWith('game', testId);
       expect(gameStub.hitPlayer).toHaveBeenCalledWith(0);
       expect(dbClient.update).toHaveBeenCalledWith('game', gameStub.state);
     });
@@ -106,10 +103,7 @@ describe('Game service', () => {
     });
     it('should persist the updated game state', async () => {
       await requestWithSupertest.patch(`/api/game/${testId}/hold`);
-      expect(dbClient.findById).toHaveBeenCalledWith(
-        'game',
-        expect.objectContaining({ id: testId })
-      );
+      expect(dbClient.findById).toHaveBeenCalledWith('game', testId);
       expect(gameStub.finish).toHaveBeenCalled();
       expect(dbClient.update).toHaveBeenCalledWith('game', gameStub.state);
     });
