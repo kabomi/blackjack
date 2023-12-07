@@ -1,4 +1,9 @@
-const { createGame, GAME_URL, finishGame, hitPlayer } = require("./game.service");
+const {
+  createGame,
+  GAME_URL,
+  finishGame,
+  hitPlayer,
+} = require('./game.service');
 
 describe('Game Service', () => {
   /** @type {jest.SpyInstance<Promise<Response>} */
@@ -9,17 +14,20 @@ describe('Game Service', () => {
   });
   afterAll(() => {
     jest.resetAllMocks();
-  })
+  });
   it('creates a new game', async () => {
     fetchSpy.mockResolvedValue({});
     const response = await createGame();
 
-    expect(fetchSpy).toHaveBeenCalledWith(GAME_URL, expect.objectContaining({
-      method: 'POST',
-      headers: expect.objectContaining({
-        'Content-Type': 'application/json'
+    expect(fetchSpy).toHaveBeenCalledWith(
+      GAME_URL,
+      expect.objectContaining({
+        method: 'POST',
+        headers: expect.objectContaining({
+          'Content-Type': 'application/json',
+        }),
       })
-    }));
+    );
     expect(response).toBeDefined();
   });
   it('finishes a game', async () => {
@@ -27,12 +35,15 @@ describe('Game Service', () => {
     const id = 'harry';
     const response = await finishGame(id);
 
-    expect(fetchSpy).toHaveBeenCalledWith(`${GAME_URL}/${id}/hold`, expect.objectContaining({
-      method: 'PATCH',
-      headers: expect.objectContaining({
-        'Content-Type': 'application/json'
+    expect(fetchSpy).toHaveBeenCalledWith(
+      `${GAME_URL}/${id}/hold`,
+      expect.objectContaining({
+        method: 'PATCH',
+        headers: expect.objectContaining({
+          'Content-Type': 'application/json',
+        }),
       })
-    }));
+    );
     expect(response).toBeDefined();
   });
   it('draws an extra card for the player', async () => {
@@ -40,12 +51,15 @@ describe('Game Service', () => {
     const id = 'harry';
     const response = await hitPlayer(id);
 
-    expect(fetchSpy).toHaveBeenCalledWith(`${GAME_URL}/${id}/hit`, expect.objectContaining({
-      method: 'PATCH',
-      headers: expect.objectContaining({
-        'Content-Type': 'application/json'
+    expect(fetchSpy).toHaveBeenCalledWith(
+      `${GAME_URL}/${id}/hit`,
+      expect.objectContaining({
+        method: 'PATCH',
+        headers: expect.objectContaining({
+          'Content-Type': 'application/json',
+        }),
       })
-    }));
+    );
     expect(response).toBeDefined();
   });
 });

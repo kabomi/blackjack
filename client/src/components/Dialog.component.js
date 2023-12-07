@@ -9,11 +9,10 @@ export const Dialog = ({ dataTestId, content, contentActions, showModal }) => {
     }
   }, [showModal, dialogRef]);
 
-  return  <dialog data-testid={dataTestId} ref={dialogRef}>
-    {content}
-    <form method="dialog">
-      {contentActions}
-    </form>
-  </dialog>;
-}
-
+  return (
+    <dialog data-testid={dataTestId} ref={dialogRef}>
+      {content}
+      <form method="dialog">{contentActions}</form>
+    </dialog>
+  );
+};

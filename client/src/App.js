@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import cardDeck from './card-deck.svg';
 import './App.css';
-import { createGame, finishGame, hitPlayer } from './services/game/game.service';
+import {
+  createGame,
+  finishGame,
+  hitPlayer,
+} from './services/game/game.service';
 import { Dealer } from './components/Dealer.component';
 import { Player } from './components/Player.component';
 import { ActionList } from './components/ActionList.component';
@@ -67,23 +71,48 @@ function App() {
       </header>
       <main className="App-main">
         {/* Preload big image */}
-        <img src={cardDeck} className="preload-card-deck" alt="Preload card deck" />
-        <Dealer cards={dealerCards} showHand={gameState?.finished} points={dealerPoints} />
+        <img
+          src={cardDeck}
+          className="preload-card-deck"
+          alt="Preload card deck"
+        />
+        <Dealer
+          cards={dealerCards}
+          showHand={gameState?.finished}
+          points={dealerPoints}
+        />
         <Player cards={playerCards} points={playerPoints} />
-        <ActionList showGameActions={started} isLoading={isGameLoading} onNewGame={onCreateNewGame} onHold={onPlayerHold} onHit={onPlayerHit}/>
+        <ActionList
+          showGameActions={started}
+          isLoading={isGameLoading}
+          onNewGame={onCreateNewGame}
+          onHold={onPlayerHold}
+          onHit={onPlayerHit}
+        />
       </main>
-      <Dialog dataTestId="game-dialog" showModal={gameState?.finished}
-        content={<>
-          <h2>{gameState?.winner} Wins</h2>
-          <details>
-            <summary>View results</summary>
-            <p>Dealer Points: <mark>{gameState?.dealer.points}</mark></p>
-            <p>Player Points: <mark>{gameState?.players[0].points}</mark></p>
-          </details>
-        </>}
+      <Dialog
+        dataTestId="game-dialog"
+        showModal={gameState?.finished}
+        content={
+          <>
+            <h2>{gameState?.winner} Wins</h2>
+            <details>
+              <summary>View results</summary>
+              <p>
+                Dealer Points: <mark>{gameState?.dealer.points}</mark>
+              </p>
+              <p>
+                Player Points: <mark>{gameState?.players[0].points}</mark>
+              </p>
+            </details>
+          </>
+        }
         contentActions={
-          <button autoFocus onClick={onCreateNewGame}>New Game</button>
-        } />
+          <button autoFocus onClick={onCreateNewGame}>
+            New Game
+          </button>
+        }
+      />
     </div>
   );
 }
