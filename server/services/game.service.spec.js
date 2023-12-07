@@ -47,6 +47,7 @@ describe('Game service', () => {
       const response = await requestWithSupertest.post('/api/game/');
 
       expect(response.body.dealer.bust).toBeUndefined();
+      expect(response.body.dealer.points).toBeUndefined();
       expect(response.body.dealer.cards[1]).toBeUndefined();
       expect(response.body.deck).toBeUndefined();
     });
@@ -84,15 +85,27 @@ describe('Game service', () => {
         expect.objectContaining({ id: expect.any(String) })
       );
     });
-    it('should send a game without sensitive data when game is not finished', async () => {
+    it('should send a game without sensitive data when game is NOT finished', async () => {
       /** @type{import('express').Response} */
       const response = await requestWithSupertest.patch(
         `/api/game/${testId}/hit`
       );
 
       expect(response.body.dealer.bust).toBeUndefined();
+      expect(response.body.dealer.points).toBeUndefined();
       expect(response.body.dealer.cards[1]).toBeUndefined();
       expect(response.body.deck).toBeUndefined();
+    });
+    it('should send a game WITH sensitive data when game is finished', async () => {
+      gameStub.state.finished = true;
+      /** @type{import('express').Response} */
+      const response = await requestWithSupertest.patch(
+        `/api/game/${testId}/hit`
+      );
+
+      expect(response.body.dealer.bust).toBeDefined();
+      expect(response.body.dealer.cards[1]).toBeDefined();
+      expect(response.body.deck).toBeDefined();
     });
     it('should persist the updated game state', async () => {
       await requestWithSupertest.patch(`/api/game/${testId}/hit`);
