@@ -1,4 +1,6 @@
+const CardDeck = require('../models/card-deck.class.js');
 const Game = require('../models/game.class.js');
+const { Hand } = require('../models/hand.class.js');
 const dbConnection = require('../persistance/dbConnection');
 
 jest.mock('../persistance/dbConnection', () => {
@@ -45,6 +47,7 @@ describe('Game service', () => {
       const response = await requestWithSupertest.post('/api/game/');
 
       expect(response.body.dealer.bust).toBeUndefined();
+      expect(response.body.dealer.cards[1]).toBeUndefined();
       expect(response.body.deck).toBeUndefined();
     });
     it('should persist a new game', async () => {
@@ -58,8 +61,12 @@ describe('Game service', () => {
     let testId;
     let gameStub;
     beforeEach(() => {
+      const deck = CardDeck.create();
       testId = 'someFakeId';
-      gameStub = { state: { id: testId }, hitPlayer: jest.fn() };
+      gameStub = {
+        state: { id: testId, dealer: Hand.create(deck), deck },
+        hitPlayer: jest.fn(),
+      };
       const dbDataStub = { toJSON: () => ({ id: testId }) };
       jest.spyOn(dbClient, 'findById').mockResolvedValue(dbDataStub);
       jest.spyOn(Game, 'createFrom').mockImplementation(() => gameStub);
@@ -76,6 +83,16 @@ describe('Game service', () => {
       expect(response.body).toEqual(
         expect.objectContaining({ id: expect.any(String) })
       );
+    });
+    it('should send a game without sensitive data when game is not finished', async () => {
+      /** @type{import('express').Response} */
+      const response = await requestWithSupertest.patch(
+        `/api/game/${testId}/hit`
+      );
+
+      expect(response.body.dealer.bust).toBeUndefined();
+      expect(response.body.dealer.cards[1]).toBeUndefined();
+      expect(response.body.deck).toBeUndefined();
     });
     it('should persist the updated game state', async () => {
       await requestWithSupertest.patch(`/api/game/${testId}/hit`);
