@@ -14,6 +14,12 @@ async function run() {
       logger.error('Uncaught Exception:', { error });
     }
   });
+  process.on('SIGINT', function () {
+    console.log('\nGracefully shutting down from SIGINT (Ctrl-C)');
+    server.close();
+    console.log(`Close the server listening on ${PORT}`);
+    process.exit(0);
+  });
 
   server.on('listening', () => {
     logger.log(`Server listening on ${PORT}`);
