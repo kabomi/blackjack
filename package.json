@@ -1,6 +1,6 @@
 {
   "name": "blackjack-card-game",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A simple blackjack (21) card game for 1 player (Server)",
   "main": "index.js",
   "author": "Imobach Martin <kabomi@protonmail.com>",

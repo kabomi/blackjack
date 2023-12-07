@@ -1,7 +1,9 @@
 {
   "name": "client",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A simple blackjack (21) card game for 1 player (Client)",
+  "author": "Imobach Martin <kabomi@protonmail.com>",
+  "license": "MIT",
   "private": true,
   "proxy": "http://localhost:8080",
   "dependencies": {
