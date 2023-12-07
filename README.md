@@ -49,11 +49,13 @@ Create a simple user interface (UI) for the game. The UI should allow the player
 ### General Info
 - This app is created from the scratch, but the client based on react was created using: `yarn create react-app` which generates a react app.
 
+- It has been tested on a Mac with OS Ventura 13.1
+
 ### Starting the application
 --
 
 Before starting the application you need to install the recommended versions of Node and NPM. Then you are fine running `yarn` to install all the npm packages.
-After starting the application with `yarn dev` you can open it on your browser at [http://http://localhost:8080/](http://http://localhost:8080/).
+After starting the application with `yarn start` you can open it on your browser at [http://http://localhost:8080/](http://http://localhost:8080/).
 
 ### `yarn dev`
 

@@ -1,5 +1,5 @@
 # Blackjack card game
-A simple blackjack (21) card game for 1 player.
+A simple blackjack (21) card game for 1 player (client).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
