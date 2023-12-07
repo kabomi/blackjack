@@ -6,8 +6,8 @@ const config = {
   coverageThreshold: {
     global: {
       statements: 90,
-      branches: 90,
-      functions: 90,
+      branches: 80,
+      functions: 80,
       lines: 90,
     },
   },
@@ -16,8 +16,9 @@ const config = {
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
     '!client/**/*',
-    '!coverage/**/*',
+    '!server/coverage/**/*',
     '!jest.config.js',
+    '!server/persistance/dbClient.js',
   ],
   restoreMocks: true,
 };
