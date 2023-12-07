@@ -12,6 +12,7 @@
     "start": "yarn build:client && env-cmd -f .env server/index.js",
     "test": "env-cmd -f test.env jest --watchAll --detectOpenHandles",
     "test:ci": "env-cmd -f test.env jest --watchAll=false --ci --maxWorkers=4 --coverage --detectOpenHandles",
+    "lint": "eslint 'server' --max-warnings 10",
     "postinstall": "yarn --cwd client"
   },
   "dependencies": {
